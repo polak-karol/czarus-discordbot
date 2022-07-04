@@ -9,6 +9,7 @@
   "author": "Karol Polak",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^13.8.1"
+    "discord.js": "^13.8.1",
+    "dotenv": "^16.0.1"
   }
 }
