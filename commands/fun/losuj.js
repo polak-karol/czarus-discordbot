@@ -117,6 +117,8 @@ const main = async (message, args) => {
   if (isHelpArg(args)) return message.reply({ embeds: [getHelpEmbed()] });
 
   draw(args);
+
+  if (!result.length) return message.reply("Podano błędne argumenty.");
   setFieldSpacing("bottom");
 
   message.reply({ embeds: [getResultEmbed(message)] });
