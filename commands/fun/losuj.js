@@ -10,6 +10,8 @@ const {
   drawHelpMessage,
   genre,
   narration,
+  theme,
+  wordsRange,
 } = require("../../utils/commands/funUtils");
 
 const result = [];
@@ -30,25 +32,25 @@ const draw = (args) => {
   args.forEach((arg) => {
     switch (arg.toLowerCase()) {
       case "temat":
-        setResult(arg, "Ninja");
+        setResult(arg, theme[getRandomInteger(0, theme.length)]);
         break;
       case "narrację":
         setResult(arg, narration[getRandomInteger(0, narration.length)]);
         break;
       case "wymagane_słowo":
-        setResult(arg, "Woźny");
+        // setResult(arg, "");
         break;
       case "zabronione_słowo":
-        setResult(arg, "Jeśli");
+        // setResult(arg, "");
         break;
       case "gatunek":
         setResult(arg, genre[getRandomInteger(0, genre.length)]);
         break;
-      case "liczbę_słów":
-        setResult(arg, String(getRandomInteger(100, 2000)));
+      case "zakres_słów":
+        setResult(arg, wordsRange[getRandomInteger(0, wordsRange.length)]);
         break;
       case "postać":
-        setResult(arg, "Walory");
+        // setResult(arg, "");
         break;
       default:
         break;
@@ -74,13 +76,13 @@ const getHelpEmbed = () =>
         inline: true,
       },
       {
-        name: "Wymagane słowo",
+        name: "Wymagane słowo (tymczasowo nieaktywne)",
         value:
           "Słowo, które musi znaleźć się w utworze. \n `!losuj wymagane_słowo`",
         inline: true,
       },
       {
-        name: "Zabronione słowo",
+        name: "Zabronione słowo (tymczasowo nieaktywne)",
         value:
           "Słowo, które nie może zostać użyte w pracy. \n `!losuj zabronione_słowo`",
         inline: true,
@@ -91,12 +93,12 @@ const getHelpEmbed = () =>
         inline: true,
       },
       {
-        name: "Liczba słów",
-        value: "Maksymalna liczba słów. \n `!losuj liczbę_słów`",
+        name: "Zakres słów",
+        value: "Wymagany zakres słów w utworze. \n `!losuj zakres_słów`",
         inline: true,
       },
       {
-        name: "Postać",
+        name: "Postać (tymczasowo nieaktywne)",
         value: "Główna postać utworu. \n `!losuj postać`",
         inline: true,
       }
