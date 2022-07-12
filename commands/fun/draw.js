@@ -5,6 +5,7 @@ const {
   noArgsMessage,
   getRandomInteger,
   convertArgName,
+  removeDiacritics,
 } = require("../../utils");
 const {
   drawHelpMessage,
@@ -30,26 +31,26 @@ const setFieldSpacing = (direction) => {
 const draw = (args) => {
   result.length = 0;
   args.forEach((arg) => {
-    switch (arg.toLowerCase()) {
+    switch (removeDiacritics(arg.toLowerCase())) {
       case "temat":
         setResult(arg, theme[getRandomInteger(0, theme.length)]);
         break;
-      case "narrację":
+      case "narracje":
         setResult(arg, narration[getRandomInteger(0, narration.length)]);
         break;
-      case "wymagane_słowo":
+      case "wymagane_slowo":
         // setResult(arg, "");
         break;
-      case "zabronione_słowo":
+      case "zabronione_slowo":
         // setResult(arg, "");
         break;
       case "gatunek":
         setResult(arg, genre[getRandomInteger(0, genre.length)]);
         break;
-      case "zakres_słów":
+      case "zakres_slow":
         setResult(arg, wordsRange[getRandomInteger(0, wordsRange.length)]);
         break;
-      case "postać":
+      case "postac":
         // setResult(arg, "");
         break;
       default:
