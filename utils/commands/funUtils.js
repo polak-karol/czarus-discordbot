@@ -13,11 +13,11 @@ const theme =
     .split(", ");
 
 const wordsRange = [
-  "min. 200 słów, max. 500 słów",
-  "min. 500 słów, max. 1000 słów",
-  "min. 1000 słów, max. 3000 słów",
-  "min. 3000 słów, max. 5000 słów",
-  "min. 5000 słów, max. 10000 słów",
+  "200-500",
+  "500-1000",
+  "1000-3000",
+  "3000-5000",
+  "5000-10000",
 ];
 
 const drawHelpMessage =
