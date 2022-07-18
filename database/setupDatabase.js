@@ -3,36 +3,43 @@ const { getClient } = require("./getClient");
 const setupDatabase = async () => {
   const client = await getClient();
   const createTablesQuery = `
-    CREATE TABLE IF NOT EXISTS why_responses(
+    CREATE TABLE IF NOT EXISTS why_answers(
       id BIGSERIAL PRIMARY KEY NOT NULL,
-      name varchar
+      answer VARCHAR(300),
+      guild_id VARCHAR(300)
     );
-    CREATE TABLE IF NOT EXISTS does_responses(
+    CREATE TABLE IF NOT EXISTS does_answers (
       id BIGSERIAL PRIMARY KEY NOT NULL,
-      name varchar
+      answer VARCHAR(300),
+      guild_id VARCHAR(300)
     );
-    CREATE TABLE IF NOT EXISTS when_responses(
+    CREATE TABLE IF NOT EXISTS when_answers (
       id BIGSERIAL PRIMARY KEY NOT NULL,
-      name varchar
+      answer VARCHAR(300),
+      guild_id VARCHAR(300)
     );
-    CREATE TABLE IF NOT EXISTS do_you_think_responses(
+    CREATE TABLE IF NOT EXISTS do_you_think_answers (
       id BIGSERIAL PRIMARY KEY NOT NULL,
-      name varchar
+      answer VARCHAR(300),
+      guild_id VARCHAR(300)
     );
-    CREATE TABLE IF NOT EXISTS how_responses(
+    CREATE TABLE IF NOT EXISTS how_answers (
       id BIGSERIAL PRIMARY KEY NOT NULL,
-      name varchar
+      answer VARCHAR(300),
+      guild_id VARCHAR(300)
     );
-    CREATE TABLE IF NOT EXISTS who_responses(
+    CREATE TABLE IF NOT EXISTS who_answers (
       id BIGSERIAL PRIMARY KEY NOT NULL,
-      name varchar
+      answer VARCHAR(300),
+      guild_id VARCHAR(300)
     );
-    CREATE TABLE IF NOT EXISTS what_responses(
+    CREATE TABLE IF NOT EXISTS what_answers (
       id BIGSERIAL PRIMARY KEY NOT NULL,
-      name varchar
+      answer VARCHAR(300),
+      guild_id VARCHAR(300)
     );
   `;
-  const res = await client.query(createTablesQuery);
+  await client.query(createTablesQuery);
   console.log(`Created tables.`);
   await client.end();
 };
