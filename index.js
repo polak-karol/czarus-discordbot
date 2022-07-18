@@ -1,6 +1,6 @@
 const { Client, Intents, Collection } = require("discord.js");
 const fs = require("fs");
-const { DatabaseClient } = require("./database");
+const { setupDatabase } = require("./database/setupDatabase");
 require("dotenv").config();
 
 const client = new Client({
@@ -24,27 +24,9 @@ commandFolders.forEach((folder) => {
 
 const prefix = "!";
 
-console.log(process.env.DB_HOST);
-console.log(process.env.DB_USER);
-console.log(process.env.DB_PORT);
-console.log(process.env.DB_PASSWORD);
-console.log(process.env.DB_NAMEE);
-DatabaseClient.connect();
-
-console.log(DatabaseClient);
-
-DatabaseClient.query(`SELECT * FROM test;`, (error, res) => {
-  if (!error) {
-    console.log(res.rows);
-  } else {
-    console.log(error.message);
-  }
-
-  DatabaseClient.end;
-});
-
 client.once("ready", () => {
   console.log("Bot is online");
+  setupDatabase();
 
   client.user.setActivity("starożytne księgi", { type: "WATCHING" });
 });
