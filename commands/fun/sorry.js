@@ -1,5 +1,4 @@
 const main = async (message, args) => {
-  console.log(message.author.id);
   if (message.author.id === "277901799833206785")
     return message.reply("Przepraszam, mistrzu :(");
 
