@@ -27,13 +27,16 @@ const handleThinkQuestion = (message, args) => {
   );
 };
 
-const main = async (message, args) => {
-  if (isThinkQuestion(args)) handleThinkQuestion(message, args);
-  else {
-    if (!hasArgs(args)) return message.reply("Co co?");
+const isJudgeQuestion = (args) =>
+  removeDiacritics(args[0]) === "sadzisz" && removeDiacritics(args[1]) === "o";
 
-    message.reply("Nie ogarniam, zostaw mnie.");
-  }
+const main = async (message, args) => {
+  if (isThinkQuestion(args)) return handleThinkQuestion(message, args);
+  if (isJudgeQuestion(args)) return message.reply("Od sądzenia jest sąd!");
+
+  if (!hasArgs(args)) return message.reply("Co co?");
+
+  message.reply("Nie ogarniam, zostaw mnie.");
 };
 
 module.exports = {
