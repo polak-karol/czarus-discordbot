@@ -26,7 +26,6 @@ const prefix = "!";
 
 client.once("ready", () => {
   console.log("Bot is online");
-  setupDatabase();
 
   client.user.setActivity("starożytne księgi", { type: "WATCHING" });
 });
