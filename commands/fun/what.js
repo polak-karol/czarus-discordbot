@@ -29,9 +29,11 @@ const handleThinkQuestion = (message, args) => {
 
 const main = async (message, args) => {
   if (isThinkQuestion(args)) handleThinkQuestion(message, args);
-  if (!hasArgs(args)) return message.reply("Co co?");
+  else {
+    if (!hasArgs(args)) return message.reply("Co co?");
 
-  message.reply("Nie ogarniam, zostaw mnie.");
+    message.reply("Nie ogarniam, zostaw mnie.");
+  }
 };
 
 module.exports = {
