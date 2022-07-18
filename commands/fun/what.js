@@ -30,8 +30,15 @@ const handleThinkQuestion = (message, args) => {
 const isJudgeQuestion = (args) =>
   removeDiacritics(args[0]) === "sadzisz" && removeDiacritics(args[1]) === "o";
 
+const isLlamaQuestion = (args) =>
+  removeDiacritics(args[0]) === "mowi" &&
+  removeDiacritics(args[1]) === "lama" &&
+  removeDiacritics(args[2]) === "do" &&
+  removeDiacritics(args[3]) === "lamy";
+
 const main = async (message, args) => {
   if (isThinkQuestion(args)) return handleThinkQuestion(message, args);
+  if (isLlamaQuestion(args)) return message.reply("||spierdaLAMY||");
   if (isJudgeQuestion(args)) return message.reply("Od sądzenia jest sąd!");
 
   if (!hasArgs(args)) return message.reply("Co co?");
