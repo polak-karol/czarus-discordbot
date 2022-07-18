@@ -5,7 +5,10 @@ const {
   isHelpArg,
   removeDiacritics,
 } = require("../../utils");
-const { doYouThinkResponses } = require("../../utils/commands/funUtils");
+const {
+  doYouThinkResponses,
+  whatResponses,
+} = require("../../utils/commands/funUtils");
 
 const getHelpEmbed = () =>
   new MessageEmbed()
@@ -43,7 +46,7 @@ const main = async (message, args) => {
 
   if (!hasArgs(args)) return message.reply("Co co?");
 
-  message.reply("Nie ogarniam, zostaw mnie.");
+  message.reply(whatResponses[getRandomInteger(0, whatResponses.length)]);
 };
 
 module.exports = {
