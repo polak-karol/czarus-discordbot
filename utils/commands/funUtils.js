@@ -42,7 +42,7 @@ const whyResponses = [
   "Bo jestem Czarusiem i wiem wszystko.",
   "Zapytaj się Amoriny. Ona wie wszystko.",
   "Zapytaj się Grota. On wie, że wszystko zależy od kontekstu.",
-  "Zapytaj się VintageSoul. On ci wszystko wyśpiewa.",
+  "Zapytaj się VintageSoul. On Ci wszystko wyśpiewa.",
   "Zapytaj się SaYo. Uciekaj, no już!",
   "Zapytaj się Kapelusznika. On ma duży kapelusz.",
   "Zapytaj się Arcyprezesa.",
@@ -55,7 +55,7 @@ const whyResponses = [
   "Nie mam teraz czasu.",
   "Jestem zajęty czarowaniem, nie przeszkadzaj mi.",
   "Odejdź, nie teraz.",
-  "Jesteś urocza, że pytasz, ale ci nie powiem.",
+  "Jesteś urocza, że pytasz, ale Ci nie powiem.",
   "Ponieważ pięknie dziś wyglądasz.",
   "Bo świetną jesteś osóbką.",
   "Dlaczego pytasz?",
@@ -64,13 +64,14 @@ const whyResponses = [
   "Amarena, amarena, cztery złote i Cię nie ma.",
   "Mówiłem Ci już, że tylko miłość Cię uzdrowi?",
   "Bo tylko Ciebie kocham.",
+  "Lubię Cię, ale teraz jestem zajęty. Mam zlecenie od 4Tune.",
 ];
 
 const doesResponse = [
   "Wyciąga łentke.",
   "Nie oceniaj, bo sam zostaniesz oceniony.",
-  "Jestem tak chętna, jak Grot do mówienia “r”.",
-  "Jeszcze nie polubiłam nigdy osoby z Twojego... zawodu.",
+  "Jestem tak chętny, jak Grot do mówienia “r”.",
+  "Jeszcze nie polubiłem nigdy osoby z Twojego... zawodu.",
   "Ślubu nie będzie.",
   "Po co się upijać, kiedy Amarena wystarczy?",
   "Nie ma to jak się pogrążać.",
@@ -78,7 +79,7 @@ const doesResponse = [
   "Kilka łyków Amareny i nie trzeba będzie nic mówić.",
   "Amarenowego pojęcia nie mam.",
   "Sukcesem przywództwa jest zdobycie rzeszy fanów.",
-  "Tyle Amareny chlejecie że dna nie widać.",
+  "Tyle Amareny chlejecie, że dna nie widać.",
   "Trudno powiedzieć… Może zapytaj Amoriny?",
   "Tak, tak, to wszystko zawsze zależało od kontekstu.",
   "Co mówisz?",
@@ -91,6 +92,7 @@ const doesResponse = [
   "Ponieważ Cię kocham.",
   "Amarena, amarena, cztery złote i Cię nie ma.",
   "Mówiłem Ci już, że tylko miłość Cię uzdrowi?",
+  "Dawno, dawno temu, za górami, za lasami…",
 ];
 
 const whenResponses = [
@@ -106,7 +108,8 @@ const whenResponses = [
   "Weź już przestań mnie zaczepiać.",
   "Trudno powiedzieć, ale chyba niedługo.",
   "Zaraz, daj mi się skupić.",
-  "Mówiłem Ci już, że tylko miłość cię uzdrowi?",
+  "Mówiłem Ci już, że tylko miłość Cię uzdrowi?",
+  "Dawno, dawno temu, za górami, za lasami…",
 ];
 
 const howResponses = [
@@ -123,6 +126,7 @@ const howResponses = [
   "Mówiłem Ci już, że tylko miłość Cię uzdrowi?",
   "Na wznak. Już wiesz jak?",
   "Dobre pytanie.",
+  "Jakoś na pewno.",
 ];
 
 const doYouThinkResponses = [
@@ -132,8 +136,8 @@ const doYouThinkResponses = [
   "Nic co ludzkie nie jest mi obce.",
   "Nic nowego, to tylko monolog Grota.",
   "Wielkie umysły myślą podobnie.",
-  "Jestem tak chętna, jak Grot do mówienia “r”.",
-  "Jeszcze nie polubiłam nigdy osoby z twojego... zawodu.",
+  "Jestem tak chętny, jak Grot do mówienia “r”.",
+  "Jeszcze nie polubiłem nigdy osoby z twojego... zawodu.",
   "Ludzie z głupim humorem myślą podobnie i wcale nie trzeba być inteligentnym.",
   "Nie ma gramatyki, nie ma zmartwień.",
   "Ślubu nie będzie.",
@@ -141,7 +145,7 @@ const doYouThinkResponses = [
   "Skarbówka i tak gorsza niż żona. Choć to wszystko i tak zależy od kontekstu.",
   "Po co się upijać, kiedy Amarena wystarczy?",
   "Nie ma to jak się pogrążać.",
-  "Stań się przyjacielem, to ludzie wyrosną ci z chodnika.",
+  "Stań się przyjacielem, to ludzie wyrosną Ci z chodnika.",
   "Trzeba być odważnym... Jak świnka morska.",
   "Pośpiech jest wskazany tylko przy łapaniu pcheł.",
   "Kilka łyków Amareny i nie trzeba będzie nic mówić.",
@@ -160,6 +164,8 @@ const doYouThinkResponses = [
   "Jajco.",
   "A nic.",
   "Któż by to wiedział?",
+  "Myślę, że… hmmm… myślę, że możesz zadać inne pytanie.",
+  "Myślenie? A co to, jakieś danie kuchni azjatyckiej?",
 ];
 
 const whoResponses = [
@@ -172,14 +178,16 @@ const whoResponses = [
   "Ancymon. To jego wina, bo jest ancymonkiem.",
   "Kapelusznik. W kapeluszu trzyma duży sekret.",
   "Ameworks. Ten nasz Strażnik.",
-  "Dziku. Wrr. Czemu ja ci to powiedziałem?",
+  "Dziku. Wrr. Czemu ja Ci to powiedziałem?",
   "A bo ja wiem…",
   "Hmmm….",
   "Taki jeden gagatek.",
   "Amarena! To wszystko przez Amarenę!",
   "Nie mam amarenowego pojęcia.",
-  "Zaraz ci powiem, tylko ogarnę jeden eliksir.",
+  "Zaraz Ci powiem, tylko ogarnę jeden eliksir.",
   "Przyjdź za pół godzinki, dobrze?",
+  "A kogo to obchodzi?",
+  "Pff, nie powiem. Nie jestem skarżypytą.",
 ];
 
 module.exports = {
