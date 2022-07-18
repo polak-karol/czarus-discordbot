@@ -162,6 +162,26 @@ const doYouThinkResponses = [
   "Któż by to wiedział?",
 ];
 
+const whoResponses = [
+  "Czaruś, rzecz jasna.",
+  "4Tune, mój cudowny twórca.",
+  "Amorina… Ale cicho.",
+  "SaYo. Jest szalona.",
+  "Arcyprezes. Ale ćśśśś.",
+  "VintageSoul. To ta muzyka mu mózg zlasowała.",
+  "Ancymon. To jego wina, bo jest ancymonkiem.",
+  "Kapelusznik. W kapeluszu trzyma duży sekret.",
+  "Ameworks. Ten nasz Strażnik.",
+  "Dziku. Wrr. Czemu ja ci to powiedziałem?",
+  "A bo ja wiem…",
+  "Hmmm….",
+  "Taki jeden gagatek.",
+  "Amarena! To wszystko przez Amarenę!",
+  "Nie mam amarenowego pojęcia.",
+  "Zaraz ci powiem, tylko ogarnę jeden eliksir.",
+  "Przyjdź za pół godzinki, dobrze?",
+];
+
 module.exports = {
   genre,
   narration,
@@ -173,4 +193,5 @@ module.exports = {
   whenResponses,
   howResponses,
   doYouThinkResponses,
+  whoResponses,
 };
