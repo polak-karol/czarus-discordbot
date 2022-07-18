@@ -60,6 +60,10 @@ const whyResponses = [
   "Bo świetną jesteś osóbką.",
   "Dlaczego pytasz?",
   "Ponieważ wróżki są jakieś takie nawiedzone…",
+  "Ponieważ Cię kocham.",
+  "Amarena, amarena, cztery złote i Cię nie ma.",
+  "Mówiłem Ci już, że tylko miłość Cię uzdrowi?",
+  "Bo tylko Ciebie kocham.",
 ];
 
 const doesResponse = [
@@ -79,6 +83,14 @@ const doesResponse = [
   "Tak, tak, to wszystko zawsze zależało od kontekstu.",
   "Co mówisz?",
   "Buuuu, jem śniadanie, idź sobie.",
+  "Myślę, że ślubu nie będzie.",
+  "A Ty tylko pytasz i pytasz. Idź coś ze sobą zrób pożytecznego.",
+  "Nie mam ochoty Ci odpowiadać.",
+  "Nie wiem, ale wiem, że Cię kocham.",
+  "Weź już przestań mnie zaczepiać.",
+  "Ponieważ Cię kocham.",
+  "Amarena, amarena, cztery złote i Cię nie ma.",
+  "Mówiłem Ci już, że tylko miłość Cię uzdrowi?",
 ];
 
 const whenResponses = [
@@ -88,6 +100,13 @@ const whenResponses = [
   "Bo ja wiem? Kilka łyków Amareny i nie trzeba będzie nic mówić.",
   "Amarenowego pojęcia nie mam.",
   "Sukcesem przywództwa jest zdobycie rzeszy fanów.",
+  "Nie wiem, ale wiem, że Cię kocham.",
+  "Kiedyś.",
+  "Zastanowię się i potem Ci powiem.",
+  "Weź już przestań mnie zaczepiać.",
+  "Trudno powiedzieć, ale chyba niedługo.",
+  "Zaraz, daj mi się skupić.",
+  "Mówiłem Ci już, że tylko miłość cię uzdrowi?",
 ];
 
 const howResponses = [
@@ -99,6 +118,11 @@ const howResponses = [
   "Trzeba być odważnym... Jak świnka morska.",
   "Kilka łyków Amareny i nie trzeba będzie nic mówić.",
   "Amarenowego pojęcia nie mam.",
+  "Weź już przestań mnie zaczepiać.",
+  "Myślę, że musisz iść spać.",
+  "Mówiłem Ci już, że tylko miłość Cię uzdrowi?",
+  "Na wznak. Już wiesz jak?",
+  "Dobre pytanie.",
 ];
 
 const doYouThinkResponses = [
@@ -127,6 +151,15 @@ const doYouThinkResponses = [
   "Wolę być biedny i mieć pieniądze.",
   "Sukcesem przywództwa jest zdobycie rzeszy fanów.",
   "Tyle Amareny chlejecie, że dna nie widać.",
+  "Myślę, że to urocze.",
+  "Myślę, że musisz iść spać.",
+  "Weź już przestań mnie zaczepiać.",
+  "Ponieważ Cię kocham.",
+  "Amarena, amarena, cztery złote i Cię nie ma.",
+  "Mówiłem Ci już, że tylko miłość cię uzdrowi?",
+  "Jajco.",
+  "A nic.",
+  "Któż by to wiedział?",
 ];
 
 module.exports = {
