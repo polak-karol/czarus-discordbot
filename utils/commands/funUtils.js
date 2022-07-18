@@ -23,4 +23,26 @@ const wordsRange = [
 const drawHelpMessage =
   "Wylosuj temat, narracje, słowo wymagane, słowo zabronione, gatunek, liczbę słów oraz postać do własnego wyzwania pisarskiego.";
 
-module.exports = { genre, narration, theme, wordsRange, drawHelpMessage };
+const whyResponses = [
+  "To wszystko zależy od kontekstu.",
+  "Trzepanie Grota zakazane.",
+  "Wielkie umysły myślą podobnie.",
+  "Ludzie z głupim humorem myślą podobnie i wcale nie trzeba być inteligentnym.",
+  "Skarbówka i tak gorsza niż żona. Choć to wszystko i tak zależy od kontekstu.",
+  "Po co się upijać, kiedy Amarena wystarczy?",
+  "Nie ma to jak się pogrążać.",
+  "Trzeba być odważnym... Jak świnka morska.",
+  "Ponieważ 100% Amareny to więcej niż jakikolwiek mocny trunek.",
+  "Amarenowego pojęcia nie mam.",
+  "Sukcesem przywództwa jest zdobycie rzeszy fanów.",
+  "Tyle Amareny chlejecie, że dna nie widać.",
+];
+
+module.exports = {
+  genre,
+  narration,
+  theme,
+  wordsRange,
+  drawHelpMessage,
+  whyResponses,
+};

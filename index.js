@@ -46,7 +46,7 @@ client.on("messageCreate", async (message) => {
   } catch (error) {
     console.error(error);
     await message.reply({
-      content: "There was an error while executing this command!",
+      content: "Daj mi chwilkę... trochę się zmęczyłem.",
       ephemeral: true,
     });
   }
