@@ -11,7 +11,7 @@ const getHelpEmbed = () =>
   new MessageEmbed()
     .setTitle("!co myślisz o")
     .setDescription(
-      "Zapytaj mnie co myślę o...? \n Przykład: `!co myślisz o?`"
+      "Zapytaj mnie co myślę o...? \n Przykład: `!co myślisz o mnie?`"
     );
 
 const isThinkQuestion = (args) =>
