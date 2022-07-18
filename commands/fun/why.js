@@ -6,7 +6,7 @@ const getHelpEmbed = () =>
   new MessageEmbed()
     .setTitle("!dlaczego")
     .setDescription(
-      "Zapytaj mnie 'dlaczego?' \n Przykład: `!dlaczego ciągle czytasz?`"
+      "Zapytaj mnie dlaczego... ? \n Przykład: `!dlaczego ciągle czytasz ?`"
     );
 
 const main = async (message, args) => {
@@ -18,7 +18,7 @@ const main = async (message, args) => {
 
 module.exports = {
   name: "dlaczego",
-  description: "test opis",
+  description: "Zapytaj mnie dlaczego... ?",
   usage: "!dlaczego",
   execute: (message, args) => main(message, args),
 };

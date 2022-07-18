@@ -38,6 +38,21 @@ const whyResponses = [
   "Tyle Amareny chlejecie, że dna nie widać.",
 ];
 
+const doesResponse = [
+  "Wyciąga łentke.",
+  "Nie oceniaj, bo sam zostaniesz oceniony.",
+  "Jestem tak chętna, jak Grot do mówienia “r”.",
+  "Jeszcze nie polubiłam nigdy osoby z twojego... zawodu.",
+  "Ślubu nie będzie.",
+  "Po co się upijać, kiedy Amarena wystarczy?",
+  "Nie ma to jak się pogrążać.",
+  "Pośpiech jest wskazany tylko przy łapaniu pcheł.",
+  "Kilka łyków Amareny i nie trzeba będzie nic mówić.",
+  "Amarenowego pojęcia nie mam.",
+  "Sukcesem przywództwa jest zdobycie rzeszy fanów.",
+  "Tyle Amareny chlejecie że dna nie widać.",
+];
+
 module.exports = {
   genre,
   narration,
@@ -45,4 +60,5 @@ module.exports = {
   wordsRange,
   drawHelpMessage,
   whyResponses,
+  doesResponse,
 };
