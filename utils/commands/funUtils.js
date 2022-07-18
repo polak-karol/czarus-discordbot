@@ -36,6 +36,30 @@ const whyResponses = [
   "Amarenowego pojęcia nie mam.",
   "Sukcesem przywództwa jest zdobycie rzeszy fanów.",
   "Tyle Amareny chlejecie, że dna nie widać.",
+  "A skąd ja to mam wiedzieć?",
+  "Phi, nie powiem.",
+  "To moja słodka tajemnica.",
+  "Bo jestem Czarusiem i wiem wszystko.",
+  "Zapytaj się Amoriny. Ona wie wszystko.",
+  "Zapytaj się Grota. On wie, że wszystko zależy od kontekstu.",
+  "Zapytaj się VintageSoul. On ci wszystko wyśpiewa.",
+  "Zapytaj się SaYo. Uciekaj, no już!",
+  "Zapytaj się Kapelusznika. On ma duży kapelusz.",
+  "Zapytaj się Arcyprezesa.",
+  "Idź z tym pytaniem do Ancymona.",
+  "A kysz!",
+  "Ponieważ tak uważam i nie dyskutuj!",
+  "Zadajesz za dużo pytań…",
+  "Chyba się najadłaś szaleju, że zadajesz mi takie pytania…",
+  "Pytasz poważnie?",
+  "Nie mam teraz czasu.",
+  "Jestem zajęty czarowaniem, nie przeszkadzaj mi.",
+  "Odejdź, nie teraz.",
+  "Jesteś urocza, że pytasz, ale ci nie powiem.",
+  "Ponieważ pięknie dziś wyglądasz.",
+  "Bo świetną jesteś osóbką.",
+  "Dlaczego pytasz?",
+  "Ponieważ wróżki są jakieś takie nawiedzone…",
 ];
 
 const doesResponse = [
@@ -51,6 +75,10 @@ const doesResponse = [
   "Amarenowego pojęcia nie mam.",
   "Sukcesem przywództwa jest zdobycie rzeszy fanów.",
   "Tyle Amareny chlejecie że dna nie widać.",
+  "Trudno powiedzieć… Może zapytaj Amoriny?",
+  "Tak, tak, to wszystko zawsze zależało od kontekstu.",
+  "Co mówisz?",
+  "Buuuu, jem śniadanie, idź sobie.",
 ];
 
 const whenResponses = [
