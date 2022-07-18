@@ -53,6 +53,15 @@ const doesResponse = [
   "Tyle Amareny chlejecie że dna nie widać.",
 ];
 
+whenResponses = [
+  "To wszystko zależy od kontekstu.",
+  "Stań się przyjacielem, to ludzie wyrosną ci z chodnika.",
+  "Bez pośpiechu. Pośpiech jest wskazany tylko przy łapaniu pcheł.",
+  "Bo ja wiem? Kilka łyków Amareny i nie trzeba będzie nic mówić.",
+  "Amarenowego pojęcia nie mam.",
+  "Sukcesem przywództwa jest zdobycie rzeszy fanów.",
+];
+
 module.exports = {
   genre,
   narration,
@@ -61,4 +70,5 @@ module.exports = {
   drawHelpMessage,
   whyResponses,
   doesResponse,
+  whenResponses,
 };
