@@ -5,7 +5,9 @@ const { doesResponse } = require("../../utils/commands/funUtils");
 const getHelpEmbed = () =>
   new MessageEmbed()
     .setTitle("!czy")
-    .setDescription("Zapytaj mnie czy... ? \n Przykład: `!czy ?`");
+    .setDescription(
+      "Zapytaj mnie czy...? \n Przykład: `!czy umiesz robić coś innego?`"
+    );
 
 const main = async (message, args) => {
   if (!hasArgs(args)) return message.reply("Czy co?");
@@ -16,7 +18,7 @@ const main = async (message, args) => {
 
 module.exports = {
   name: "czy",
-  description: "Zapytaj mnie czy... ?",
+  description: "Zapytaj mnie czy...?",
   usage: "!czy",
   execute: (message, args) => main(message, args),
 };

@@ -6,7 +6,7 @@ const getHelpEmbed = () =>
   new MessageEmbed()
     .setTitle("!kiedy")
     .setDescription(
-      "Zapytaj mnie kiedy... ? \n Przykład: `!kiedy skończysz czytać?`"
+      "Zapytaj mnie kiedy...? \n Przykład: `!kiedy skończysz czytać?`"
     );
 
 const main = async (message, args) => {
@@ -18,7 +18,7 @@ const main = async (message, args) => {
 
 module.exports = {
   name: "kiedy",
-  description: "Zapytaj mnie kiedy... ?",
+  description: "Zapytaj mnie kiedy...?",
   usage: "!kiedy",
   execute: (message, args) => main(message, args),
 };

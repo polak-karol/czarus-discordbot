@@ -42,7 +42,7 @@ const doesResponse = [
   "Wyciąga łentke.",
   "Nie oceniaj, bo sam zostaniesz oceniony.",
   "Jestem tak chętna, jak Grot do mówienia “r”.",
-  "Jeszcze nie polubiłam nigdy osoby z twojego... zawodu.",
+  "Jeszcze nie polubiłam nigdy osoby z Twojego... zawodu.",
   "Ślubu nie będzie.",
   "Po co się upijać, kiedy Amarena wystarczy?",
   "Nie ma to jak się pogrążać.",
@@ -53,13 +53,24 @@ const doesResponse = [
   "Tyle Amareny chlejecie że dna nie widać.",
 ];
 
-whenResponses = [
+const whenResponses = [
   "To wszystko zależy od kontekstu.",
-  "Stań się przyjacielem, to ludzie wyrosną ci z chodnika.",
+  "Stań się przyjacielem, to ludzie wyrosną Ci z chodnika.",
   "Bez pośpiechu. Pośpiech jest wskazany tylko przy łapaniu pcheł.",
   "Bo ja wiem? Kilka łyków Amareny i nie trzeba będzie nic mówić.",
   "Amarenowego pojęcia nie mam.",
   "Sukcesem przywództwa jest zdobycie rzeszy fanów.",
+];
+
+const howResponses = [
+  "Nie oceniaj, bo sam zostaniesz oceniony.",
+  "Srak jak nie wiesz jak.",
+  "Nie ma to jak się pogrążać.",
+  "Po co się upijać, kiedy Amarena wystarczy?",
+  "Stań się przyjacielem, to ludzie wyrosną Ci z chodnika.",
+  "Trzeba być odważnym... Jak świnka morska.",
+  "Kilka łyków Amareny i nie trzeba będzie nic mówić.",
+  "Amarenowego pojęcia nie mam.",
 ];
 
 module.exports = {
@@ -71,4 +82,5 @@ module.exports = {
   whyResponses,
   doesResponse,
   whenResponses,
+  howResponses,
 };
