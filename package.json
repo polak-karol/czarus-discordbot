@@ -10,6 +10,16 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^13.8.1",
-    "dotenv": "^16.0.1"
-  }
+    "dotenv": "^16.0.1",
+    "pg": "^8.7.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/polak-karol/czarus-discordbot.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/polak-karol/czarus-discordbot/issues"
+  },
+  "homepage": "https://github.com/polak-karol/czarus-discordbot#readme"
 }
