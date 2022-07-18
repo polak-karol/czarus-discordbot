@@ -73,6 +73,34 @@ const howResponses = [
   "Amarenowego pojęcia nie mam.",
 ];
 
+const doYouThinkResponses = [
+  "Co dwie głowy to nie jedna.",
+  "Ten co dużo myśli, mało robi. Rozwiązaniem jest myślenie o działaniu.",
+  "Zabawne... a w ostatnim zdaniu nazwę to fraszką.",
+  "Nic co ludzkie nie jest mi obce.",
+  "Nic nowego, to tylko monolog Grota.",
+  "Wielkie umysły myślą podobnie.",
+  "Jestem tak chętna, jak Grot do mówienia “r”.",
+  "Jeszcze nie polubiłam nigdy osoby z twojego... zawodu.",
+  "Ludzie z głupim humorem myślą podobnie i wcale nie trzeba być inteligentnym.",
+  "Nie ma gramatyki, nie ma zmartwień.",
+  "Ślubu nie będzie.",
+  "Głodnemu chleb na myśli.",
+  "Skarbówka i tak gorsza niż żona. Choć to wszystko i tak zależy od kontekstu.",
+  "Po co się upijać, kiedy Amarena wystarczy?",
+  "Nie ma to jak się pogrążać.",
+  "Stań się przyjacielem, to ludzie wyrosną ci z chodnika.",
+  "Trzeba być odważnym... Jak świnka morska.",
+  "Pośpiech jest wskazany tylko przy łapaniu pcheł.",
+  "Kilka łyków Amareny i nie trzeba będzie nic mówić.",
+  "Ponieważ 100% Amareny to więcej niż jakikolwiek mocny trunek.",
+  "Ancymon jest bioekologiczny?",
+  "Amarenowego pojęcia nie mam.",
+  "Wolę być biedny i mieć pieniądze.",
+  "Sukcesem przywództwa jest zdobycie rzeszy fanów.",
+  "Tyle Amareny chlejecie, że dna nie widać.",
+];
+
 module.exports = {
   genre,
   narration,
@@ -83,4 +111,5 @@ module.exports = {
   doesResponse,
   whenResponses,
   howResponses,
+  doYouThinkResponses,
 };

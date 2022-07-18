@@ -260,6 +260,8 @@ const defaultDiacriticsRemovalMap = [
 ];
 
 const removeDiacritics = (str) => {
+  if (!str) return str;
+
   defaultDiacriticsRemovalMap.forEach((value) => {
     str = str.replace(value.letters, value.base);
   });
