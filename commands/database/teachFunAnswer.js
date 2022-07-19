@@ -12,8 +12,42 @@ const { teachAnswers } = require("../../utils/commands/databaseUtils");
 const getHelpEmbed = () =>
   new MessageEmbed()
     .setTitle("!naucz")
-    .setDescription(
-      "Naucz mnie nowych zdań! \n Przykład: `!naucz dlaczego Nie mam zielonego pojęcia.`"
+    .setDescription("Proszę, naucz mnie nowych zdań!`")
+    .setFields(
+      {
+        name: "!naucz dlaczego",
+        value:
+          "Naucz mnie odpowiedzi na dlaczego. \n `!naucz dlaczego To wszystko zależy od kontekstu.`",
+      },
+      {
+        name: "!naucz czy",
+        value:
+          "Naucz mnie odpowiedzi na czy. \n `!naucz czy Ślubu nie będzie.`",
+      },
+      {
+        name: "!naucz kiedy",
+        value:
+          "Naucz mnie odpowiedzi na kiedy. \n `!naucz kiedy Kiedy były szwedy.`",
+      },
+      {
+        name: "!naucz myślisz",
+        value:
+          "Naucz mnie odpowiedzi na co myślisz o. \n `!naucz myślisz Co dwie głowy to nie jedna.`",
+      },
+      {
+        name: "!naucz kto",
+        value:
+          "Naucz mnie odpowiedzi na kto. \n `!naucz kto Czaruś, rzecz jasna.`",
+      },
+      {
+        name: "!naucz jak",
+        value:
+          "Naucz mnie odpowiedzi na jak. \n `!naucz jak Na wznak. Już wiesz jak?`",
+      },
+      {
+        name: "!naucz co",
+        value: "Naucz mnie odpowiedzi na co. \n `!naucz co Jajco.`",
+      }
     );
 
 const addAnswerToDatabase = async (answerName, answer, guildId) => {
