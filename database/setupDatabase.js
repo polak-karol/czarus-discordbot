@@ -18,7 +18,6 @@ const setupDatabase = async () => {
     );
   `;
   await client.query(createTablesQuery);
-  const res = await client.query("SELECT why_answers FROM answers;");
 
   console.log("Created tables.");
   await client.end();
