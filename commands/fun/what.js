@@ -22,7 +22,10 @@ const handleThinkQuestion = async (message, args) => {
   if (!hasArgs(restArgs)) return message.reply("Co myślę o?");
   if (isHelpArg(restArgs)) return message.reply({ embeds: [getHelpEmbed()] });
 
-  const answers = await getAnswers("do_you_think_answers", message.guildId);
+  const answers = await getAnswers(
+    "what_do_you_think_answers",
+    message.guildId
+  );
 
   if (answers.length === 0)
     return message.reply("Nie wiem co odpowiedzieć. :(");

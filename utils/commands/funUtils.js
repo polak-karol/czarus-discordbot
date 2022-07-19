@@ -192,11 +192,11 @@ const whoResponses = [
   "Pff, nie powiem. Nie jestem skarżypytą.",
 ];
 
-const getAnswers = async (tableName, guildId) => {
+const getAnswers = async (answerName, guildId) => {
   const client = await getClient();
 
   const entries = await client.query(
-    `SELECT answer FROM ${tableName} WHERE guild_id = '${guildId}';`
+    `SELECT ${answerName} FROM answers WHERE guild_id = '${guildId}';`
   );
 
   await client.end();

@@ -12,12 +12,25 @@ const getHelpEmbed = () =>
     .setTitle("!kto")
     .setDescription("Zapytaj mnie kto...? \n Przykład: `!kto Cię stworzył?`");
 
-const addAnswerToDatabase = async (tableName, answer, guildId) => {
+const addAnswerToDatabase = async (answerName, answer, guildId) => {
   const client = await getClient();
-  let insertRow = await client.query(
-    `INSERT INTO ${tableName}(answer, guild_id) VALUES('${answer}', '${guildId}');`
+  const countResult = await client.query(
+    `SELECT COUNT(guild_id) FROM answers WHERE guild_id = '${guildId}'`
   );
-  console.log(`Inserted ${insertRow.rowCount} row`);
+
+  if (parseInt(countResult.rows[0].count, 10) === 0) {
+    await client.query(
+      `INSERT INTO answers(${answerName}, guild_id) VALUES (ARRAY['${answer}'], '${guildId}');`
+    );
+  } else {
+    await client.query(
+      `UPDATE answers SET ${answerName} = ARRAY_APPEND(${answerName}, '${answer}') WHERE guild_id = '${guildId}';`
+    );
+  }
+  const res = await client.query(
+    `SELECT * FROM answers WHERE guild_id = '${guildId}'`
+  );
+  console.log(res.rows);
   await client.end();
 };
 
@@ -34,9 +47,9 @@ const handleAddingAnswerToDatabase = (message, args) => {
     case "kiedy":
       addAnswerToDatabase("when_answers", restArgs.join(" "), message.guildId);
       break;
-    case "myslisz":
+    case "mysli":
       addAnswerToDatabase(
-        "do_you_think_answers",
+        "what_do_you_think_answers",
         restArgs.join(" "),
         message.guildId
       );
