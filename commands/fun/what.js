@@ -7,6 +7,7 @@ const {
 } = require("../../utils");
 const { getAnswers } = require("../../utils/commands/funUtils");
 
+
 const getHelpEmbed = () =>
   new MessageEmbed()
     .setTitle("!co myślisz o")
