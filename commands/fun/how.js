@@ -13,9 +13,12 @@ const main = async (message, args) => {
 
   const answers = await getAnswers("how_answers", message.guildId);
 
-  if (answers.length === 0) return message.reply("Nie wiem co odpowiedzieć. :(");
+  if (answers.length === 0)
+    return message.reply("Nie wiem co odpowiedzieć. :(");
 
-  message.reply(answers[getRandomInteger(0, answers.length)].answer);
+  message.reply(
+    answers[0].how_answers[getRandomInteger(0, answers[0].how_answers.length)]
+  );
 };
 
 module.exports = {

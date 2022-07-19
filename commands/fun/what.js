@@ -30,7 +30,11 @@ const handleThinkQuestion = async (message, args) => {
   if (answers.length === 0)
     return message.reply("Nie wiem co odpowiedzieć. :(");
 
-  message.reply(answers[getRandomInteger(0, answers.length)].answer);
+  message.reply(
+    answers[0].what_do_you_think_answers[
+      getRandomInteger(0, answers[0].what_do_you_think_answers.length)
+    ]
+  );
 };
 
 const isJudgeQuestion = (args) =>
@@ -53,7 +57,9 @@ const main = async (message, args) => {
   if (answers.length === 0)
     return message.reply("Nie wiem co odpowiedzieć. :(");
 
-  message.reply(answers[getRandomInteger(0, answers.length)].answer);
+  message.reply(
+    answers[0].what_answers[getRandomInteger(0, answers[0].what_answers.length)]
+  );
 };
 
 module.exports = {
