@@ -47,6 +47,10 @@ const getHelpEmbed = () =>
       {
         name: "!naucz co",
         value: "Naucz mnie odpowiedzi na co. \n `!naucz co Jajco.`",
+      },
+      {
+        name: "!naucz czym",
+        value: "Naucz mnie odpowiedzi na czym jest. \n `!naucz czym Niczym.`",
       }
     );
 
@@ -97,6 +101,13 @@ const handleAddingAnswerToDatabase = (message, args) => {
       break;
     case "co":
       addAnswerToDatabase("what_answers", restArgs.join(" "), message.guildId);
+      break;
+    case "czym":
+      addAnswerToDatabase(
+        "what_is_answers",
+        restArgs.join(" "),
+        message.guildId
+      );
       break;
     default:
       break;
