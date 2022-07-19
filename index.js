@@ -36,7 +36,7 @@ client.on("messageCreate", async (message) => {
 
   if (!content.toLowerCase().startsWith(prefix) || message.author.bot) return;
 
-  const args = content.toLowerCase().slice(prefix.length).trim().split(/ +/);
+  const args = content.slice(prefix.length).trim().split(/ +/);
   const commandName = args.shift().toLowerCase();
 
   if (!client.commands.has(commandName)) return;

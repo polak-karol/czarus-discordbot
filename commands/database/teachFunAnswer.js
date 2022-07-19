@@ -38,7 +38,7 @@ const addAnswerToDatabase = async (answerName, answer, guildId) => {
 const handleAddingAnswerToDatabase = (message, args) => {
   const [questionType, ...restArgs] = args;
 
-  switch (removeDiacritics(questionType)) {
+  switch (removeDiacritics(questionType.toLowerCase())) {
     case "dlaczego":
       addAnswerToDatabase("why_answers", restArgs.join(" "), message.guildId);
       break;
