@@ -5,12 +5,16 @@ const {
   isHelpArg,
   removeDiacritics,
   isAdmin,
+  getRandomInteger,
 } = require("../../utils");
+const { teachAnswers } = require("../../utils/commands/databaseUtils");
 
 const getHelpEmbed = () =>
   new MessageEmbed()
-    .setTitle("!kto")
-    .setDescription("Zapytaj mnie kto...? \n Przykład: `!kto Cię stworzył?`");
+    .setTitle("!naucz")
+    .setDescription(
+      "Naucz mnie nowych zdań! \n Przykład: `!naucz dlaczego Nie mam zielonego pojęcia.`"
+    );
 
 const addAnswerToDatabase = async (answerName, answer, guildId) => {
   const client = await getClient();
@@ -27,10 +31,7 @@ const addAnswerToDatabase = async (answerName, answer, guildId) => {
       `UPDATE answers SET ${answerName} = ARRAY_APPEND(${answerName}, '${answer}') WHERE guild_id = '${guildId}';`
     );
   }
-  const res = await client.query(
-    `SELECT * FROM answers WHERE guild_id = '${guildId}'`
-  );
-  console.log(res.rows);
+
   await client.end();
 };
 
@@ -75,7 +76,7 @@ const main = async (message, args) => {
   if (isHelpArg(args)) return message.reply({ embeds: [getHelpEmbed()] });
   handleAddingAnswerToDatabase(message, args);
 
-  message.reply("Chyba dodane");
+  message.reply(teachAnswers[getRandomInteger(0, teachAnswers.length)]);
 };
 
 module.exports = {
