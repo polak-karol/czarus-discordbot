@@ -12,7 +12,7 @@ const { teachAnswers } = require("../../utils/commands/databaseUtils");
 const getHelpEmbed = () =>
   new MessageEmbed()
     .setTitle("!naucz")
-    .setDescription("Proszę, naucz mnie nowych zdań!`")
+    .setDescription("Proszę, naucz mnie nowych odpowiedzi!`")
     .setFields(
       {
         name: "!naucz dlaczego",
