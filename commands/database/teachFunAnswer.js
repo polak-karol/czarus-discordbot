@@ -66,8 +66,8 @@ const main = async (message, args) => {
 };
 
 module.exports = {
-  name: "dodaj",
-  description: "Dodaj odpowiedzi",
-  usage: "!dodaj",
+  name: "naucz",
+  description: "Naucz Czarusia odpowiedzi",
+  usage: "!naucz",
   execute: (message, args) => main(message, args),
 };
