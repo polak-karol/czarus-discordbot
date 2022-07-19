@@ -1,3 +1,5 @@
+const { getClient } = require("../../database/getClient");
+
 const genre =
   "Fantasy, Sci-fi, Horror, Kryminał, Psychologiczne, Romans, Historyczne, Obyczajowe, Młodzieżowe, Przygodowe, Humor, Poezja"
     .toLowerCase()
@@ -190,6 +192,18 @@ const whoResponses = [
   "Pff, nie powiem. Nie jestem skarżypytą.",
 ];
 
+const getAnswers = async (tableName, guildId) => {
+  const client = await getClient();
+
+  const entries = await client.query(
+    `SELECT answer FROM ${tableName} WHERE guild_id = '${guildId}';`
+  );
+
+  await client.end();
+
+  return entries.rows;
+};
+
 module.exports = {
   genre,
   narration,
@@ -202,4 +216,5 @@ module.exports = {
   howResponses,
   doYouThinkResponses,
   whoResponses,
+  getAnswers,
 };

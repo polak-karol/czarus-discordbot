@@ -5,7 +5,7 @@ const {
   isHelpArg,
   removeDiacritics,
 } = require("../../utils");
-const { doYouThinkResponses } = require("../../utils/commands/funUtils");
+const { getAnswers } = require("../../utils/commands/funUtils");
 
 const getHelpEmbed = () =>
   new MessageEmbed()
@@ -17,14 +17,17 @@ const getHelpEmbed = () =>
 const isThinkQuestion = (args) =>
   removeDiacritics(args[0]) === "myslisz" && removeDiacritics(args[1]) === "o";
 
-const handleThinkQuestion = (message, args) => {
+const handleThinkQuestion = async (message, args) => {
   const [, , ...restArgs] = args;
   if (!hasArgs(restArgs)) return message.reply("Co myślę o?");
   if (isHelpArg(restArgs)) return message.reply({ embeds: [getHelpEmbed()] });
 
-  message.reply(
-    doYouThinkResponses[getRandomInteger(0, doYouThinkResponses.length)]
-  );
+  const answers = await getAnswers("do_you_think_answers", message.guildId);
+
+  if (answers.length === 0)
+    return message.reply("Nie wiem co odpowiedzieć. :(");
+
+  message.reply(answers[getRandomInteger(0, answers.length)].answer);
 };
 
 const isJudgeQuestion = (args) =>
@@ -38,12 +41,16 @@ const isLlamaQuestion = (args) =>
 
 const main = async (message, args) => {
   if (isThinkQuestion(args)) return handleThinkQuestion(message, args);
-  if (isLlamaQuestion(args)) return message.reply("||spierdaLAMY||");
+  if (isLlamaQuestion(args)) return message.reply("||spierdalamy||");
   if (isJudgeQuestion(args)) return message.reply("Od sądzenia jest sąd!");
-
   if (!hasArgs(args)) return message.reply("Co co?");
 
-  message.reply("Nie ogarniam, zostaw mnie.");
+  const answers = await getAnswers("what_answers", message.guildId);
+
+  if (answers.length === 0)
+    return message.reply("Nie wiem co odpowiedzieć. :(");
+
+  message.reply(answers[getRandomInteger(0, answers.length)].answer);
 };
 
 module.exports = {

@@ -1,11 +1,6 @@
 const { MessageEmbed } = require("discord.js");
-const {
-  getRandomInteger,
-  hasArgs,
-  isHelpArg,
-  removeDiacritics,
-} = require("../../utils");
-const { whoResponses } = require("../../utils/commands/funUtils");
+const { getRandomInteger, hasArgs, isHelpArg } = require("../../utils");
+const { getAnswers } = require("../../utils/commands/funUtils");
 
 const getHelpEmbed = () =>
   new MessageEmbed()
@@ -16,7 +11,12 @@ const main = async (message, args) => {
   if (!hasArgs(args)) return message.reply("kto co?");
   if (isHelpArg(args)) return message.reply({ embeds: [getHelpEmbed()] });
 
-  message.reply(whoResponses[getRandomInteger(0, whoResponses.length)]);
+  const answers = await getAnswers("who_answers", message.guildId);
+
+  if (answers.length === 0)
+    return message.reply("Nie wiem co odpowiedzieć. :(");
+
+  message.reply(answers[getRandomInteger(0, answers.length)].answer);
 };
 
 module.exports = {
