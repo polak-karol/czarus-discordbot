@@ -20,6 +20,7 @@ const setupDatabase = async () => {
       id BIGSERIAL PRIMARY KEY NOT NULL,
       holiday_active BOOLEAN,
       holiday_channel_id VARCHAR(300),
+      holiday_time TIME,
       guild_id VARCHAR(300) NOT NULL
     );
     CREATE TABLE IF NOT EXISTS holidays(
