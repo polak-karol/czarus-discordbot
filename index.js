@@ -1,6 +1,7 @@
 const { Client, Intents, Collection } = require("discord.js");
 const fs = require("fs");
 const { setupDatabase } = require("./database/setupDatabase");
+const { sendDailyHolidayInfo } = require("./jobs/holiday");
 require("dotenv").config();
 
 const client = new Client({
@@ -27,7 +28,7 @@ const prefix = "!";
 client.once("ready", () => {
   console.log("Bot is online");
   setupDatabase();
-
+  sendDailyHolidayInfo(client);
   client.user.setActivity("starożytne księgi", { type: "WATCHING" });
 });
 

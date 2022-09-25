@@ -16,6 +16,20 @@ const setupDatabase = async () => {
       guild_id VARCHAR(300),
       channel_id VARCHAR(300)
     );
+    CREATE TABLE IF NOT EXISTS jobs(
+      id BIGSERIAL PRIMARY KEY NOT NULL,
+      holiday_active BOOLEAN,
+      holiday_channel_id VARCHAR(300),
+      holiday_time TIME,
+      guild_id VARCHAR(300) NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS holidays(
+      id BIGSERIAL PRIMARY KEY NOT NULL,
+      message TEXT NOT NULL,
+      image TEXT,
+      date DATE NOT NULL,
+      guild_id VARCHAR(300) NOT NULL
+    )
   `;
   await client.query(createTablesQuery);
 
