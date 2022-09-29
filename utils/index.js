@@ -17,6 +17,12 @@ const getRandomInteger = (min, max) => {
 
 const convertArgName = (arg) => arg.split("_").join(" ");
 
+const capitalizeFirstLetter = (text) => {
+  const [firstLetter, ...rest] = text.split("");
+
+  return [firstLetter.toUpperCase(), ...rest].join("");
+};
+
 const defaultDiacriticsRemovalMap = [
   {
     base: "A",
@@ -270,6 +276,7 @@ const removeDiacritics = (str) => {
 
 module.exports = {
   noArgsMessage,
+  capitalizeFirstLetter,
   removeDiacritics,
   isAdmin,
   isHelpArg,

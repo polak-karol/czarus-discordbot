@@ -6,12 +6,17 @@ const {
   getRandomInteger,
   convertArgName,
   removeDiacritics,
+  capitalizeFirstLetter,
 } = require("../../utils");
 const {
+  character,
   drawHelpMessage,
   genre,
   narration,
+  required_word,
+  forbidden_word,
   theme,
+  place,
   wordsRange,
 } = require("../../utils/commands/funUtils");
 
@@ -33,25 +38,62 @@ const draw = (args) => {
   args.forEach((arg) => {
     switch (removeDiacritics(arg.toLowerCase())) {
       case "temat":
-        setResult(arg, theme[getRandomInteger(0, theme.length)]);
+        setResult(
+          arg,
+          capitalizeFirstLetter(theme[getRandomInteger(0, theme.length)])
+        );
         break;
       case "narracje":
-        setResult(arg, narration[getRandomInteger(0, narration.length)]);
+        setResult(
+          arg,
+          capitalizeFirstLetter(
+            narration[getRandomInteger(0, narration.length)]
+          )
+        );
         break;
       case "wymagane_slowo":
-        // setResult(arg, "");
+        setResult(
+          arg,
+          capitalizeFirstLetter(
+            required_word[getRandomInteger(0, required_word.length)]
+          )
+        );
         break;
       case "zabronione_slowo":
-        // setResult(arg, "");
+        setResult(
+          arg,
+          capitalizeFirstLetter(
+            forbidden_word[getRandomInteger(0, forbidden_word.length)]
+          )
+        );
         break;
       case "gatunek":
-        setResult(arg, genre[getRandomInteger(0, genre.length)]);
+        setResult(
+          arg,
+          capitalizeFirstLetter(genre[getRandomInteger(0, genre.length)])
+        );
         break;
       case "zakres_slow":
-        setResult(arg, wordsRange[getRandomInteger(0, wordsRange.length)]);
+        setResult(
+          arg,
+          capitalizeFirstLetter(
+            wordsRange[getRandomInteger(0, wordsRange.length)]
+          )
+        );
         break;
       case "postac":
-        // setResult(arg, "");
+        setResult(
+          arg,
+          capitalizeFirstLetter(
+            character[getRandomInteger(0, character.length)]
+          )
+        );
+        break;
+      case "miejsce":
+        setResult(
+          arg,
+          capitalizeFirstLetter(place[getRandomInteger(0, place.length)])
+        );
         break;
       default:
         break;
@@ -77,13 +119,13 @@ const getHelpEmbed = () =>
         inline: true,
       },
       {
-        name: "Wymagane słowo (tymczasowo nieaktywne)",
+        name: "Wymagane słowo",
         value:
           "Słowo, które musi znaleźć się w utworze. \n `!losuj wymagane_słowo`",
         inline: true,
       },
       {
-        name: "Zabronione słowo (tymczasowo nieaktywne)",
+        name: "Zabronione słowo",
         value:
           "Słowo, które nie może zostać użyte w pracy. \n `!losuj zabronione_słowo`",
         inline: true,
@@ -99,8 +141,13 @@ const getHelpEmbed = () =>
         inline: true,
       },
       {
-        name: "Postać (tymczasowo nieaktywne)",
+        name: "Postać",
         value: "Główna postać utworu. \n `!losuj postać`",
+        inline: true,
+      },
+      {
+        name: "Miejsce",
+        value: "Miejsce rozgrywania się akcji. \n `!losuj miejsce`",
         inline: true,
       }
     );
