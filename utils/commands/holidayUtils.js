@@ -5,9 +5,7 @@ const getHoliday = async (guildId) => {
   const client = await getClient();
 
   const entries = await client.query(
-    `SELECT * FROM holidays WHERE date = '${moment().format(
-      "YYYY-MM-DD"
-    )}' AND guild_id = '${guildId}';`
+    `SELECT * FROM holidays WHERE date = '2022-10-17' AND guild_id = '${guildId}';`
   );
 
   await client.end();
