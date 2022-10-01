@@ -2,8 +2,8 @@ const cron = require("node-cron");
 const moment = require("moment");
 const { getHoliday } = require("../utils/commands/holidayUtils");
 
-const sendDailyHolidayInfo = (client) => {
-  console.log(getHoliday("972581289972596756"));
+const sendDailyHolidayInfo = async (client) => {
+  console.log(await getHoliday("972581289972596756"));
   cron.schedule(
     "0 18 9 * * *",
     () => {
