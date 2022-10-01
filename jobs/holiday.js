@@ -1,11 +1,9 @@
 const cron = require("node-cron");
-const moment = require("moment");
 const { getHoliday } = require("../utils/commands/holidayUtils");
-const { getClient } = require("../database/getClient");
 
 const sendDailyHolidayInfo = async (client) => {
   cron.schedule(
-    "0 40 9 * * *",
+    "0 0 10 * * *",
     async () => {
       const [holiday] = await getHoliday("972581289972596756");
 
