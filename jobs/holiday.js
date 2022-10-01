@@ -5,7 +5,7 @@ const { getHoliday } = require("../utils/commands/holidayUtils");
 const sendDailyHolidayInfo = (client) => {
   console.log(moment().format("YYYY-MM-DD"));
   cron.schedule(
-    "0 11 9 * * *",
+    "0 18 9 * * *",
     () => {
       client.guilds.cache
         .get("733001624427036825")
