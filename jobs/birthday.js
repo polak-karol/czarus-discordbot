@@ -2,7 +2,6 @@ const cron = require("node-cron");
 const { getBirthday } = require("../utils/jobs/birthdayUtils");
 
 const sendDailyBirthDayInfo = async (client) => {
-  console.log(holiday);
   cron.schedule(
     "0 0 0 * * *",
     async () => {
