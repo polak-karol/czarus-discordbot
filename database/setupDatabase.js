@@ -36,7 +36,7 @@ const setupDatabase = async () => {
       is_anonymous BOOLEAN NOT NULL,
       user_id VARCHAR(300) NOT NULL,
       guild_id VARCHAR(300) NOT NULL
-    )
+    );
   `;
   const createResult = await client.query(createTablesQuery);
 
