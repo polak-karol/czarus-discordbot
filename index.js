@@ -1,6 +1,7 @@
 const { Client, Intents, Collection } = require("discord.js");
 const fs = require("fs");
 const { setupDatabase } = require("./database/setupDatabase");
+const { sendDailyBirthDayInfo } = require("./jobs/birthday");
 const { sendDailyHolidayInfo } = require("./jobs/holiday");
 const { removeDiacritics } = require("./utils");
 require("dotenv").config();
@@ -30,6 +31,7 @@ client.once("ready", () => {
   console.log("Bot is online");
   setupDatabase();
   sendDailyHolidayInfo(client);
+  sendDailyBirthDayInfo(client);
   client.user.setActivity("starożytne księgi", { type: "WATCHING" });
 });
 

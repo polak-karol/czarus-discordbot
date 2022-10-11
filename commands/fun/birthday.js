@@ -1,0 +1,51 @@
+const { MessageEmbed } = require("discord.js");
+const { getClient } = require("../../database/getClient");
+const { hasArgs, isHelpArg } = require("../../utils");
+
+const getHelpEmbed = () =>
+  new MessageEmbed()
+    .setTitle("!urodziny")
+    .setDescription(
+      "Daj znać Czarkowi kiedy masz urodziny, żeby mógł Ci złożyć życzenia!"
+    );
+
+const saveBirthdayDate = async (message, args) => {
+  const client = await getClient();
+  const countResult = await client.query(
+    `SELECT COUNT(guild_id) FROM birthdays WHERE guild_id = '${message.guildId}' AND user_id = '${message.author.id}'`
+  );
+
+  if (parseInt(countResult.rows[0].count, 10) === 0) {
+    await client.query(
+      `INSERT INTO holidays(date, is_anonymous, user_id, guild_id) VALUES ('${
+        args[0]
+      }', ${!!args[1]}, '${message.author.id}', '${message.guildId}');`
+    );
+  } else {
+    await client.query(
+      `UPDATE holidays SET date = '${
+        args[0]
+      }', is_anonymous = ${!!args[1]} WHERE guild_id = '${
+        message.guildId
+      }' AND user_id = '${message.author.id}';`
+    );
+  }
+
+  await client.end();
+};
+
+const main = async (message, args) => {
+  if (isHelpArg(args) || !hasArgs(args))
+    return message.reply({ embeds: [getHelpEmbed()] });
+
+  saveBirthdayDate(message, args);
+
+  message.reply("Zapamiętałem.");
+};
+
+module.exports = {
+  name: "urodziny",
+  description: "Zapytaj o urodziny",
+  usage: "!urodziny",
+  execute: (message, args) => main(message, args),
+};

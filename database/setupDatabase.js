@@ -29,11 +29,18 @@ const setupDatabase = async () => {
       image TEXT,
       date DATE NOT NULL,
       guild_id VARCHAR(300) NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS birthdays(
+      id BIGSERIAL PRIMARY KEY NOT NULL,
+      date DATE NOT NULL,
+      is_anonymous BOOLEAN NOT NULL,
+      user_id VARCHAR(300) NOT NULL,
+      guild_id VARCHAR(300) NOT NULL
     )
   `;
-  await client.query(createTablesQuery);
+  const createResult = await client.query(createTablesQuery);
 
-  console.log("Created tables.");
+  if (createResult) console.log("Created tables.");
   await client.end();
 };
 
