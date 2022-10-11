@@ -17,13 +17,13 @@ const saveBirthdayDate = async (message, args) => {
 
   if (parseInt(countResult.rows[0].count, 10) === 0) {
     await client.query(
-      `INSERT INTO holidays(date, is_anonymous, user_id, guild_id) VALUES ('${
+      `INSERT INTO birthdays(date, is_anonymous, user_id, guild_id) VALUES ('${
         args[0]
       }', ${!!args[1]}, '${message.author.id}', '${message.guildId}');`
     );
   } else {
     await client.query(
-      `UPDATE holidays SET date = '${
+      `UPDATE birthdays SET date = '${
         args[0]
       }', is_anonymous = ${!!args[1]} WHERE guild_id = '${
         message.guildId
