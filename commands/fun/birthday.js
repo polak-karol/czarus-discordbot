@@ -1,6 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const { getClient } = require("../../database/getClient");
 const { hasArgs, isHelpArg } = require("../../utils");
+const moment = require("moment");
 
 const getHelpEmbed = () =>
   new MessageEmbed()
@@ -40,7 +41,24 @@ const main = async (message, args) => {
 
   saveBirthdayDate(message, args);
 
-  message.reply("Zapamiętałem.");
+  const nextBirthday = moment(args[0]).set({
+    year: moment().year(),
+  });
+
+  if (nextBirthday.isSame(moment(), "day")) {
+    message.reply("Wszystkiego najlepszego! 🥳🥳🥳");
+    return;
+  }
+
+  if (nextBirthday.isBefore(moment(), "day"))
+    nextBirthday.set({
+      year: moment().add(1, "y").year(),
+    });
+
+  message.reply(
+    `Zapamiętałem, Twoje urodziny będą ${nextBirthday.locale("pl").fromNow()}.`
+  );
+  return;
 };
 
 module.exports = {
