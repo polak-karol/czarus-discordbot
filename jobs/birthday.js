@@ -7,7 +7,7 @@ const sendDailyBirthDayInfo = async (client) => {
     async () => {
       const birthdays = await getBirthday("733001624427036825");
 
-      if (birthdays.length > 1) {
+      if (birthdays.length > 0) {
         const text = `Urodziny dzisiaj obchodzą: ${birthdays
           .map((value) => `<@${value.user_id}>`)
           .join(", ")}. Wszystkiego najlepszego dla naszych solenizantów!`;
