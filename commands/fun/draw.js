@@ -170,6 +170,28 @@ const saveDrawer = async (message) => {
     );
 };
 
+const isNotAbleToDraw = async (message) => {
+  const client = await getClient();
+  const drawer = await client.query(
+    `SELECT * FROM drawers WHERE guild_id = '${message.guildId}' AND user_id = '${message.author.id}'`
+  );
+
+  if (drawer.rows.length === 0) return false;
+
+  return (
+    moment(drawer.rows.at(0).draw_at).isAfter(
+      moment()
+        .day(1 + 0)
+        .set({ s: 0, m: 0, h: 0 })
+    ) &&
+    moment(drawer.rows.at(0).draw_at).isBefore(
+      moment()
+        .day(1 + 6)
+        .set({ s: 59, m: 59, h: 23 })
+    )
+  );
+};
+
 const getResultEmbed = (message) =>
   new MessageEmbed()
     .setTitle("Wylosowano dla Ciebie:")
@@ -184,13 +206,18 @@ const main = async (message, args) => {
   if (!hasArgs(args)) return message.reply(noArgsMessage);
   if (isHelpArg(args)) return message.reply({ embeds: [getHelpEmbed()] });
 
-  draw(args);
-  saveDrawer(message);
+  if (await isNotAbleToDraw(message))
+    return message.reply(
+      "Nieładnie tak oszukiwać, w tym tygodniu już losowałeś(aś)!"
+    );
 
+  draw(args);
   if (!result.length) return message.reply("Podano błędne argumenty.");
+
+  saveDrawer(message);
   setFieldSpacing("bottom");
 
-  message.reply({ embeds: [getResultEmbed(message)] });
+  return message.reply({ embeds: [getResultEmbed(message)] });
 };
 
 module.exports = {
