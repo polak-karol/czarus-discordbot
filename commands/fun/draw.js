@@ -208,7 +208,7 @@ const main = async (message, args) => {
 
   if (await isNotAbleToDraw(message))
     return message.reply(
-      "Nieładnie tak oszukiwać, w tym tygodniu już losowałeś(aś)!"
+      "Ty spryciarzu... nieładnie tak oszukiwać, w tym tygodniu już losowałeś(aś)!"
     );
 
   draw(args);
