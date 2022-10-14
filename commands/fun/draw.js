@@ -157,7 +157,7 @@ const getHelpEmbed = () =>
 const saveDrawer = async (message) => {
   const client = await getClient();
   const drawer = await client.query(
-    `SELECT user_id FROM drawers WHERE guild_id = '${message.guildId}' AND user_id = '${message.author.id}}'`
+    `SELECT user_id FROM drawers WHERE guild_id = '${message.guildId}' AND user_id = '${message.author.id}'`
   );
 
   if (drawer.rows.length === 0)
