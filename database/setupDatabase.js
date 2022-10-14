@@ -37,6 +37,12 @@ const setupDatabase = async () => {
       user_id VARCHAR(300) NOT NULL,
       guild_id VARCHAR(300) NOT NULL
     );
+    CREATE TABLE IF NOT EXISTS drawers(
+      id BIGSERIAL PRIMARY KEY NOT NULL,
+      draw_at TIMESTAMP NOT NULL,
+      user_id VARCHAR(300) NOT NULL,
+      guild_id VARCHAR(300) NOT NULL
+    );
   `;
   const createResult = await client.query(createTablesQuery);
 

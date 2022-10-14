@@ -1,4 +1,6 @@
 const { MessageEmbed } = require("discord.js");
+const moment = require("moment");
+const { getClient } = require("../../database/getClient");
 const {
   isHelpArg,
   hasArgs,
@@ -151,6 +153,28 @@ const getHelpEmbed = () =>
         inline: true,
       }
     );
+
+const saveDrawer = async (message) => {
+  const client = await getClient();
+  const drawer = await client.query(
+    `SELECT user_id FROM drawers WHERE guild_id = '${message.guildId}' AND user_id = '${message.author.id}}'`
+  );
+
+  if (drawer.rows.length === 0)
+    await client.query(
+      `INSERT INTO drawers(draw_at, user_id, guild_id) VALUES ('${moment().format(
+        "x"
+      )}', '${message.author.id}', '${message.guildId}');`
+    );
+  else
+    await client.query(
+      `UPDATE drawers SET draw_at = '${moment().format(
+        "x"
+      )}' WHERE guild_id = '${message.guildId}' AND user_id = '${
+        message.author.id
+      }';`
+    );
+};
 
 const getResultEmbed = (message) =>
   new MessageEmbed()
