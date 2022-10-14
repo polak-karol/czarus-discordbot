@@ -162,17 +162,15 @@ const saveDrawer = async (message) => {
 
   if (drawer.rows.length === 0)
     await client.query(
-      `INSERT INTO drawers(draw_at, user_id, guild_id) VALUES ('${moment().format(
+      `INSERT INTO drawers(draw_at, user_id, guild_id) VALUES (${moment().format(
         "x"
-      )}', '${message.author.id}', '${message.guildId}');`
+      )}, '${message.author.id}', '${message.guildId}');`
     );
   else
     await client.query(
-      `UPDATE drawers SET draw_at = '${moment().format(
-        "x"
-      )}' WHERE guild_id = '${message.guildId}' AND user_id = '${
-        message.author.id
-      }';`
+      `UPDATE drawers SET draw_at = ${moment().format("x")} WHERE guild_id = '${
+        message.guildId
+      }' AND user_id = '${message.author.id}';`
     );
 };
 
