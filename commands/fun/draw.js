@@ -204,7 +204,12 @@ const main = async (message, args) => {
 
   if (await isNotAbleToDraw(message))
     return message.reply(
-      "Ty spryciarzu... nieładnie tak oszukiwać, w tym tygodniu już losowałeś(aś)!"
+      `Ty spryciarzu... 😝 nieładnie tak oszukiwać, następne losowanie jest dopiero ${moment()
+        .startOf("isoweek")
+        .add(7, "days")
+        .set({ s: 0, m: 0, h: 0 })
+        .locale("pl")
+        .fromNow()}!`
     );
 
   draw(args);
