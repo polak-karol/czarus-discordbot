@@ -180,14 +180,10 @@ const isNotAbleToDraw = async (message) => {
 
   return (
     moment(drawer.rows.at(0).draw_at).isAfter(
-      moment()
-        .day(1 + 0)
-        .set({ s: 0, m: 0, h: 0 })
+      moment().startOf("isoweek").set({ s: 0, m: 0, h: 0 })
     ) &&
     moment(drawer.rows.at(0).draw_at).isBefore(
-      moment()
-        .day(1 + 6)
-        .set({ s: 59, m: 59, h: 23 })
+      moment().startOf("isoweek").add(6, "days").set({ s: 23, m: 59, h: 59 })
     )
   );
 };
