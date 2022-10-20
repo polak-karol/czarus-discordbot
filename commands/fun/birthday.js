@@ -3,6 +3,9 @@ const { getClient } = require("../../database/getClient");
 const { hasArgs, isHelpArg } = require("../../utils");
 const moment = require("moment");
 
+const dateRegex = new RegExp("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[1-3][0-9]");
+const shortDateRegex = new RegExp("[0-1][0-9]-[1-3][0-9]");
+
 const getHelpEmbed = () =>
   new MessageEmbed()
     .setTitle("!urodziny")
@@ -10,7 +13,7 @@ const getHelpEmbed = () =>
       "Daj znać Czarkowi kiedy masz urodziny, żeby mógł Ci złożyć życzenia!"
     );
 
-const saveBirthdayDate = async (message, args) => {
+const saveBirthdayDate = async (message, birthday) => {
   const client = await getClient();
   const countResult = await client.query(
     `SELECT COUNT(guild_id) FROM birthdays WHERE guild_id = '${message.guildId}' AND user_id = '${message.author.id}'`
@@ -18,17 +21,17 @@ const saveBirthdayDate = async (message, args) => {
 
   if (parseInt(countResult.rows[0].count, 10) === 0) {
     await client.query(
-      `INSERT INTO birthdays(date, is_anonymous, user_id, guild_id) VALUES ('${
-        args[0]
-      }', ${!!args[1]}, '${message.author.id}', '${message.guildId}');`
+      `INSERT INTO birthdays(date, is_anonymous, user_id, guild_id) VALUES ('${birthday}', ${
+        moment(birthday).year() === moment().year()
+      }, '${message.author.id}', '${message.guildId}');`
     );
   } else {
     await client.query(
-      `UPDATE birthdays SET date = '${
-        args[0]
-      }', is_anonymous = ${!!args[1]} WHERE guild_id = '${
-        message.guildId
-      }' AND user_id = '${message.author.id}';`
+      `UPDATE birthdays SET date = '${birthday}', is_anonymous = ${
+        moment(birthday).year() === moment().year()
+      } WHERE guild_id = '${message.guildId}' AND user_id = '${
+        message.author.id
+      }';`
     );
   }
 
@@ -39,9 +42,19 @@ const main = async (message, args) => {
   if (isHelpArg(args) || !hasArgs(args))
     return message.reply({ embeds: [getHelpEmbed()] });
 
-  saveBirthdayDate(message, args);
+  if (!shortDateRegex.test(args[0]) && !dateRegex.test(args[0]))
+    return message.reply(
+      "Podałeś błędnie datę 🥺. Wymagany jest format: YYYY-MM-DD"
+    );
 
-  const nextBirthday = moment(args[0]).set({
+  let birthday = args[0];
+
+  if (shortDateRegex.test(args[0]) && !dateRegex.test(args[0]))
+    birthday = `${moment().year()}-${args[0]}`;
+
+  saveBirthdayDate(message, birthday);
+
+  const nextBirthday = moment(birthday).set({
     year: moment().year(),
   });
 
