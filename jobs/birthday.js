@@ -1,5 +1,10 @@
 const cron = require("node-cron");
-const { getBirthday } = require("../utils/jobs/birthdayUtils");
+const { getRandomInteger } = require("../utils");
+const {
+  getBirthday,
+  wishesPlural,
+  wishesSingular,
+} = require("../utils/jobs/birthdayUtils");
 
 const sendDailyBirthDayInfo = async (client) => {
   cron.schedule(
@@ -10,7 +15,11 @@ const sendDailyBirthDayInfo = async (client) => {
       if (birthdays.length > 0) {
         const text = `Urodziny dzisiaj obchodzą: ${birthdays
           .map((value) => `<@${value.user_id}>`)
-          .join(", ")}. Wszystkiego najlepszego dla naszych solenizantów!`;
+          .join(", ")}. ${
+          birthdays.length > 1
+            ? wishesPlural[getRandomInteger(0, wishesPlural.length)]
+            : wishesSingular[getRandomInteger(0, wishesSingular.length)]
+        }`;
 
         client.guilds.cache
           .get("733001624427036825")

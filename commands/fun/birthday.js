@@ -1,7 +1,8 @@
 const { MessageEmbed } = require("discord.js");
 const { getClient } = require("../../database/getClient");
-const { hasArgs, isHelpArg } = require("../../utils");
+const { hasArgs, isHelpArg, getRandomInteger } = require("../../utils");
 const moment = require("moment");
+const { wishesSingular } = require("../../utils/jobs/birthdayUtils");
 
 const dateRegex = new RegExp("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[1-3][0-9]");
 const shortDateRegex = new RegExp("[0-1][0-9]-[1-3][0-9]");
@@ -59,7 +60,7 @@ const main = async (message, args) => {
   });
 
   if (nextBirthday.isSame(moment(), "day")) {
-    message.reply("Wszystkiego najlepszego! 🥳🥳🥳");
+    message.reply(wishesSingular[getRandomInteger(0, wishesSingular.length)]);
     return;
   }
 
@@ -68,10 +69,9 @@ const main = async (message, args) => {
       year: moment().add(1, "y").year(),
     });
 
-  message.reply(
+  return message.reply(
     `Zapamiętałem, Twoje urodziny będą ${nextBirthday.locale("pl").fromNow()}.`
   );
-  return;
 };
 
 module.exports = {

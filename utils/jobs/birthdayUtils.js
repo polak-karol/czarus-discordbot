@@ -108,4 +108,4 @@ const wishesPlural = [
   "To nie gwiazdka, to nie święta \nAle toniecie dziś w prezentach \nPrzynosimy podarunki \nZnajdą się tam także trunki \nI nieważne, które to urodziny \nLat Wam wcale nie liczymy \nŻyczyć chcemy uśmiechu szerokiego \nI oczywiście wszystkiego najlepszego! \n\n~ życzą Arcymagowie i Strażnicy Magii Słów",
 ];
 
-module.exports = { getBirthday };
+module.exports = { getBirthday, wishesSingular, wishesPlural };
