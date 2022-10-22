@@ -1,8 +1,12 @@
+const { getRandomInteger } = require("../../utils");
+
 const main = async (message, args) => {
   if (message.author.id === "277901799833206785")
     return message.reply("Przepraszam, mistrzu :(");
 
-  message.reply("Nie.");
+  if (getRandomInteger(0, 2) === 1) return message.reply("Nie.");
+
+  return message.reply("Mówię to z trudem... Przepraszam 😣");
 };
 
 module.exports = {
