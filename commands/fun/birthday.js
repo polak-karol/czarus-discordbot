@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const { getClient } = require("../../database/getClient");
 const { hasArgs, isHelpArg, getRandomInteger } = require("../../utils");
-const moment = require("moment");
+const moment = require("moment-timezone");
 const { wishesSingular } = require("../../utils/jobs/birthdayUtils");
 
 const dateRegex = new RegExp("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[1-3][0-9]");
@@ -70,7 +70,10 @@ const main = async (message, args) => {
     });
 
   return message.reply(
-    `Zapamiętałem, Twoje urodziny będą ${nextBirthday.locale("pl").fromNow()}.`
+    `Zapamiętałem, Twoje urodziny będą ${nextBirthday
+      .tz("Europe/Warsaw")
+      .locale("pl")
+      .fromNow()}.`
   );
 };
 
