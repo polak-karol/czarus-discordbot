@@ -8,18 +8,20 @@ const {
 
 const sendDailyBirthDayInfo = async (client) => {
   cron.schedule(
-    "0 0 0 * * *",
+    "0 0 8 * * *",
     async () => {
       const birthdays = await getBirthday("972581289972596756");
 
       if (birthdays.length > 0) {
         const text = `<@&986163091089809428> Urodziny dzisiaj ${
           birthdays.length > 1 ? "obchodzą" : "obchodzi"
-        }:\n${birthdays.map((value) => `<@${value.user_id}>`).join(", ")}. ${
+        }:\n${birthdays
+          .map((value) => `<@${value.user_id}>`)
+          .join(", ")}. \n\n${
           birthdays.length > 1
             ? wishesPlural[getRandomInteger(0, wishesPlural.length)]
             : wishesSingular[getRandomInteger(0, wishesSingular.length)]
-        }\n`;
+        }`;
 
         client.guilds.cache
           .get("972581289972596756")
