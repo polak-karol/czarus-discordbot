@@ -53,6 +53,7 @@ const draw = (args) => {
           )
         );
         break;
+      case "wymagane-slowo":
       case "wymagane_slowo":
         setResult(
           arg,
@@ -61,6 +62,7 @@ const draw = (args) => {
           )
         );
         break;
+      case "zabronione-slowo":
       case "zabronione_slowo":
         setResult(
           arg,
@@ -75,6 +77,7 @@ const draw = (args) => {
           capitalizeFirstLetter(genre[getRandomInteger(0, genre.length)])
         );
         break;
+      case "zakres-slow":
       case "zakres_slow":
         setResult(
           arg,
@@ -107,49 +110,49 @@ const getHelpEmbed = () =>
   new MessageEmbed()
     .setTitle("!losuj")
     .setDescription(
-      "Losuje wybrane kategorie do wyzwania pisarskiego. Możliwe jest losowanie kilku kategorii jednocześnie. \n Przykład: `!losuj gatunek temat` \n \n Poniżej znajduje się spis wszystkich kategorii:"
+      "Losuje wybrane kategorie do wyzwania pisarskiego. Możliwe jest losowanie kilku kategorii jednocześnie. \nPrzykład: `!losuj gatunek temat` \n \nPoniżej znajduje się spis wszystkich kategorii:"
     )
     .setFields(
       {
         name: "Temat",
-        value: "Temat przewodni. \n `!losuj temat`",
+        value: "Temat przewodni. \n`!losuj temat`",
         inline: true,
       },
       {
         name: "Narracja",
-        value: "Narracje utworu. \n `!losuj narrację`",
+        value: "Narracje utworu. \n`!losuj narrację`",
         inline: true,
       },
       {
         name: "Wymagane słowo",
         value:
-          "Słowo, które musi znaleźć się w utworze. \n `!losuj wymagane_słowo`",
+          "Słowo, które musi znaleźć się w utworze. \n`!losuj wymagane_słowo`",
         inline: true,
       },
       {
         name: "Zabronione słowo",
         value:
-          "Słowo, które nie może zostać użyte w pracy. \n `!losuj zabronione_słowo`",
+          "Słowo, które nie może zostać użyte w pracy. \n`!losuj zabronione_słowo`",
         inline: true,
       },
       {
         name: "Gatunek",
-        value: "Gatunek pracy. \n `!losuj gatunek`",
+        value: "Gatunek pracy. \n`!losuj gatunek`",
         inline: true,
       },
       {
         name: "Zakres słów",
-        value: "Wymagany zakres słów w utworze. \n `!losuj zakres_słów`",
+        value: "Wymagany zakres słów w utworze. \n`!losuj zakres_słów`",
         inline: true,
       },
       {
         name: "Postać",
-        value: "Główna postać utworu. \n `!losuj postać`",
+        value: "Główna postać utworu. \n`!losuj postać`",
         inline: true,
       },
       {
         name: "Miejsce",
-        value: "Miejsce rozgrywania się akcji. \n `!losuj miejsce`",
+        value: "Miejsce rozgrywania się akcji. \n`!losuj miejsce`",
         inline: true,
       }
     );
