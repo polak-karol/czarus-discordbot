@@ -1,4 +1,4 @@
-const { Client, Intents, Collection } = require("discord.js");
+const { Client, GatewayIntentBits, Collection } = require("discord.js");
 const fs = require("fs");
 const { setupDatabase } = require("./database/setupDatabase");
 const { sendDailyBirthDayInfo } = require("./jobs/birthday");
@@ -6,9 +6,7 @@ const { sendDailyHolidayInfo } = require("./jobs/holiday");
 const { removeDiacritics } = require("./utils");
 require("dotenv").config();
 
-const client = new Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
-});
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
 

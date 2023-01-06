@@ -4,7 +4,7 @@ const { hasArgs, isHelpArg, getRandomInteger } = require("../../utils");
 const moment = require("moment-timezone");
 const { wishesSingular } = require("../../utils/jobs/birthdayUtils");
 
-const dateRegex = new RegExp("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[1-3][0-9]");
+const dateRegex = new RegExp("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]");
 const shortDateRegex = new RegExp("[0-1][0-9]-[1-3][0-9]");
 
 const getHelpEmbed = () =>
