@@ -3,10 +3,6 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v10");
 const fs = require("fs");
-const { setupDatabase } = require("./database/setupDatabase");
-const { sendDailyBirthDayInfo } = require("./jobs/birthday");
-const { sendDailyHolidayInfo } = require("./jobs/holiday");
-const { removeDiacritics } = require("./utils");
 require("dotenv").config();
 
 const client = new Client({
@@ -22,6 +18,19 @@ const client = new Client({
     GatewayIntentBits.GuildMessageTyping,
   ],
 });
+
+const slashCommands = [
+  new SlashCommandBuilder().setName("ping").setDescription("Ping pong!"),
+].map((command) => command.toJSON());
+
+const rest = new REST({ version: 10 }).setToken(process.env.CLIENT_TOKEN);
+
+rest
+  .put(
+    Routes.applicationGuildCommands(process.env.BOT_ID, process.env.GUILD_ID),
+    { body: slashCommands }
+  )
+  .then(() => console.log("Slash Commands created successfully"));
 
 client.commands = new Collection();
 
