@@ -38,37 +38,18 @@ commandFolders.forEach((folder) => {
   });
 });
 
-const prefix = "!";
+const eventFiles = fs
+  .readdirSync("./events")
+  .filter((file) => file.endsWith(".js"));
 
-client.once("ready", () => {
-  console.log("Bot is online");
-  setupDatabase();
-  sendDailyHolidayInfo(client);
-  sendDailyBirthDayInfo(client);
-  client.user.setActivity("starożytne księgi", { type: "WATCHING" });
-});
+for (const eventFile of eventFiles) {
+  const event = require(`./events/${eventFile}`);
 
-client.on("messageCreate", async (message) => {
-  const { member, guild, channel, content } = message;
-
-  if (!content.toLowerCase().startsWith(prefix) || message.author.bot) return;
-
-  const args = content.slice(prefix.length).trim().split(/ +/);
-  const commandName = removeDiacritics(args.shift().toLowerCase());
-
-  if (!client.commands.has(commandName)) return;
-
-  const command = client.commands.get(commandName);
-
-  try {
-    await command.execute(message, args);
-  } catch (error) {
-    console.error(error);
-    await message.reply({
-      content: "Daj mi chwilkę... trochę się zmęczyłem.",
-      ephemeral: true,
-    });
+  if (event.once) {
+    client.once(event.name, (...args) => event.execute(...args, client));
+  } else {
+    client.on(event.name, (...args) => event.execute(...args, client));
   }
-});
+}
 
 client.login(process.env.CLIENT_TOKEN);
