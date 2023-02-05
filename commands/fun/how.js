@@ -1,9 +1,9 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { getRandomInteger, hasArgs, isHelpArg } = require("../../utils");
 const { getAnswers } = require("../../utils/commands/funUtils");
 
 const getHelpEmbed = () =>
-  new MessageEmbed()
+  new EmbedBuilder()
     .setTitle("!jak")
     .setDescription("Zapytaj mnie jak...? \n Przykład: `!jak to robisz?`");
 
@@ -13,8 +13,7 @@ const main = async (message, args) => {
 
   const answers = await getAnswers("how_answers", message.guildId);
 
-  if (answers.length === 0)
-    return message.reply("Nie wiem co odpowiedzieć. :(");
+  if (!answers?.length) return message.reply("Nie wiem co odpowiedzieć. :(");
 
   message.reply(
     answers[0].how_answers[getRandomInteger(0, answers[0].how_answers.length)]

@@ -52,7 +52,7 @@ const getAnswers = async (answerName, guildId) => {
 
   await client.end();
 
-  return entries.rows;
+  return Object.values(entries.rows.at(0)).some((x) => x) ? entries.rows : [];
 };
 
 module.exports = {

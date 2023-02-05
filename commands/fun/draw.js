@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const moment = require("moment");
 const { getClient } = require("../../database/getClient");
 const {
@@ -107,7 +107,7 @@ const draw = (args) => {
 };
 
 const getHelpEmbed = () =>
-  new MessageEmbed()
+  new EmbedBuilder()
     .setTitle("!losuj")
     .setDescription(
       "Losuje wybrane kategorie do wyzwania pisarskiego. Możliwe jest losowanie kilku kategorii jednocześnie. \nPrzykład: `!losuj gatunek temat` \n \nPoniżej znajduje się spis wszystkich kategorii:"
@@ -192,7 +192,7 @@ const isNotAbleToDraw = async (message) => {
 };
 
 const getResultEmbed = (message) =>
-  new MessageEmbed()
+  new EmbedBuilder()
     .setTitle("Wylosowano dla Ciebie:")
     .addFields(result)
     .setAuthor({

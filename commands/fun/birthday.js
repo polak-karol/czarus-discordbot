@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { getClient } = require("../../database/getClient");
 const { hasArgs, isHelpArg, getRandomInteger } = require("../../utils");
 const moment = require("moment-timezone");
@@ -8,7 +8,7 @@ const dateRegex = new RegExp("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]");
 const shortDateRegex = new RegExp("[0-1][0-9]-[1-3][0-9]");
 
 const getHelpEmbed = () =>
-  new MessageEmbed()
+  new EmbedBuilder()
     .setTitle("!urodziny")
     .setDescription(
       "Daj znać Czarkowi kiedy masz urodziny, żeby mógł Ci złożyć życzenia!"

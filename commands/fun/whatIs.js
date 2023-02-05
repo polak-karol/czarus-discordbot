@@ -1,9 +1,9 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { getRandomInteger, hasArgs, isHelpArg } = require("../../utils");
 const { getAnswers } = require("../../utils/commands/funUtils");
 
 const getHelpEmbed = () =>
-  new MessageEmbed()
+  new EmbedBuilder()
     .setTitle("!czym jest")
     .setDescription(
       "Zapytaj mnie czym jest...? \n Przykład: `!czym jest magia słów?`"
@@ -17,8 +17,7 @@ const main = async (message, args) => {
 
   const answers = await getAnswers("what_is_answers", message.guildId);
 
-  if (answers.length === 0)
-    return message.reply("Nie wiem co odpowiedzieć. :(");
+  if (!answers?.length) return message.reply("Nie wiem co odpowiedzieć. :(");
 
   message.reply(
     answers[0].what_is_answers[

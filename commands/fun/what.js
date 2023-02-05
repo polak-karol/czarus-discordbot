@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const {
   getRandomInteger,
   hasArgs,
@@ -7,9 +7,8 @@ const {
 } = require("../../utils");
 const { getAnswers } = require("../../utils/commands/funUtils");
 
-
 const getHelpEmbed = () =>
-  new MessageEmbed()
+  new EmbedBuilder()
     .setTitle("!co myślisz o")
     .setDescription(
       "Zapytaj mnie co myślę o...? \n Przykład: `!co myślisz o mnie?`"
@@ -28,8 +27,7 @@ const handleThinkQuestion = async (message, args) => {
     message.guildId
   );
 
-  if (answers.length === 0)
-    return message.reply("Nie wiem co odpowiedzieć. :(");
+  if (!answers?.length) return message.reply("Nie wiem co odpowiedzieć. :(");
 
   message.reply(
     answers[0].what_do_you_think_answers[
@@ -55,8 +53,7 @@ const main = async (message, args) => {
 
   const answers = await getAnswers("what_answers", message.guildId);
 
-  if (answers.length === 0)
-    return message.reply("Nie wiem co odpowiedzieć. :(");
+  if (!answers?.length) return message.reply("Nie wiem co odpowiedzieć. :(");
 
   message.reply(
     answers[0].what_answers[getRandomInteger(0, answers[0].what_answers.length)]
