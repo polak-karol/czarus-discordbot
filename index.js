@@ -1,4 +1,7 @@
-const { Client, Intents, Collection } = require("discord.js");
+const { Client, GatewayIntentBits, Collection } = require("discord.js");
+const { SlashCommandBuilder } = require("@discordjs/builders");
+const { REST } = require("@discordjs/rest");
+const { Routes } = require("discord-api-types/v10");
 const fs = require("fs");
 const { setupDatabase } = require("./database/setupDatabase");
 const { sendDailyBirthDayInfo } = require("./jobs/birthday");
@@ -7,7 +10,12 @@ const { removeDiacritics } = require("./utils");
 require("dotenv").config();
 
 const client = new Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildMessageTyping,
+  ],
 });
 
 client.commands = new Collection();
