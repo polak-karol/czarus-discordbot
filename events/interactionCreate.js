@@ -1,12 +1,22 @@
 module.exports = {
   name: "interactionCreate",
-  async execute(interaction) {
+  async execute(interaction, client) {
     if (!interaction.isCommand()) return;
 
     const { commandName } = interaction;
 
-    if (commandName === "ping") {
-      await interaction.reply("Pong!");
+    if (!client.slashCommands.has(commandName)) return;
+
+    const slashCommand = client.slashCommands.get(commandName);
+
+    try {
+      await slashCommand.execute(interaction, client);
+    } catch (error) {
+      console.error(error);
+      await message.reply({
+        content: "Daj mi chwilkę... trochę się zmęczyłem.",
+        ephemeral: true,
+      });
     }
   },
 };

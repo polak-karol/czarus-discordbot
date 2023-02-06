@@ -21,6 +21,85 @@ const client = new Client({
 
 const slashCommands = [
   new SlashCommandBuilder().setName("ping").setDescription("Ping pong!"),
+  new SlashCommandBuilder()
+    .setName("losuj")
+    .setDescription("Losuje wybrane kategorie do wyzwania pisarskiego.")
+    .addStringOption((option) =>
+      option
+        .setName("gatunek")
+        .setDescription("Czy chcesz wylosować gatunek pracy?")
+        .addChoices(
+          { name: "Tak", value: "true" },
+          { name: "Nie", value: "false" }
+        )
+    )
+    .addStringOption((option) =>
+      option
+        .setName("narracja")
+        .setDescription("Czy chcesz wylosować narrację utworu?")
+        .addChoices(
+          { name: "Tak", value: "true" },
+          { name: "Nie", value: "false" }
+        )
+    )
+    .addStringOption((option) =>
+      option
+        .setName("temat")
+        .setDescription("Czy chcesz wylosować temat przewodni?")
+        .addChoices(
+          { name: "Tak", value: "true" },
+          { name: "Nie", value: "false" }
+        )
+    )
+    .addStringOption((option) =>
+      option
+        .setName("zakres_slow")
+        .setDescription("Czy chcesz wylosować wymagany zakres słów w utworze?")
+        .addChoices(
+          { name: "Tak", value: "true" },
+          { name: "Nie", value: "false" }
+        )
+    )
+    .addStringOption((option) =>
+      option
+        .setName("wymagane_slowo")
+        .setDescription(
+          "Czy chcesz wylosować słowo, które musi znaleźć się w utworze?"
+        )
+        .addChoices(
+          { name: "Tak", value: "true" },
+          { name: "Nie", value: "false" }
+        )
+    )
+    .addStringOption((option) =>
+      option
+        .setName("zakazane_slowo")
+        .setDescription(
+          "Czy chcesz wylosować słowo, które nie może zostać użyte w pracy?"
+        )
+        .addChoices(
+          { name: "Tak", value: "true" },
+          { name: "Nie", value: "false" }
+        )
+    )
+    .addStringOption((option) =>
+      option
+        .setName("postac")
+        .setDescription("Czy chcesz wylosować postać do utworu?")
+        .addChoices(
+          { name: "Tak", value: "true" },
+          { name: "Nie", value: "false" }
+        )
+    )
+    .addStringOption((option) =>
+      option
+        .setName("miejsce")
+        .setDescription("Czy chcesz wylosować miejsce rozgrywania się akcji?")
+        .addChoices(
+          { name: "Tak", value: "true" },
+          { name: "Nie", value: "false" }
+        )
+    ),
 ].map((command) => command.toJSON());
 
 const rest = new REST({ version: 10 }).setToken(process.env.CLIENT_TOKEN);
@@ -32,8 +111,21 @@ rest
   )
   .then(() => console.log("Slash Commands created successfully"));
 
-client.commands = new Collection();
+client.slashCommands = new Collection();
+const slashCommandsFolders = fs.readdirSync("./slash-commands");
 
+slashCommandsFolders.forEach((folder) => {
+  const slashCommandFiles = fs
+    .readdirSync(`./slash-commands/${folder}`)
+    .filter((file) => file.endsWith(".js"));
+
+  slashCommandFiles.forEach((file) => {
+    const command = require(`./slash-commands/${folder}/${file}`);
+    client.slashCommands.set(command.name, command);
+  });
+});
+
+client.commands = new Collection();
 const commandFolders = fs.readdirSync("./commands");
 
 commandFolders.forEach((folder) => {
