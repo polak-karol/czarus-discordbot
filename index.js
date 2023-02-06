@@ -73,7 +73,7 @@ const slashCommands = [
     )
     .addStringOption((option) =>
       option
-        .setName("zakazane_slowo")
+        .setName("zabronione_slowo")
         .setDescription(
           "Czy chcesz wylosować słowo, które nie może zostać użyte w pracy?"
         )

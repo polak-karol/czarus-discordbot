@@ -34,6 +34,19 @@ const categories = [
   "miejsce",
 ];
 
+const embedColors = {
+  0: "#ffafaa",
+  1: "#ff9f99",
+  2: "#ff8f88",
+  3: "#ff7f77",
+  4: "#ff6f66",
+  5: "#ff5f55",
+  6: "#ff4f44",
+  7: "#ff3f33",
+  8: "#ff2f22",
+  9: "#ff1f11",
+};
+
 const selectedCategories = [];
 
 const setResult = (name, value, inline = true) => {
@@ -49,7 +62,6 @@ const setFieldSpacing = (direction) => {
 
 const draw = () => {
   result.length = 0;
-  console.log(selectedCategories, "feefe");
   selectedCategories.forEach((selectedCategory) => {
     switch (removeDiacritics(selectedCategory.toLowerCase())) {
       case "temat":
@@ -152,6 +164,7 @@ const isNotAbleToDraw = async (interaction) => {
 
 const getResultEmbed = (interaction) =>
   new EmbedBuilder()
+    .setColor(embedColors[result.length])
     .setTitle("Wylosowano dla Ciebie:")
     .addFields(result)
     .setAuthor({
@@ -167,33 +180,32 @@ const setSelectedCategories = (interaction) => {
   });
 };
 
-const main = async (interaction, args) => {
+const main = async (interaction) => {
+  await interaction.deferReply();
   setSelectedCategories(interaction);
   if (!hasArgs(selectedCategories))
-    return await interaction.reply(noArgsMessage);
-  // return console.log("interaction");
+    return await interaction.editReply(noArgsMessage);
 
-  // if (await isNotAbleToDraw(interaction))
-  //   return interaction.reply(
-  //     `Ty spryciarzu... 😝 nieładnie tak oszukiwać, następne losowanie jest dopiero ${moment()
-  //       .startOf("isoweek")
-  //       .add(7, "days")
-  //       .set({ s: 0, m: 0, h: 0 })
-  //       .locale("pl")
-  //       .fromNow()}!`
-  //   );
+  if (await isNotAbleToDraw(interaction))
+    return interaction.editReply(
+      `Ty spryciarzu... 😝 nieładnie tak oszukiwać, następne losowanie jest dopiero ${moment()
+        .startOf("isoweek")
+        .add(7, "days")
+        .set({ s: 0, m: 0, h: 0 })
+        .locale("pl")
+        .fromNow()}!`
+    );
 
   draw();
-  // if (!result.length) return interaction.reply("Podano błędne argumenty.");
 
-  // saveDrawer(interaction);
+  saveDrawer(interaction);
   setFieldSpacing("bottom");
 
-  return await interaction.reply({ embeds: [getResultEmbed(interaction)] });
+  return await interaction.editReply({ embeds: [getResultEmbed(interaction)] });
 };
 
 module.exports = {
   name: "losuj",
   description: drawHelpMessage,
-  execute: (interaction, args) => main(interaction, args),
+  execute: (interaction) => main(interaction),
 };
