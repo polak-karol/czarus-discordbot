@@ -22,6 +22,15 @@ const client = new Client({
 const slashCommands = [
   new SlashCommandBuilder().setName("ping").setDescription("Ping pong!"),
   new SlashCommandBuilder()
+    .setName("snajper")
+    .setDescription("Snajper.")
+    .addUserOption((option) =>
+      option
+        .setName("uzytkownik")
+        .setDescription("Dowolny użytkownik serwera.")
+        .setRequired(true)
+    ),
+  new SlashCommandBuilder()
     .setName("straszny")
     .setDescription("Straszny.")
     .addUserOption((option) =>
