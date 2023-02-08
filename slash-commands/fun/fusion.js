@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 const { errorCommandMessage } = require("../../utils/config");
 
 module.exports = {
-  name: "fusion",
+  name: "fuzja",
   execute: async (interaction) => {
     await interaction.deferReply();
     const body = {

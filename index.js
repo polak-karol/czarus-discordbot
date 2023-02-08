@@ -22,12 +22,21 @@ const client = new Client({
 const slashCommands = [
   new SlashCommandBuilder().setName("ping").setDescription("Ping pong!"),
   new SlashCommandBuilder()
+    .setName("fuzja")
+    .setDescription("Połącz użytkowników w jedność.")
+    .addUserOption((option) =>
+      option
+        .setName("uzytkownik")
+        .setDescription("Dowolny użytkownik serwera.")
+        .setRequired(true)
+    ),
+  new SlashCommandBuilder()
     .setName("potwierdz")
     .setDescription("Potwierdź użytkownika.")
     .addUserOption((option) =>
       option
         .setName("uzytkownik")
-        .setDescription("Dowolny użytkownik serwera")
+        .setDescription("Dowolny użytkownik serwera.")
         .setRequired(true)
     ),
   new SlashCommandBuilder()
@@ -41,7 +50,13 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("crush")
-    .setDescription("Okaż swoje uczucie drugiej osobie."),
+    .setDescription("Okaż swoje uczucie drugiej osobie.")
+    .addUserOption((option) =>
+      option
+        .setName("uzytkownik")
+        .setDescription("Dowolny użytkownik serwera")
+        .setRequired(true)
+    ),
   new SlashCommandBuilder()
     .setName("losuj")
     .setDescription("Losuje wybrane kategorie do wyzwania pisarskiego.")

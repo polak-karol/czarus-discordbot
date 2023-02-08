@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 const { errorCommandMessage } = require("../../utils/config");
 
 module.exports = {
-  name: "approved",
+  name: "potwierdz",
   execute: async (interaction) => {
     await interaction.deferReply();
     const body = {
