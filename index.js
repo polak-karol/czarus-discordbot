@@ -26,7 +26,13 @@ const slashCommands = [
     .setDescription("Połącz użytkowników w jedność.")
     .addUserOption((option) =>
       option
-        .setName("uzytkownik")
+        .setName("uzytkownik1")
+        .setDescription("Dowolny użytkownik serwera.")
+        .setRequired(true)
+    )
+    .addUserOption((option) =>
+      option
+        .setName("uzytkownik2")
         .setDescription("Dowolny użytkownik serwera.")
         .setRequired(true)
     ),

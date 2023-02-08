@@ -6,7 +6,8 @@ module.exports = {
   execute: async (interaction) => {
     await interaction.deferReply();
     const body = {
-      url: interaction.options.getUser("uzytkownik").avatarURL(),
+      url: interaction.options.getUser("uzytkownik1").avatarURL(),
+      url: interaction.options.getUser("uzytkownik2").avatarURL(),
     };
 
     try {
