@@ -4,7 +4,7 @@ module.exports = {
   name: "3000years",
   execute: async (interaction) => {
     const body = {
-      url: interaction.options.getUser("użytkownik").avatarURL(),
+      url: interaction.options.getUser("uzytkownik").avatarURL(),
     };
 
     try {

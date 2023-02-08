@@ -22,11 +22,20 @@ const client = new Client({
 const slashCommands = [
   new SlashCommandBuilder().setName("ping").setDescription("Ping pong!"),
   new SlashCommandBuilder()
+    .setName("potwierdz")
+    .setDescription("Potwierdź użytkownika.")
+    .addUserOption((option) =>
+      option
+        .setName("uzytkownik")
+        .setDescription("Dowolny użytkownik serwera")
+        .setRequired(true)
+    ),
+  new SlashCommandBuilder()
     .setName("3000years")
     .setDescription("It has been 3000 years meme.")
     .addUserOption((option) =>
       option
-        .setName("użytkownik")
+        .setName("uzytkownik")
         .setDescription("Dowolny użytkownik serwera")
         .setRequired(true)
     ),
