@@ -22,6 +22,9 @@ const client = new Client({
 const slashCommands = [
   new SlashCommandBuilder().setName("ping").setDescription("Ping pong!"),
   new SlashCommandBuilder()
+    .setName("crush")
+    .setDescription("Okaż swoje uczucie drugiej osobie."),
+  new SlashCommandBuilder()
     .setName("losuj")
     .setDescription("Losuje wybrane kategorie do wyzwania pisarskiego.")
     .addStringOption((option) =>

@@ -17,6 +17,7 @@
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.38",
     "node-cron": "^3.0.2",
+    "node-fetch": "^2.6.9",
     "pg": "^8.7.3"
   },
   "repository": {

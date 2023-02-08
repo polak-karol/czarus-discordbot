@@ -13,7 +13,7 @@ module.exports = {
       await slashCommand.execute(interaction, client);
     } catch (error) {
       console.error(error);
-      await message.reply({
+      await interaction.reply({
         content: "Daj mi chwilkę... trochę się zmęczyłem.",
         ephemeral: true,
       });
