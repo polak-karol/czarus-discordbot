@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 const { errorCommandMessage } = require("../../utils/config");
 
 module.exports = {
-  name: "fuzja",
+  name: "plaskacz",
   execute: async (interaction) => {
     await interaction.deferReply();
     const body = {
@@ -11,7 +11,7 @@ module.exports = {
     };
 
     try {
-      const response = await fetch(`${process.env.AMETHYSTE_URL}/afusion`, {
+      const response = await fetch(`${process.env.AMETHYSTE_URL}/approved`, {
         method: "POST",
         headers: {
           authorization: `Bearer ${process.env.AMETHYSTE_TOKEN}`,
