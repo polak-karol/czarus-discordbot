@@ -11,7 +11,7 @@ module.exports = {
     };
 
     try {
-      const response = await fetch(`${process.env.AMETHYSTE_URL}/approved`, {
+      const response = await fetch(`${process.env.AMETHYSTE_URL}/batslap`, {
         method: "POST",
         headers: {
           authorization: `Bearer ${process.env.AMETHYSTE_TOKEN}`,
