@@ -1,14 +1,14 @@
 const fetch = require("node-fetch");
 
 module.exports = {
-  name: "crush",
+  name: "3000years",
   execute: async (interaction) => {
     const body = {
-      url: interaction.user.avatarURL(),
+      url: interaction.options.getUser("użytkownik").avatarURL(),
     };
 
     try {
-      const response = await fetch(`${process.env.AMETHYSTE_URL}/crush`, {
+      const response = await fetch(`${process.env.AMETHYSTE_URL}/3000years`, {
         method: "POST",
         headers: {
           authorization: `Bearer ${process.env.AMETHYSTE_TOKEN}`,
