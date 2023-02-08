@@ -25,7 +25,10 @@ const slashCommands = [
     .setName("3000years")
     .setDescription("It has been 3000 years meme.")
     .addUserOption((option) =>
-      option.setName("użytkownik").setDescription("Dowolny użytkownik serwera")
+      option
+        .setName("użytkownik")
+        .setDescription("Dowolny użytkownik serwera")
+        .setRequired(true)
     ),
   new SlashCommandBuilder()
     .setName("crush")
