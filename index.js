@@ -22,6 +22,9 @@ const client = new Client({
 const slashCommands = [
   new SlashCommandBuilder().setName("ping").setDescription("Ping pong!"),
   new SlashCommandBuilder()
+    .setName("kaczka")
+    .setDescription("Kwa kwa! Z dedykacją dla Oliwii i Kraba."),
+  new SlashCommandBuilder()
     .setName("ktowygra")
     .setDescription("ktowygra")
     .addUserOption((option) =>
