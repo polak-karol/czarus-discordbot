@@ -92,7 +92,7 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("wasted")
-    .setDescription("wasted")
+    .setDescription("BETA")
     .addUserOption((option) =>
       option
         .setName("uzytkownik")
@@ -101,7 +101,7 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("poszukiwany")
-    .setDescription("poszukiwany")
+    .setDescription("BETA")
     .addUserOption((option) =>
       option
         .setName("uzytkownik")
@@ -110,7 +110,7 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("tobecontinued")
-    .setDescription("tobecontinued")
+    .setDescription("BETA")
     .addUserOption((option) =>
       option
         .setName("uzytkownik")
@@ -119,7 +119,7 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("snajper")
-    .setDescription("snajper")
+    .setDescription("BETA")
     .addUserOption((option) =>
       option
         .setName("uzytkownik")
@@ -128,7 +128,7 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("straszny")
-    .setDescription("straszny")
+    .setDescription("BETA")
     .addUserOption((option) =>
       option
         .setName("uzytkownik")
@@ -137,7 +137,7 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("rip")
-    .setDescription("rip")
+    .setDescription("BETA")
     .addUserOption((option) =>
       option
         .setName("uzytkownik")
@@ -146,7 +146,7 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("odrzuc")
-    .setDescription("odrzuc")
+    .setDescription("BETA")
     .addUserOption((option) =>
       option
         .setName("uzytkownik")
@@ -155,7 +155,7 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("wasik")
-    .setDescription("wasik")
+    .setDescription("BETA")
     .addUserOption((option) =>
       option
         .setName("uzytkownik")
@@ -164,7 +164,7 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("missionpassed")
-    .setDescription("missionpassed")
+    .setDescription("BETA")
     .addUserOption((option) =>
       option
         .setName("uzytkownik")
@@ -173,7 +173,7 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("wiezienie")
-    .setDescription("wiezienie")
+    .setDescription("BETA")
     .addUserOption((option) =>
       option
         .setName("uzytkownik")
@@ -182,7 +182,7 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("ogien")
-    .setDescription("ogien")
+    .setDescription("BETA")
     .addUserOption((option) =>
       option
         .setName("uzytkownik")
@@ -191,7 +191,7 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("dyktator")
-    .setDescription("dyktator")
+    .setDescription("BETA")
     .addUserOption((option) =>
       option
         .setName("uzytkownik")
@@ -200,7 +200,7 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("spal")
-    .setDescription("spal")
+    .setDescription("BETA")
     .addUserOption((option) =>
       option
         .setName("uzytkownik")
@@ -209,7 +209,7 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("piekny")
-    .setDescription("piekny")
+    .setDescription("BETA")
     .addUserOption((option) =>
       option
         .setName("uzytkownik")
@@ -218,7 +218,7 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("plaskacz")
-    .setDescription("plaskacz")
+    .setDescription("BETA")
     .addUserOption((option) =>
       option
         .setName("uzytkownik1")
@@ -233,7 +233,7 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("fuzja")
-    .setDescription("fuzja")
+    .setDescription("BETA")
     .addUserOption((option) =>
       option
         .setName("uzytkownik1")
@@ -248,7 +248,7 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("potwierdz")
-    .setDescription("potwierdz")
+    .setDescription("BETA")
     .addUserOption((option) =>
       option
         .setName("uzytkownik")
@@ -257,7 +257,7 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("3000years")
-    .setDescription("3000years")
+    .setDescription("BETA")
     .addUserOption((option) =>
       option
         .setName("uzytkownik")
@@ -266,7 +266,7 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("crush")
-    .setDescription("crush")
+    .setDescription("BETA")
     .addUserOption((option) =>
       option
         .setName("uzytkownik")
