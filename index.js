@@ -22,6 +22,57 @@ const client = new Client({
 const slashCommands = [
   new SlashCommandBuilder().setName("ping").setDescription("Ping pong!"),
   new SlashCommandBuilder()
+    .setName("urodziny")
+    .setDescription("Urodziny")
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("zapamietaj")
+        .setDescription(
+          "Napisz Czarkowi, kiedy masz urodziny, żeby mógł złożyć Ci życzenia."
+        )
+        .addNumberOption((option) =>
+          option
+            .setName("dzien")
+            .setDescription("Dzień urodzin")
+            .setMinValue(1)
+            .setMaxValue(31)
+            .setRequired(true)
+        )
+        .addNumberOption((option) =>
+          option
+            .setName("miesiac")
+            .setDescription("Miesiąc urodzin")
+            .setMinValue(1)
+            .setMaxValue(12)
+            .setRequired(true)
+        )
+        .addNumberOption((option) =>
+          option
+            .setName("rok")
+            .setDescription("Miesiąc urodzin")
+            .setMinValue(new Date().getFullYear() - 150)
+            .setMaxValue(new Date().getFullYear())
+        )
+    )
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("zapomnij")
+        .setDescription(
+          "Powiedz Czarusiowi, żeby zapomniał o Twoich urodzinach."
+        )
+    )
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("kiedy")
+        .setDescription("Spytaj Czarusie kiedy są czyjeś urodziny")
+        .addUserOption((option) =>
+          option
+            .setName("uzytkownik")
+            .setDescription("Dowolny użytkownik serwera.")
+            .setRequired(true)
+        )
+    ),
+  new SlashCommandBuilder()
     .setName("kaczka")
     .setDescription("Kwa kwa! Z dedykacją dla Oliwii i Kraba."),
   new SlashCommandBuilder()
