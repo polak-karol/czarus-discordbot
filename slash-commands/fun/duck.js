@@ -18,7 +18,6 @@ module.exports = {
         files: [{ attachment: responseBody.url }],
       });
     } catch (error) {
-      console.log(error);
       return await interaction.editReply(errorCommandMessage);
     }
   },

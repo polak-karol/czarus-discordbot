@@ -1,10 +1,12 @@
 const fetch = require("node-fetch");
+const { errorCommandMessage } = require("../../utils/config");
 
 module.exports = {
   name: "crush",
   execute: async (interaction) => {
+    await interaction.deferReply();
     const body = {
-      url: interaction.user.avatarURL(),
+      url: interaction.options.getUser("uzytkownik").avatarURL(),
     };
 
     try {
@@ -17,17 +19,11 @@ module.exports = {
         body: JSON.stringify(body),
       });
       const imageBlob = await response.arrayBuffer();
-      console.log("fef");
-      console.log(imageBlob);
-      console.log(Buffer.from(imageBlob));
-      console.log(Buffer.isBuffer(Buffer.from(imageBlob)));
-      console.log(Array.isArray(imageBlob.data));
-      return await interaction.reply({
+      return await interaction.deferReply({
         files: [{ attachment: Buffer.from(imageBlob) }],
       });
     } catch (error) {
-      console.log("error");
-      console.log(error);
+      return await interaction.editReply(errorCommandMessage);
     }
   },
 };

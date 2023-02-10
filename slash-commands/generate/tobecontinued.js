@@ -26,7 +26,6 @@ module.exports = {
         files: [{ attachment: Buffer.from(imageBlob) }],
       });
     } catch (error) {
-      console.log(error);
       return await interaction.editReply(errorCommandMessage);
     }
   },
