@@ -356,12 +356,33 @@ const slashCommands = [
 
 const rest = new REST({ version: 10 }).setToken(process.env.CLIENT_TOKEN);
 
-rest
-  .put(
-    Routes.applicationGuildCommands(process.env.BOT_ID, process.env.GUILD_ID),
-    { body: slashCommands }
-  )
-  .then(() => console.log("Slash Commands created successfully"));
+(async () => {
+  try {
+    console.log(
+      `Started refreshing ${slashCommands.length} application (/) commands.`
+    );
+
+    let data;
+    if (process.env.ENVIRONMENT !== "production")
+      data = await rest.put(
+        Routes.applicationGuildCommands(
+          process.env.BOT_ID,
+          process.env.GUILD_ID
+        ),
+        { body: slashCommands }
+      );
+    else
+      data = await rest.put(Routes.applicationCommand(process.env.BOT_ID), {
+        body: slashCommands,
+      });
+
+    console.log(
+      `Successfully reloaded ${data.length} application (/) commands.`
+    );
+  } catch (error) {
+    console.error(error);
+  }
+})();
 
 client.slashCommands = new Collection();
 const slashCommandsFolders = fs.readdirSync("./slash-commands");
