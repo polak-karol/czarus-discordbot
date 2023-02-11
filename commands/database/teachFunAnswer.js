@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { getClient } = require("../../database/getClient");
 const {
   hasArgs,
@@ -10,7 +10,7 @@ const {
 const { teachAnswers } = require("../../utils/commands/databaseUtils");
 
 const getHelpEmbed = () =>
-  new MessageEmbed()
+  new EmbedBuilder()
     .setTitle("!naucz")
     .setDescription("Proszę, naucz mnie nowych odpowiedzi!`")
     .setFields(

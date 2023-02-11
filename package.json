@@ -9,11 +9,15 @@
   "author": "Karol Polak",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^13.8.1",
+    "@discordjs/builders": "^1.4.0",
+    "@discordjs/rest": "^1.5.0",
+    "discord-api-types": "^0.37.31",
+    "discord.js": "^14.7.1",
     "dotenv": "^16.0.1",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.38",
     "node-cron": "^3.0.2",
+    "node-fetch": "^2.6.9",
     "pg": "^8.7.3"
   },
   "repository": {
