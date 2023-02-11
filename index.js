@@ -18,6 +18,11 @@ const client = new Client({
     GatewayIntentBits.GuildMessageTyping,
   ],
 });
+console.log(process.env.ENVIRONMENT);
+console.log(process.env.ENVIRONMENT);
+console.log(process.env.ENVIRONMENT);
+console.log("FEFEFEFEFEFEEFEFFE");
+console.log(process.env.ENVIRONMENT);
 
 const slashCommands = [
   new SlashCommandBuilder().setName("ping").setDescription("Ping pong!"),
