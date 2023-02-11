@@ -1,10 +1,8 @@
 const { getClient } = require("../../database/getClient");
-const fetch = require("node-fetch");
-const { errorCommandMessage } = require("../../utils/config");
 
 const responses = {
-  0: "Napisałeś już do tej osoby walentynkę.",
-  1: "Wszystko się zgadza, mam zanotowane.",
+  0: "Ta osoaba dostała już od Ciebie walentynkę.",
+  1: "Twoja walentynka zostanie za chwilę dostarczona.",
   2: "Coś poszło nie tak... Spróbuj ponownie później, albo napisz do 4Tune 🥺",
 };
 
