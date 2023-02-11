@@ -43,6 +43,13 @@ const setupDatabase = async () => {
       user_id VARCHAR(300) NOT NULL,
       guild_id VARCHAR(300) NOT NULL
     );
+    CREATE TABLE IF NOT EXISTS valentines(
+      id BIGSERIAL PRIMARY KEY NOT NULL,
+      message TEXT NOT NULL,
+      recipient_id VARCHAR(300) NOT NULL,
+      author_id VARCHAR(300) NOT NULL,
+      guild_id VARCHAR(300) NOT NULL
+    )
   `;
   const createResult = await client.query(createTablesQuery);
 
