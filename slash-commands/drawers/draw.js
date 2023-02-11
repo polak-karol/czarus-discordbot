@@ -1,8 +1,7 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const moment = require("moment");
 const { getClient } = require("../../database/getClient");
 const {
-  isHelpArg,
   hasArgs,
   noArgsMessage,
   getRandomInteger,
@@ -24,6 +23,32 @@ const {
 
 const result = [];
 
+const categories = [
+  "temat",
+  "narracja",
+  "wymagane_slowo",
+  "zabronione_slowo",
+  "gatunek",
+  "zakres_slow",
+  "postac",
+  "miejsce",
+];
+
+const embedColors = {
+  0: "#ffafaa",
+  1: "#ff9f99",
+  2: "#ff8f88",
+  3: "#ff7f77",
+  4: "#ff6f66",
+  5: "#ff5f55",
+  6: "#ff4f44",
+  7: "#ff3f33",
+  8: "#ff2f22",
+  9: "#ff1f11",
+};
+
+const selectedCategories = [];
+
 const setResult = (name, value, inline = true) => {
   result.push({ name: convertArgName(name), value, inline });
 };
@@ -35,37 +60,35 @@ const setFieldSpacing = (direction) => {
   return result.unshift({ name: "\u200B", value: "\u200B" });
 };
 
-const draw = (args) => {
+const draw = () => {
   result.length = 0;
-  args.forEach((arg) => {
-    switch (removeDiacritics(arg.toLowerCase())) {
+  selectedCategories.forEach((selectedCategory) => {
+    switch (removeDiacritics(selectedCategory.toLowerCase())) {
       case "temat":
         setResult(
-          arg,
+          selectedCategory,
           capitalizeFirstLetter(theme[getRandomInteger(0, theme.length)])
         );
         break;
-      case "narracje":
+      case "narracja":
         setResult(
-          arg,
+          selectedCategory,
           capitalizeFirstLetter(
             narration[getRandomInteger(0, narration.length)]
           )
         );
         break;
-      case "wymagane-slowo":
       case "wymagane_slowo":
         setResult(
-          arg,
+          selectedCategory,
           capitalizeFirstLetter(
             required_word[getRandomInteger(0, required_word.length)]
           )
         );
         break;
-      case "zabronione-slowo":
       case "zabronione_slowo":
         setResult(
-          arg,
+          selectedCategory,
           capitalizeFirstLetter(
             forbidden_word[getRandomInteger(0, forbidden_word.length)]
           )
@@ -73,14 +96,13 @@ const draw = (args) => {
         break;
       case "gatunek":
         setResult(
-          arg,
+          selectedCategory,
           capitalizeFirstLetter(genre[getRandomInteger(0, genre.length)])
         );
         break;
-      case "zakres-slow":
       case "zakres_slow":
         setResult(
-          arg,
+          selectedCategory,
           capitalizeFirstLetter(
             wordsRange[getRandomInteger(0, wordsRange.length)]
           )
@@ -88,7 +110,7 @@ const draw = (args) => {
         break;
       case "postac":
         setResult(
-          arg,
+          selectedCategory,
           capitalizeFirstLetter(
             character[getRandomInteger(0, character.length)]
           )
@@ -96,7 +118,7 @@ const draw = (args) => {
         break;
       case "miejsce":
         setResult(
-          arg,
+          selectedCategory,
           capitalizeFirstLetter(place[getRandomInteger(0, place.length)])
         );
         break;
@@ -106,77 +128,26 @@ const draw = (args) => {
   });
 };
 
-const getHelpEmbed = () =>
-  new MessageEmbed()
-    .setTitle("!losuj")
-    .setDescription(
-      "Losuje wybrane kategorie do wyzwania pisarskiego. Możliwe jest losowanie kilku kategorii jednocześnie. \nPrzykład: `!losuj gatunek temat` \n \nPoniżej znajduje się spis wszystkich kategorii:"
-    )
-    .setFields(
-      {
-        name: "Temat",
-        value: "Temat przewodni. \n`!losuj temat`",
-        inline: true,
-      },
-      {
-        name: "Narracja",
-        value: "Narracje utworu. \n`!losuj narrację`",
-        inline: true,
-      },
-      {
-        name: "Wymagane słowo",
-        value:
-          "Słowo, które musi znaleźć się w utworze. \n`!losuj wymagane_słowo`",
-        inline: true,
-      },
-      {
-        name: "Zabronione słowo",
-        value:
-          "Słowo, które nie może zostać użyte w pracy. \n`!losuj zabronione_słowo`",
-        inline: true,
-      },
-      {
-        name: "Gatunek",
-        value: "Gatunek pracy. \n`!losuj gatunek`",
-        inline: true,
-      },
-      {
-        name: "Zakres słów",
-        value: "Wymagany zakres słów w utworze. \n`!losuj zakres_słów`",
-        inline: true,
-      },
-      {
-        name: "Postać",
-        value: "Główna postać utworu. \n`!losuj postać`",
-        inline: true,
-      },
-      {
-        name: "Miejsce",
-        value: "Miejsce rozgrywania się akcji. \n`!losuj miejsce`",
-        inline: true,
-      }
-    );
-
-const saveDrawer = async (message) => {
+const saveDrawer = async (interaction) => {
   const client = await getClient();
   const drawer = await client.query(
-    `SELECT user_id FROM drawers WHERE guild_id = '${message.guildId}' AND user_id = '${message.author.id}'`
+    `SELECT user_id FROM drawers WHERE guild_id = '${interaction.guildId}' AND user_id = '${interaction.user.id}'`
   );
 
   if (drawer.rows.length === 0)
     await client.query(
-      `INSERT INTO drawers(draw_at, user_id, guild_id) VALUES (current_timestamp, '${message.author.id}', '${message.guildId}');`
+      `INSERT INTO drawers(draw_at, user_id, guild_id) VALUES (current_timestamp, '${interaction.user.id}', '${interaction.guildId}');`
     );
   else
     await client.query(
-      `UPDATE drawers SET draw_at = current_timestamp WHERE guild_id = '${message.guildId}' AND user_id = '${message.author.id}';`
+      `UPDATE drawers SET draw_at = current_timestamp WHERE guild_id = '${interaction.guildId}' AND user_id = '${interaction.user.id}';`
     );
 };
 
-const isNotAbleToDraw = async (message) => {
+const isNotAbleToDraw = async (interaction) => {
   const client = await getClient();
   const drawer = await client.query(
-    `SELECT * FROM drawers WHERE guild_id = '${message.guildId}' AND user_id = '${message.author.id}'`
+    `SELECT * FROM drawers WHERE guild_id = '${interaction.guildId}' AND user_id = '${interaction.user.id}'`
   );
 
   if (drawer.rows.length === 0) return false;
@@ -191,22 +162,32 @@ const isNotAbleToDraw = async (message) => {
   );
 };
 
-const getResultEmbed = (message) =>
-  new MessageEmbed()
+const getResultEmbed = (interaction) =>
+  new EmbedBuilder()
+    .setColor(embedColors[result.length])
     .setTitle("Wylosowano dla Ciebie:")
     .addFields(result)
     .setAuthor({
-      name: message.author.username,
-      iconURL: message.author.avatarURL({ dynamic: true }),
+      name: interaction.user.username,
+      iconURL: interaction.user.avatarURL({ dynamic: true }),
     })
     .setFooter({ text: "Połamania pióra!" });
 
-const main = async (message, args) => {
-  if (!hasArgs(args)) return message.reply(noArgsMessage);
-  if (isHelpArg(args)) return message.reply({ embeds: [getHelpEmbed()] });
+const setSelectedCategories = (interaction) => {
+  categories.forEach((category) => {
+    const selectedCategory = interaction.options.getString(category);
+    if (selectedCategory === "true") selectedCategories.push(category);
+  });
+};
 
-  if (await isNotAbleToDraw(message))
-    return message.reply(
+const main = async (interaction) => {
+  await interaction.deferReply();
+  setSelectedCategories(interaction);
+  if (!hasArgs(selectedCategories))
+    return await interaction.editReply(noArgsMessage);
+
+  if (await isNotAbleToDraw(interaction))
+    return interaction.editReply(
       `Ty spryciarzu... 😝 nieładnie tak oszukiwać, następne losowanie jest dopiero ${moment()
         .startOf("isoweek")
         .add(7, "days")
@@ -215,18 +196,16 @@ const main = async (message, args) => {
         .fromNow()}!`
     );
 
-  draw(args);
-  if (!result.length) return message.reply("Podano błędne argumenty.");
+  draw();
 
-  saveDrawer(message);
+  saveDrawer(interaction);
   setFieldSpacing("bottom");
 
-  return message.reply({ embeds: [getResultEmbed(message)] });
+  return await interaction.editReply({ embeds: [getResultEmbed(interaction)] });
 };
 
 module.exports = {
   name: "losuj",
   description: drawHelpMessage,
-  usage: "!losuj",
-  execute: (message, args) => main(message, args),
+  execute: (interaction) => main(interaction),
 };
