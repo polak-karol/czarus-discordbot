@@ -363,7 +363,11 @@ const rest = new REST({ version: 10 }).setToken(process.env.CLIENT_TOKEN);
     );
 
     let data;
-    if (process.env.ENVIRONMENT !== "production")
+    if (process.env.ENVIRONMENT === "production")
+      data = await rest.put(Routes.applicationCommands(process.env.BOT_ID), {
+        body: slashCommands,
+      });
+    else
       data = await rest.put(
         Routes.applicationGuildCommands(
           process.env.BOT_ID,
@@ -371,10 +375,6 @@ const rest = new REST({ version: 10 }).setToken(process.env.CLIENT_TOKEN);
         ),
         { body: slashCommands }
       );
-    else
-      data = await rest.put(Routes.applicationCommand(process.env.BOT_ID), {
-        body: slashCommands,
-      });
 
     console.log(
       `Successfully reloaded ${data.length} application (/) commands.`
