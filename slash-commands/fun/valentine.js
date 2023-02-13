@@ -1,4 +1,4 @@
-const { ChannelType } = require("discord.js");
+const { ChannelType, ThreadAutoArchiveDuration } = require("discord.js");
 const { getClient } = require("../../database/getClient");
 
 const responses = {
@@ -47,7 +47,7 @@ const sendValentine = async (interaction, client) => {
   if (!privateThread) {
     privateThread = await channel.threads.create({
       name: valentineRecipient.id,
-      autoArchiveDuration: 60,
+      autoArchiveDuration: ThreadAutoArchiveDuration.ThreeDays,
       type: ChannelType.PrivateThread,
       reason: "Walentynka",
     });
