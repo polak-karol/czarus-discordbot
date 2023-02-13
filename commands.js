@@ -21,6 +21,12 @@ const slashCommands = [
             .setDescription("Treść walentynki")
             .setRequired(true)
         )
+        .addStringOption((option) =>
+          option.setName("tytul").setDescription("Tytul walentynki")
+        )
+        .addStringOption((option) =>
+          option.setName("podpis").setDescription("Podpis walentynki")
+        )
     ),
   new SlashCommandBuilder()
     .setName("urodziny")
