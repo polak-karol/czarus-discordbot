@@ -62,7 +62,6 @@ module.exports = {
   name: "walentynka",
   execute: async (interaction, client) => {
     await interaction.deferReply({ ephemeral: true });
-    return await interaction.editReply("To jeszcze nie pora!");
 
     const saveResult = await saveValentine(interaction);
 
