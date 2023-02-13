@@ -6,7 +6,7 @@ const {
 const { getClient } = require("../../database/getClient");
 
 const responses = {
-  0: "Ta osoaba dostała już od Ciebie walentynkę.",
+  0: "Ta osoba dostała już od Ciebie walentynkę.",
   1: "Twoja walentynka zostanie za chwilę dostarczona.",
   2: "Coś poszło nie tak... Spróbuj ponownie później, albo napisz do 4Tune 🥺",
 };
