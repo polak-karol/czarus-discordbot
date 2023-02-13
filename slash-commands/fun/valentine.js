@@ -50,8 +50,8 @@ const saveValentine = async (interaction) => {
 
 const sendValentine = async (interaction, client) => {
   const channel = await client.guilds.cache
-    .get("733001624427036825")
-    .channels.cache.get("733001624930484305");
+    .get("972581289972596756")
+    .channels.cache.get("1074612430979731496");
 
   const valentineRecipient = interaction.options.getUser("do");
 

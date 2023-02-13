@@ -41,9 +41,9 @@ const sendValentineToEveryone = async (client) => {
   cron.schedule(
     "0 0 7 * * *",
     async () => {
-      const guild = await client.guilds.cache.get("733001624427036825");
+      const guild = await client.guilds.cache.get("972581289972596756");
       const guildMembers = await guild.members.fetch();
-      const channel = await guild.channels.cache.get("733001624930484305");
+      const channel = await guild.channels.cache.get("1074612430979731496");
 
       guildMembers.forEach((guildMember) =>
         sendValentineToGuildMember(guildMember, channel)
