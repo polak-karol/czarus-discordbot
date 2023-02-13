@@ -1,4 +1,8 @@
-const { ChannelType } = require("discord.js");
+const {
+  ChannelType,
+  ThreadAutoArchiveDuration,
+  EmbedBuilder,
+} = require("discord.js");
 const { getClient } = require("../../database/getClient");
 
 const responses = {
@@ -6,6 +10,17 @@ const responses = {
   1: "Twoja walentynka zostanie za chwilę dostarczona.",
   2: "Coś poszło nie tak... Spróbuj ponownie później, albo napisz do 4Tune 🥺",
 };
+
+const getEmbed = (interaction) =>
+  new EmbedBuilder()
+    .setDescription(interaction.options.getString("wiadomosc"))
+    .setColor("#EA2027")
+    .setTitle(interaction.options.getString("tytul"))
+    .setAuthor({
+      name: interaction.options.getUser("do").username,
+      iconURL: interaction.options.getUser("do").avatarURL({ dynamic: true }),
+    })
+    .setFooter({ text: interaction.options.getString("podpis") });
 
 const saveValentine = async (interaction) => {
   const client = await getClient();
@@ -36,7 +51,7 @@ const saveValentine = async (interaction) => {
 const sendValentine = async (interaction, client) => {
   const channel = await client.guilds.cache
     .get("972581289972596756")
-    .channels.cache.get("998543618564444231");
+    .channels.cache.get("1074612430979731496");
 
   const valentineRecipient = interaction.options.getUser("do");
 
@@ -47,7 +62,7 @@ const sendValentine = async (interaction, client) => {
   if (!privateThread) {
     privateThread = await channel.threads.create({
       name: valentineRecipient.id,
-      autoArchiveDuration: 60,
+      autoArchiveDuration: ThreadAutoArchiveDuration.ThreeDays,
       type: ChannelType.PrivateThread,
       reason: "Walentynka",
     });
@@ -55,14 +70,14 @@ const sendValentine = async (interaction, client) => {
     await privateThread.send("POCZTA WALENTYNKOWA");
   }
 
-  await privateThread.send(interaction.options.getString("wiadomosc"));
+  await privateThread.send(`||<@${valentineRecipient.id}>||`);
+  await privateThread.send({ embeds: [getEmbed(interaction)] });
 };
 
 module.exports = {
   name: "walentynka",
   execute: async (interaction, client) => {
     await interaction.deferReply({ ephemeral: true });
-    return await interaction.editReply("To jeszcze nie pora!");
 
     const saveResult = await saveValentine(interaction);
 
