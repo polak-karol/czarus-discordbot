@@ -58,7 +58,6 @@ const saveAllToDatabase = async (guildMember) => {
 };
 
 const sendValentineToEveryone = async (client) => {
-  return;
   const guild = await client.guilds.cache.get("972581289972596756");
   const guildMembers = await guild.members.fetch();
   const channel = await guild.channels.cache.get("1074612430979731496");
