@@ -48,7 +48,7 @@ const sendValentineToGuildMember = async (guildMember, channel) => {
 const saveAllToDatabase = async (guildMember) => {
   const client = await getClient();
   const countResult = await client.query(
-    `SELECT COUNT(guild_id) FROM valentinesall WHERE guild_id = '${interaction.guildId}' AND author_id = '${guildMember.user.id}';`
+    `SELECT COUNT(guild_id) FROM valentinesall WHERE guild_id = '972581289972596756' AND recipient_id = '${guildMember.user.id}';`
   );
   if (parseInt(countResult.rows[0].count, 10) > 0) return false;
   await client.query(
@@ -58,18 +58,15 @@ const saveAllToDatabase = async (guildMember) => {
 };
 
 const sendValentineToEveryone = async (client) => {
-  async () => {
-    const guild = await client.guilds.cache.get("972581289972596756");
-    const guildMembers = await guild.members.fetch();
-    const channel = await guild.channels.cache.get("1074612430979731496");
+  const guild = await client.guilds.cache.get("972581289972596756");
+  const guildMembers = await guild.members.fetch();
+  const channel = await guild.channels.cache.get("1074612430979731496");
 
-    guildMembers.forEach(async (guildMember) => {
-      const result = await saveAllToDatabase(guildMember);
-      if (result) await sendValentineToGuildMember(guildMember, channel);
-      await sleep(2000);
-    });
-  },
-    { timezone: "Europe/Warsaw" };
+  guildMembers.forEach(async (guildMember) => {
+    const result = await saveAllToDatabase(guildMember);
+    if (result) await sendValentineToGuildMember(guildMember, channel);
+    await sleep(2000);
+  });
 };
 
 module.exports = { sendValentineToEveryone };
