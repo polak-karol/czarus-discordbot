@@ -24,15 +24,6 @@ const getEmbed = (interaction) =>
 
 const saveValentine = async (interaction) => {
   const client = await getClient();
-  const countResult = await client.query(
-    `SELECT COUNT(guild_id) FROM valentines WHERE guild_id = '${
-      interaction.guildId
-    }' AND author_id = '${interaction.user.id}' AND recipient_id = '${
-      interaction.options.getUser("do").id
-    }'`
-  );
-
-  if (parseInt(countResult.rows[0].count, 10) > 0) return 0;
 
   try {
     await client.query(
