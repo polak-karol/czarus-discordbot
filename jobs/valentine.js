@@ -4,6 +4,7 @@ const {
   EmbedBuilder,
 } = require("discord.js");
 const cron = require("node-cron");
+const { getClient } = require("../database/getClient");
 
 const getEmbed = (guildMember) =>
   new EmbedBuilder()
@@ -35,19 +36,29 @@ const sendValentineToGuildMember = async (guildMember, channel) => {
 
   await privateThread.send(`||<@${guildMember.user.id}>||`);
   await privateThread.send({ embeds: [getEmbed(guildMember)] });
+
+  return true;
+};
+
+const saveAllToDatabase = async (guildMember) => {
+  const client = await getClient();
+  await client.query(
+    `INSERT INTO valentinesall(recipient_id, guild_id) VALUES ('${guildMember.user.id}', '733001624427036825');`
+  );
 };
 
 const sendValentineToEveryone = async (client) => {
   cron.schedule(
-    "0 0 7 * * *",
+    "0 46 17 * * *",
     async () => {
-      const guild = await client.guilds.cache.get("972581289972596756");
+      const guild = await client.guilds.cache.get("733001624427036825");
       const guildMembers = await guild.members.fetch();
-      const channel = await guild.channels.cache.get("1074612430979731496");
+      const channel = await guild.channels.cache.get("733001624930484305");
 
-      guildMembers.forEach((guildMember) =>
-        sendValentineToGuildMember(guildMember, channel)
-      );
+      guildMembers.forEach(async (guildMember) => {
+        const result = await sendValentineToGuildMember(guildMember, channel);
+        if (result) await saveAllToDatabase();
+      });
     },
     { timezone: "Europe/Warsaw" }
   );
