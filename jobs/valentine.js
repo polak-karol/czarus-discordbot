@@ -65,7 +65,7 @@ const sendValentineToEveryone = async (client) => {
   guildMembers.forEach(async (guildMember) => {
     const result = await saveAllToDatabase(guildMember);
     if (result) await sendValentineToGuildMember(guildMember, channel);
-    await sleep(10000);
+    await sleep(300);
   });
 };
 
