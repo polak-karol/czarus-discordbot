@@ -43,7 +43,7 @@ const saveValentine = async (interaction) => {
       }', '${interaction.guildId}');`
     );
   } catch (error) {
-    return 2;
+    return 1;
   }
   return 1;
 };

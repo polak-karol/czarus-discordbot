@@ -3,8 +3,13 @@ const {
   ThreadAutoArchiveDuration,
   EmbedBuilder,
 } = require("discord.js");
-const cron = require("node-cron");
 const { getClient } = require("../database/getClient");
+
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
 
 const getEmbed = (guildMember) =>
   new EmbedBuilder()
@@ -42,26 +47,29 @@ const sendValentineToGuildMember = async (guildMember, channel) => {
 
 const saveAllToDatabase = async (guildMember) => {
   const client = await getClient();
+  const countResult = await client.query(
+    `SELECT COUNT(guild_id) FROM valentinesall WHERE guild_id = '${interaction.guildId}' AND author_id = '${guildMember.user.id}';`
+  );
+  if (parseInt(countResult.rows[0].count, 10) > 0) return false;
   await client.query(
     `INSERT INTO valentinesall(recipient_id, guild_id) VALUES ('${guildMember.user.id}', '972581289972596756');`
   );
+  return true;
 };
 
 const sendValentineToEveryone = async (client) => {
-  cron.schedule(
-    "0 55 17 * * *",
-    async () => {
-      const guild = await client.guilds.cache.get("972581289972596756");
-      const guildMembers = await guild.members.fetch();
-      const channel = await guild.channels.cache.get("1074612430979731496");
+  async () => {
+    const guild = await client.guilds.cache.get("972581289972596756");
+    const guildMembers = await guild.members.fetch();
+    const channel = await guild.channels.cache.get("1074612430979731496");
 
-      guildMembers.forEach(async (guildMember) => {
-        const result = await sendValentineToGuildMember(guildMember, channel);
-        if (result) await saveAllToDatabase(guildMember);
-      });
-    },
-    { timezone: "Europe/Warsaw" }
-  );
+    guildMembers.forEach(async (guildMember) => {
+      const result = await saveAllToDatabase(guildMember);
+      if (result) await sendValentineToGuildMember(guildMember, channel);
+      await sleep(2000);
+    });
+  },
+    { timezone: "Europe/Warsaw" };
 };
 
 module.exports = { sendValentineToEveryone };
