@@ -43,21 +43,21 @@ const sendValentineToGuildMember = async (guildMember, channel) => {
 const saveAllToDatabase = async (guildMember) => {
   const client = await getClient();
   await client.query(
-    `INSERT INTO valentinesall(recipient_id, guild_id) VALUES ('${guildMember.user.id}', '733001624427036825');`
+    `INSERT INTO valentinesall(recipient_id, guild_id) VALUES ('${guildMember.user.id}', '972581289972596756');`
   );
 };
 
 const sendValentineToEveryone = async (client) => {
   cron.schedule(
-    "0 46 17 * * *",
+    "0 55 17 * * *",
     async () => {
-      const guild = await client.guilds.cache.get("733001624427036825");
+      const guild = await client.guilds.cache.get("972581289972596756");
       const guildMembers = await guild.members.fetch();
-      const channel = await guild.channels.cache.get("733001624930484305");
+      const channel = await guild.channels.cache.get("1074612430979731496");
 
       guildMembers.forEach(async (guildMember) => {
         const result = await sendValentineToGuildMember(guildMember, channel);
-        if (result) await saveAllToDatabase();
+        if (result) await saveAllToDatabase(guildMember);
       });
     },
     { timezone: "Europe/Warsaw" }
