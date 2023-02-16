@@ -2,32 +2,32 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 
 const slashCommands = [
   new SlashCommandBuilder().setName("ping").setDescription("Ping pong!"),
-  new SlashCommandBuilder()
-    .setName("walentynka")
-    .setDescription("Event walentynkowy.")
-    .addSubcommand((subcommand) =>
-      subcommand
-        .setName("wyslij")
-        .setDescription("Wyślij walentynkę.")
-        .addUserOption((option) =>
-          option
-            .setName("do")
-            .setDescription("Osoba do której chcesz wysłać walentynkę.")
-            .setRequired(true)
-        )
-        .addStringOption((option) =>
-          option
-            .setName("wiadomosc")
-            .setDescription("Treść walentynki")
-            .setRequired(true)
-        )
-        .addStringOption((option) =>
-          option.setName("tytul").setDescription("Tytul walentynki")
-        )
-        .addStringOption((option) =>
-          option.setName("podpis").setDescription("Podpis walentynki")
-        )
-    ),
+  // new SlashCommandBuilder()
+  //   .setName("walentynka")
+  //   .setDescription("Event walentynkowy.")
+  //   .addSubcommand((subcommand) =>
+  //     subcommand
+  //       .setName("wyslij")
+  //       .setDescription("Wyślij walentynkę.")
+  //       .addUserOption((option) =>
+  //         option
+  //           .setName("do")
+  //           .setDescription("Osoba do której chcesz wysłać walentynkę.")
+  //           .setRequired(true)
+  //       )
+  //       .addStringOption((option) =>
+  //         option
+  //           .setName("wiadomosc")
+  //           .setDescription("Treść walentynki")
+  //           .setRequired(true)
+  //       )
+  //       .addStringOption((option) =>
+  //         option.setName("tytul").setDescription("Tytul walentynki")
+  //       )
+  //       .addStringOption((option) =>
+  //         option.setName("podpis").setDescription("Podpis walentynki")
+  //       )
+  //   ),
   new SlashCommandBuilder()
     .setName("urodziny")
     .setDescription("Urodziny")
