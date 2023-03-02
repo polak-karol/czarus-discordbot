@@ -32,6 +32,11 @@ const {
 
 const result = [];
 
+const drawerTypes = {
+  wyzwanie_muzyczne: "music",
+  wyzwanie_pisarskie: "writing",
+};
+
 const categories = [
   "temat",
   "narracja",
@@ -66,9 +71,12 @@ const embedColors = {
   7: "#ff3f33",
   8: "#ff2f22",
   9: "#ff1f11",
+  10: "#fa0000",
 };
 
 const selectedCategories = [];
+
+const selectedMusicCategories = [];
 
 const setResult = (name, value, inline = true) => {
   result.push({ name: convertArgName(name), value, inline });
@@ -143,6 +151,18 @@ const draw = () => {
           capitalizeFirstLetter(place[getRandomInteger(0, place.length)])
         );
         break;
+      default:
+        break;
+    }
+  });
+
+  selectedCategories.length = 0;
+};
+
+const drawMusic = () => {
+  result.length = 0;
+  selectedMusicCategories.forEach((selectedCategory) => {
+    switch (removeDiacritics(selectedCategory.toLowerCase())) {
       case "tempo":
         setResult(
           selectedCategory,
@@ -211,28 +231,30 @@ const draw = () => {
         break;
     }
   });
+
+  selectedMusicCategories.length = 0;
 };
 
-const saveDrawer = async (interaction) => {
+const saveDrawer = async (interaction, type) => {
   const client = await getClient();
   const drawer = await client.query(
-    `SELECT user_id FROM drawers WHERE guild_id = '${interaction.guildId}' AND user_id = '${interaction.user.id}'`
+    `SELECT user_id FROM drawers WHERE guild_id = '${interaction.guildId}' AND user_id = '${interaction.user.id}' AND type = '${drawerTypes[type]}';`
   );
 
   if (drawer.rows.length === 0)
     await client.query(
-      `INSERT INTO drawers(draw_at, user_id, guild_id) VALUES (current_timestamp, '${interaction.user.id}', '${interaction.guildId}');`
+      `INSERT INTO drawers(draw_at, user_id, guild_id, type) VALUES (current_timestamp, '${interaction.user.id}', '${interaction.guildId}', '${drawerTypes[type]}');`
     );
   else
     await client.query(
-      `UPDATE drawers SET draw_at = current_timestamp WHERE guild_id = '${interaction.guildId}' AND user_id = '${interaction.user.id}';`
+      `UPDATE drawers SET draw_at = current_timestamp WHERE guild_id = '${interaction.guildId}' AND user_id = '${interaction.user.id}' AND type = '${drawerTypes[type]}';`
     );
 };
 
-const isNotAbleToDraw = async (interaction, subCommand) => {
+const isNotAbleToDraw = async (interaction, type) => {
   const client = await getClient();
   const drawer = await client.query(
-    `SELECT * FROM drawers WHERE guild_id = '${interaction.guildId}' AND user_id = '${interaction.user.id}' AND type = '${subCommand}';`
+    `SELECT * FROM drawers WHERE guild_id = '${interaction.guildId}' AND user_id = '${interaction.user.id}' AND type = '${drawerTypes[type]}';`
   );
 
   if (drawer.rows.length === 0) return false;
@@ -257,14 +279,14 @@ const getResultEmbed = (interaction, type) =>
       iconURL: interaction.user.avatarURL({ dynamic: true }),
     })
     .setFooter({
-      text: `${type === "" ? "Połamania pióra!" : "Połamania klawiszy"}`,
+      text: type === "" ? "Połamania pióra!" : "Połamania klawiszy",
     });
 
 const setSelectedCategories = (interaction, type) => {
   if (type === "wyzwanie_muzyczne")
     musicCategories.forEach((category) => {
       const selectedCategory = interaction.options.getString(category);
-      if (selectedCategory === "true") selectedCategories.push(category);
+      if (selectedCategory === "true") selectedMusicCategories.push(category);
     });
   else
     categories.forEach((category) => {
@@ -283,7 +305,7 @@ const main = async (interaction) => {
     );
 
   setSelectedCategories(interaction, type);
-  if (!hasArgs(selectedCategories))
+  if (!hasArgs(selectedCategories) && !hasArgs(selectedMusicCategories))
     return await interaction.editReply(noArgsMessage);
 
   if (await isNotAbleToDraw(interaction, type))
@@ -296,9 +318,10 @@ const main = async (interaction) => {
         .fromNow()}!`
     );
 
-  draw();
+  if (type === "wyzwanie_muzyczne") drawMusic();
+  else draw();
 
-  saveDrawer(interaction);
+  saveDrawer(interaction, type);
   setFieldSpacing("bottom");
 
   return await interaction.editReply({
