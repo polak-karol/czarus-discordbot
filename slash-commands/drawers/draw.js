@@ -19,6 +19,15 @@ const {
   theme,
   place,
   wordsRange,
+  rate,
+  rhythm,
+  key,
+  requiredKey,
+  forbiddenKey,
+  musicGenre,
+  requiredInstrument,
+  forbiddenInstrument,
+  mood,
 } = require("../../utils/commands/funUtils");
 
 const result = [];
@@ -32,6 +41,18 @@ const categories = [
   "zakres_slow",
   "postac",
   "miejsce",
+];
+
+const musicCategories = [
+  "tempo",
+  "rytm",
+  "tonacja",
+  "wymagany_klawisz",
+  "zakazany_klawisz",
+  "gatunek",
+  "wymagany_instrument",
+  "zakazany_instrument",
+  "nastroj",
 ];
 
 const embedColors = {
@@ -122,6 +143,70 @@ const draw = () => {
           capitalizeFirstLetter(place[getRandomInteger(0, place.length)])
         );
         break;
+      case "tempo":
+        setResult(
+          selectedCategory,
+          capitalizeFirstLetter(rate[getRandomInteger(0, rate.length)])
+        );
+        break;
+      case "rytm":
+        setResult(
+          selectedCategory,
+          capitalizeFirstLetter(rhythm[getRandomInteger(0, rhythm.length)])
+        );
+        break;
+      case "tonacja":
+        setResult(
+          selectedCategory,
+          capitalizeFirstLetter(key[getRandomInteger(0, key.length)])
+        );
+        break;
+      case "wymagany_klawisz":
+        setResult(
+          selectedCategory,
+          capitalizeFirstLetter(
+            requiredKey[getRandomInteger(0, requiredKey.length)]
+          )
+        );
+        break;
+      case "zakazany_klawisz":
+        setResult(
+          selectedCategory,
+          capitalizeFirstLetter(
+            forbiddenKey[getRandomInteger(0, forbiddenKey.length)]
+          )
+        );
+        break;
+      case "gatunek":
+        setResult(
+          selectedCategory,
+          capitalizeFirstLetter(
+            musicGenre[getRandomInteger(0, musicGenre.length)]
+          )
+        );
+        break;
+      case "wymagany_instrument":
+        setResult(
+          selectedCategory,
+          capitalizeFirstLetter(
+            requiredInstrument[getRandomInteger(0, requiredInstrument.length)]
+          )
+        );
+        break;
+      case "zakazany_instrument":
+        setResult(
+          selectedCategory,
+          capitalizeFirstLetter(
+            forbiddenInstrument[getRandomInteger(0, forbiddenKey.length)]
+          )
+        );
+        break;
+      case "nastroj":
+        setResult(
+          selectedCategory,
+          capitalizeFirstLetter(mood[getRandomInteger(0, mood.length)])
+        );
+        break;
       default:
         break;
     }
@@ -144,10 +229,10 @@ const saveDrawer = async (interaction) => {
     );
 };
 
-const isNotAbleToDraw = async (interaction) => {
+const isNotAbleToDraw = async (interaction, subCommand) => {
   const client = await getClient();
   const drawer = await client.query(
-    `SELECT * FROM drawers WHERE guild_id = '${interaction.guildId}' AND user_id = '${interaction.user.id}'`
+    `SELECT * FROM drawers WHERE guild_id = '${interaction.guildId}' AND user_id = '${interaction.user.id}' AND type = '${subCommand}';`
   );
 
   if (drawer.rows.length === 0) return false;
@@ -162,7 +247,7 @@ const isNotAbleToDraw = async (interaction) => {
   );
 };
 
-const getResultEmbed = (interaction) =>
+const getResultEmbed = (interaction, type) =>
   new EmbedBuilder()
     .setColor(embedColors[result.length])
     .setTitle("Wylosowano dla Ciebie:")
@@ -171,22 +256,37 @@ const getResultEmbed = (interaction) =>
       name: interaction.user.username,
       iconURL: interaction.user.avatarURL({ dynamic: true }),
     })
-    .setFooter({ text: "Połamania pióra!" });
+    .setFooter({
+      text: `${type === "" ? "Połamania pióra!" : "Połamania klawiszy"}`,
+    });
 
-const setSelectedCategories = (interaction) => {
-  categories.forEach((category) => {
-    const selectedCategory = interaction.options.getString(category);
-    if (selectedCategory === "true") selectedCategories.push(category);
-  });
+const setSelectedCategories = (interaction, type) => {
+  if (type === "wyzwanie_muzyczne")
+    musicCategories.forEach((category) => {
+      const selectedCategory = interaction.options.getString(category);
+      if (selectedCategory === "true") selectedCategories.push(category);
+    });
+  else
+    categories.forEach((category) => {
+      const selectedCategory = interaction.options.getString(category);
+      if (selectedCategory === "true") selectedCategories.push(category);
+    });
 };
 
 const main = async (interaction) => {
   await interaction.deferReply();
-  setSelectedCategories(interaction);
+  const type = interaction.options.getSubcommand();
+
+  if (!type)
+    return await interaction.editReply(
+      "Musisz wybrać typ wyzwania którego chcesz losować."
+    );
+
+  setSelectedCategories(interaction, type);
   if (!hasArgs(selectedCategories))
     return await interaction.editReply(noArgsMessage);
 
-  if (await isNotAbleToDraw(interaction))
+  if (await isNotAbleToDraw(interaction, type))
     return interaction.editReply(
       `Ty spryciarzu... 😝 nieładnie tak oszukiwać, następne losowanie jest dopiero ${moment()
         .startOf("isoweek")
@@ -201,7 +301,9 @@ const main = async (interaction) => {
   saveDrawer(interaction);
   setFieldSpacing("bottom");
 
-  return await interaction.editReply({ embeds: [getResultEmbed(interaction)] });
+  return await interaction.editReply({
+    embeds: [getResultEmbed(interaction, type)],
+  });
 };
 
 module.exports = {
