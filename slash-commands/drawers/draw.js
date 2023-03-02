@@ -126,6 +126,8 @@ const draw = () => {
         break;
     }
   });
+  
+  selectedCategories.length = 0;
 };
 
 const saveDrawer = async (interaction) => {
