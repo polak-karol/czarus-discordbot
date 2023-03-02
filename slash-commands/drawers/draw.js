@@ -155,7 +155,7 @@ const draw = () => {
         break;
     }
   });
-
+  
   selectedCategories.length = 0;
 };
 
