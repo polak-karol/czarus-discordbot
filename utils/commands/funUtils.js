@@ -43,6 +43,86 @@ const place =
 const drawHelpMessage =
   "Wylosuj temat, narracje, słowo wymagane, słowo zabronione, gatunek, liczbę słów oraz postać do własnego wyzwania pisarskiego.";
 
+const rate = ["Wolne 20-60bpm", "Średnie 60-120bpm", "Szybkie 120+"];
+
+const rhythm = ["2/4", "3/4", "4/4"];
+
+const key = ["Dur", "Mol", "Dowolna"];
+
+const requiredKey = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "C#",
+  "D#",
+  "F#",
+  "G#",
+  "A#",
+];
+
+const forbiddenKey = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "C#",
+  "D#",
+  "F#",
+  "G#",
+  "A#",
+];
+
+const musicGenre = [
+  "Pop",
+  "Hip-Hop",
+  "Rock",
+  "Blues",
+  "Country",
+  "Funk",
+  "Folk",
+  "Jazz",
+  "Disco",
+  "Klasyczna",
+  "Dance",
+  "Elektroniczna",
+];
+
+const requiredInstrument = [
+  "Pianino",
+  "Gitara",
+  "Perkusja",
+  "Skrzypce",
+  "Saksofon",
+  "Flet",
+  "Klarnet",
+  "Trąbka",
+  "Głos",
+];
+
+const forbiddenInstrument = [
+  "Pianino",
+  "Gitara",
+  "Perkusja",
+  "Skrzypce",
+  "Saksofon",
+  "Flet",
+  "Klarnet",
+  "Trąbka",
+  "Głos",
+  "Wszystkie dęte",
+  "Wszystkie perkusyjne",
+  "Wszystkie szarpane",
+];
+
+const mood = ["Wesoły", "Melancholijny", "Smutny", "Poważny", "Żartobliwy"];
+
 const getAnswers = async (answerName, guildId) => {
   const client = await getClient();
 
@@ -66,4 +146,13 @@ module.exports = {
   place,
   drawHelpMessage,
   getAnswers,
+  rate,
+  rhythm,
+  key,
+  requiredKey,
+  forbiddenKey,
+  musicGenre,
+  requiredInstrument,
+  forbiddenInstrument,
+  mood,
 };

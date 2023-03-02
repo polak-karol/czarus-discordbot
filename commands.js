@@ -282,81 +282,182 @@ const slashCommands = [
     ),
   new SlashCommandBuilder()
     .setName("losuj")
-    .setDescription("Losuje wybrane kategorie do wyzwania pisarskiego.")
-    .addStringOption((option) =>
-      option
-        .setName("gatunek")
-        .setDescription("Czy chcesz wylosować gatunek pracy?")
-        .addChoices(
-          { name: "Tak", value: "true" },
-          { name: "Nie", value: "false" }
+    .setDescription("Wylosuj jakieś wyzwanie.")
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("wyzwanie_muzyczne")
+        .setDescription("Losuje wybrane kategorie do wyzwania muzycznego.")
+        .addStringOption((option) =>
+          option
+            .setName("tempo")
+            .setDescription("Czy chcesz wylosować tempo?")
+            .addChoices(
+              { name: "Tak", value: "true" },
+              { name: "Nie", value: "false" }
+            )
+        )
+        .addStringOption((option) =>
+          option
+            .setName("rytm")
+            .setDescription("Czy chcesz wylosować rytm utworu?")
+            .addChoices(
+              { name: "Tak", value: "true" },
+              { name: "Nie", value: "false" }
+            )
+        )
+        .addStringOption((option) =>
+          option
+            .setName("tonacja")
+            .setDescription("Czy chcesz wylosować tonację przewodni?")
+            .addChoices(
+              { name: "Tak", value: "true" },
+              { name: "Nie", value: "false" }
+            )
+        )
+        .addStringOption((option) =>
+          option
+            .setName("wymagany_klawisz")
+            .setDescription("Czy chcesz wylosować wymagany klawisz w utworze?")
+            .addChoices(
+              { name: "Tak", value: "true" },
+              { name: "Nie", value: "false" }
+            )
+        )
+        .addStringOption((option) =>
+          option
+            .setName("zakazany_klawisz")
+            .setDescription(
+              "Czy chcesz wylosować klawisz, który nie może znaleźć się w utworze?"
+            )
+            .addChoices(
+              { name: "Tak", value: "true" },
+              { name: "Nie", value: "false" }
+            )
+        )
+        .addStringOption((option) =>
+          option
+            .setName("wymagany_instrument")
+            .setDescription(
+              "Czy chcesz wylosować instrument, które musi zostać użyty?"
+            )
+            .addChoices(
+              { name: "Tak", value: "true" },
+              { name: "Nie", value: "false" }
+            )
+        )
+        .addStringOption((option) =>
+          option
+            .setName("zakazany_instrument")
+            .setDescription(
+              "Czy chcesz wylosować zakazany instrument do utworu?"
+            )
+            .addChoices(
+              { name: "Tak", value: "true" },
+              { name: "Nie", value: "false" }
+            )
+        )
+        .addStringOption((option) =>
+          option
+            .setName("gatunek")
+            .setDescription("Czy chcesz wylosować gatunek?")
+            .addChoices(
+              { name: "Tak", value: "true" },
+              { name: "Nie", value: "false" }
+            )
+        )
+        .addStringOption((option) =>
+          option
+            .setName("nastroj")
+            .setDescription("Czy chcesz wylosować nastrój?")
+            .addChoices(
+              { name: "Tak", value: "true" },
+              { name: "Nie", value: "false" }
+            )
         )
     )
-    .addStringOption((option) =>
-      option
-        .setName("narracja")
-        .setDescription("Czy chcesz wylosować narrację utworu?")
-        .addChoices(
-          { name: "Tak", value: "true" },
-          { name: "Nie", value: "false" }
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("wyzwanie_pisarskie")
+        .setDescription("Losuje wybrane kategorie do wyzwania pisarskiego.")
+        .addStringOption((option) =>
+          option
+            .setName("gatunek")
+            .setDescription("Czy chcesz wylosować gatunek pracy?")
+            .addChoices(
+              { name: "Tak", value: "true" },
+              { name: "Nie", value: "false" }
+            )
         )
-    )
-    .addStringOption((option) =>
-      option
-        .setName("temat")
-        .setDescription("Czy chcesz wylosować temat przewodni?")
-        .addChoices(
-          { name: "Tak", value: "true" },
-          { name: "Nie", value: "false" }
+        .addStringOption((option) =>
+          option
+            .setName("narracja")
+            .setDescription("Czy chcesz wylosować narrację utworu?")
+            .addChoices(
+              { name: "Tak", value: "true" },
+              { name: "Nie", value: "false" }
+            )
         )
-    )
-    .addStringOption((option) =>
-      option
-        .setName("zakres_slow")
-        .setDescription("Czy chcesz wylosować wymagany zakres słów w utworze?")
-        .addChoices(
-          { name: "Tak", value: "true" },
-          { name: "Nie", value: "false" }
+        .addStringOption((option) =>
+          option
+            .setName("temat")
+            .setDescription("Czy chcesz wylosować temat przewodni?")
+            .addChoices(
+              { name: "Tak", value: "true" },
+              { name: "Nie", value: "false" }
+            )
         )
-    )
-    .addStringOption((option) =>
-      option
-        .setName("wymagane_slowo")
-        .setDescription(
-          "Czy chcesz wylosować słowo, które musi znaleźć się w utworze?"
+        .addStringOption((option) =>
+          option
+            .setName("zakres_slow")
+            .setDescription(
+              "Czy chcesz wylosować wymagany zakres słów w utworze?"
+            )
+            .addChoices(
+              { name: "Tak", value: "true" },
+              { name: "Nie", value: "false" }
+            )
         )
-        .addChoices(
-          { name: "Tak", value: "true" },
-          { name: "Nie", value: "false" }
+        .addStringOption((option) =>
+          option
+            .setName("wymagane_slowo")
+            .setDescription(
+              "Czy chcesz wylosować słowo, które musi znaleźć się w utworze?"
+            )
+            .addChoices(
+              { name: "Tak", value: "true" },
+              { name: "Nie", value: "false" }
+            )
         )
-    )
-    .addStringOption((option) =>
-      option
-        .setName("zabronione_slowo")
-        .setDescription(
-          "Czy chcesz wylosować słowo, które nie może zostać użyte w pracy?"
+        .addStringOption((option) =>
+          option
+            .setName("zabronione_slowo")
+            .setDescription(
+              "Czy chcesz wylosować słowo, które nie może zostać użyte w pracy?"
+            )
+            .addChoices(
+              { name: "Tak", value: "true" },
+              { name: "Nie", value: "false" }
+            )
         )
-        .addChoices(
-          { name: "Tak", value: "true" },
-          { name: "Nie", value: "false" }
+        .addStringOption((option) =>
+          option
+            .setName("postac")
+            .setDescription("Czy chcesz wylosować postać do utworu?")
+            .addChoices(
+              { name: "Tak", value: "true" },
+              { name: "Nie", value: "false" }
+            )
         )
-    )
-    .addStringOption((option) =>
-      option
-        .setName("postac")
-        .setDescription("Czy chcesz wylosować postać do utworu?")
-        .addChoices(
-          { name: "Tak", value: "true" },
-          { name: "Nie", value: "false" }
-        )
-    )
-    .addStringOption((option) =>
-      option
-        .setName("miejsce")
-        .setDescription("Czy chcesz wylosować miejsce rozgrywania się akcji?")
-        .addChoices(
-          { name: "Tak", value: "true" },
-          { name: "Nie", value: "false" }
+        .addStringOption((option) =>
+          option
+            .setName("miejsce")
+            .setDescription(
+              "Czy chcesz wylosować miejsce rozgrywania się akcji?"
+            )
+            .addChoices(
+              { name: "Tak", value: "true" },
+              { name: "Nie", value: "false" }
+            )
         )
     ),
 ].map((command) => command.toJSON());
