@@ -39,6 +39,7 @@ const setupDatabase = async () => {
     );
     CREATE TABLE IF NOT EXISTS drawers(
       id BIGSERIAL PRIMARY KEY NOT NULL,
+      type varchar(30),
       draw_at TIMESTAMP NOT NULL,
       user_id VARCHAR(300) NOT NULL,
       guild_id VARCHAR(300) NOT NULL
