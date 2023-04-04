@@ -3,7 +3,7 @@ const { getHoliday } = require("../utils/commands/holidayUtils");
 
 const sendDailyHolidayInfo = async (client) => {
   cron.schedule(
-    "0 20 8 * * *",
+    "0 30 6 * * *",
     async () => {
       const [holiday] = await getHoliday("972581289972596756");
 
