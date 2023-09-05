@@ -63,7 +63,7 @@ slashCommandsFolders.forEach((folder) => {
   });
 });
 
-client.commands = new Collection();
+client.commands = new Collection();;
 const commandFolders = fs.readdirSync("./commands");
 
 commandFolders.forEach((folder) => {

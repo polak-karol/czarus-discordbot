@@ -1,55 +1,56 @@
-const { getClient } = require("../../database/getClient");
-const { getRandomInteger } = require("../../utils");
 const moment = require("moment-timezone");
+const fetch = require("node-fetch");
+const { getRandomInteger } = require("../../utils");
 const { wishesSingular } = require("../../utils/jobs/birthdayUtils");
 
 const saveBirthdayDate = async (interaction, birthday) => {
-  const client = await getClient();
-  const countResult = await client.query(
-    `SELECT COUNT(guild_id) FROM birthdays WHERE guild_id = '${interaction.guildId}' AND user_id = '${interaction.user.id}'`
+  const response = await fetch(
+    `http://localhost:5001/birthday/${interaction.guildId}`,
+    {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+        "Bot-Authorization": `${process.env.BOT_AUTHORIZATION_TOKEN}`,
+      },
+      body: JSON.stringify({
+        date: birthday.toISOString(),
+        userId: interaction.user.id,
+        isAnonymous: !!interaction.options.getNumber("rok"),
+      }),
+    }
   );
-
-  if (parseInt(countResult.rows[0].count, 10) === 0) {
-    await client.query(
-      `INSERT INTO birthdays(date, is_anonymous, user_id, guild_id) VALUES ('${birthday}', ${!!interaction.options.getNumber(
-        "rok"
-      )}, '${interaction.user.id}', '${interaction.guildId}');`
-    );
-  } else {
-    await client.query(
-      `UPDATE birthdays SET date = '${birthday}', is_anonymous = ${!!interaction.options.getNumber(
-        "rok"
-      )} WHERE guild_id = '${interaction.guildId}' AND user_id = '${
-        interaction.user.id
-      }';`
-    );
-  }
-
-  await client.end();
 };
 
 const getUserBirthdays = async (interaction) => {
-  const client = await getClient();
-  const userBirthday = await client.query(
-    `SELECT date FROM birthdays WHERE guild_id = '${
-      interaction.guildId
-    }' AND user_id = '${interaction.options.getUser("uzytkownik").id}'`
+  const response = await fetch(
+    `http://localhost:5001/birthday/${interaction.guildId}?user_id=${
+      interaction.options.getUser("uzytkownik").id
+    }`,
+    {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        "Bot-Authorization": `${process.env.BOT_AUTHORIZATION_TOKEN}`,
+      },
+    }
   );
-  await client.end();
-  return userBirthday?.rows?.[0]?.date;
+  const responseBody = await response.json();
+  return responseBody.data.date;
 };
 
 const deleteBirthday = async (interaction) => {
-  const client = await getClient();
-  const countResult = await client.query(
-    `SELECT COUNT(guild_id) FROM birthdays WHERE guild_id = '${interaction.guildId}' AND user_id = '${interaction.user.id}'`
+  const response = await fetch(
+    `http://localhost:5001/birthday/${interaction.guildId}?user_id=${interaction.user.id}`,
+    {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+        "Bot-Authorization": `${process.env.BOT_AUTHORIZATION_TOKEN}`,
+      },
+    }
   );
-  if (parseInt(countResult.rows[0].count, 10) === 0) return false;
-  const result = await client.query(
-    `DELETE FROM birthdays WHERE guild_id = '${interaction.guildId}' AND user_id = '${interaction.user.id}'`
-  );
-  await client.end();
-  return result;
+
+  return true;
 };
 
 const isLeapYear = (year) =>
