@@ -8,7 +8,7 @@ const {
 
 const sendDailyBirthDayInfo = async (client) => {
   cron.schedule(
-    "0 0 8 * * *",
+    "0 30 18 * * *",
     async () => {
       const birthdays = await getBirthday("972581289972596756");
 
