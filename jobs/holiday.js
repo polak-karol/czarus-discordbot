@@ -3,13 +3,13 @@ const { getHoliday } = require("../utils/commands/holidayUtils");
 
 const sendDailyHolidayInfo = async (client) => {
   cron.schedule(
-    "0 30 6 * * *",
+    "0 57 17 * * *",
     async () => {
-      const [holiday] = await getHoliday("972581289972596756");
+      const holiday = await getHoliday("733001624427036825");
 
       client.guilds.cache
-        .get("972581289972596756")
-        .channels.cache.get("1001790827091198033")
+        .get("733001624427036825")
+        .channels.cache.get("993459590899437630")
         .send(holiday.message);
     },
     { timezone: "Europe/Warsaw" }
