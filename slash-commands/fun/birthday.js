@@ -83,7 +83,9 @@ const handleRememberCommand = async (interaction) => {
   });
 
   if (nextBirthday.isSame(moment(), "day")) {
-    message.reply(wishesSingular[getRandomInteger(0, wishesSingular.length)]);
+    interaction.editReply(
+      wishesSingular[getRandomInteger(0, wishesSingular.length)]
+    );
     return;
   }
 

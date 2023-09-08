@@ -1,15 +1,21 @@
-const { getClient } = require("../../database/getClient");
+const moment = require("moment");
 
 const getBirthday = async (guildId) => {
-  const client = await getClient();
-
-  const entries = await client.query(
-    `SELECT * FROM birthdays WHERE EXTRACT(DAY FROM date) = EXTRACT(DAY FROM current_date) AND EXTRACT(MONTH FROM date) = EXTRACT(MONTH FROM current_date) AND guild_id = '${guildId}';`
+  const response = await fetch(
+    `http://localhost:5001/birthday/list/${guildId}?date=${moment().format(
+      "YYYY-MM-DD"
+    )}`,
+    {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        "Bot-Authorization": `${process.env.BOT_AUTHORIZATION_TOKEN}`,
+      },
+    }
   );
+  const responseBody = await response.json();
 
-  await client.end();
-
-  return entries.rows;
+  return responseBody.data;
 };
 
 const wishesSingular = [
