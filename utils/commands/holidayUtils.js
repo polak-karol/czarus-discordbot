@@ -2,7 +2,7 @@ const moment = require("moment");
 
 const getHoliday = async (guildId) => {
   const response = await fetch(
-    `http://localhost:5001/holiday/${guildId}?date=${moment().format(
+    `${process.env.API_URL}/holiday/${guildId}?date=${moment().format(
       "YYYY-MM-DD"
     )}`,
     {

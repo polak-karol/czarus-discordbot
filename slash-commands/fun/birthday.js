@@ -5,7 +5,7 @@ const { wishesSingular } = require("../../utils/jobs/birthdayUtils");
 
 const saveBirthdayDate = async (interaction, birthday) => {
   const response = await fetch(
-    `http://localhost:5001/birthday/${interaction.guildId}`,
+    `${process.env.API_URL}/birthday/${interaction.guildId}`,
     {
       method: "PUT",
       headers: {
@@ -23,7 +23,7 @@ const saveBirthdayDate = async (interaction, birthday) => {
 
 const getUserBirthdays = async (interaction) => {
   const response = await fetch(
-    `http://localhost:5001/birthday/${interaction.guildId}?user_id=${
+    `${process.env.API_URL}/birthday/${interaction.guildId}?user_id=${
       interaction.options.getUser("uzytkownik").id
     }`,
     {
@@ -40,7 +40,7 @@ const getUserBirthdays = async (interaction) => {
 
 const deleteBirthday = async (interaction) => {
   const response = await fetch(
-    `http://localhost:5001/birthday/${interaction.guildId}?user_id=${interaction.user.id}`,
+    `${process.env.API_URL}/birthday/${interaction.guildId}?user_id=${interaction.user.id}`,
     {
       method: "DELETE",
       headers: {

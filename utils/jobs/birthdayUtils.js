@@ -2,7 +2,7 @@ const moment = require("moment");
 
 const getBirthday = async (guildId) => {
   const response = await fetch(
-    `http://localhost:5001/birthday/list/${guildId}?date=${moment().format(
+    `${process.env.API_URL}/birthday/list/${guildId}?date=${moment().format(
       "YYYY-MM-DD"
     )}`,
     {
