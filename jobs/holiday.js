@@ -1,19 +1,23 @@
 const cron = require("node-cron");
 const { getHoliday } = require("../utils/commands/holidayUtils");
+const { getGuildsSettings } = require("../utils/index");
 
 const sendDailyHolidayInfo = async (client) => {
-  cron.schedule(
-    "0 57 17 * * *",
-    async () => {
-      const holiday = await getHoliday("733001624427036825");
+  const guildsSettings = await getGuildsSettings();
 
-      client.guilds.cache
-        .get("733001624427036825")
-        .channels.cache.get("993459590899437630")
-        .send(holiday.message);
-    },
-    { timezone: "Europe/Warsaw" }
-  );
+  guildsSettings.forEach((guildSettings) => {
+    cron.schedule(
+      "0 0 6 * * *",
+      async () => {
+        const holiday = await getHoliday(guildSettings.guildId);
+        client.guilds.cache
+          .get(guildSettings.guildId)
+          .channels.cache.get(guildSettings.holidayChannelId)
+          .send(holiday.message);
+      },
+      { timezone: "Europe/Warsaw" }
+    );
+  });
 };
 
 module.exports = { sendDailyHolidayInfo };
