@@ -274,6 +274,19 @@ const removeDiacritics = (str) => {
   return str;
 };
 
+const getGuildsSettings = async () => {
+  const response = await fetch(`${process.env.API_URL}/guild-settings/list`, {
+    method: "GET",
+    headers: {
+      "content-type": "application/json",
+      "Bot-Authorization": `${process.env.BOT_AUTHORIZATION_TOKEN}`,
+    },
+  });
+  const responseBody = await response.json();
+
+  return responseBody.data;
+};
+
 module.exports = {
   noArgsMessage,
   capitalizeFirstLetter,
@@ -283,4 +296,5 @@ module.exports = {
   hasArgs,
   getRandomInteger,
   convertArgName,
+  getGuildsSettings,
 };
