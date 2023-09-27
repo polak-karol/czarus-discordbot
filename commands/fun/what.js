@@ -22,18 +22,11 @@ const handleThinkQuestion = async (message, args) => {
   if (!hasArgs(restArgs)) return message.reply("Co myślę o?");
   if (isHelpArg(restArgs)) return message.reply({ embeds: [getHelpEmbed()] });
 
-  const answers = await getAnswers(
-    "what_do_you_think_answers",
-    message.guildId
-  );
+  const answers = await getAnswers("whatDoYouThinkAnswers", message.guildId);
 
   if (!answers?.length) return message.reply("Nie wiem co odpowiedzieć. :(");
 
-  message.reply(
-    answers[0].what_do_you_think_answers[
-      getRandomInteger(0, answers[0].what_do_you_think_answers.length)
-    ]
-  );
+  message.reply(answers[getRandomInteger(0, answers.length)]);
 };
 
 const isJudgeQuestion = (args) =>
@@ -51,13 +44,11 @@ const main = async (message, args) => {
   if (isJudgeQuestion(args)) return message.reply("Od sądzenia jest sąd!");
   if (!hasArgs(args)) return message.reply("Co co?");
 
-  const answers = await getAnswers("what_answers", message.guildId);
+  const answers = await getAnswers("whatAnswers", message.guildId);
 
   if (!answers?.length) return message.reply("Nie wiem co odpowiedzieć. :(");
 
-  message.reply(
-    answers[0].what_answers[getRandomInteger(0, answers[0].what_answers.length)]
-  );
+  message.reply(answers[getRandomInteger(0, answers.length)]);
 };
 
 module.exports = {

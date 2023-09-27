@@ -124,15 +124,19 @@ const forbiddenInstrument = [
 const mood = ["Wesoły", "Melancholijny", "Smutny", "Poważny", "Żartobliwy"];
 
 const getAnswers = async (answerName, guildId) => {
-  const client = await getClient();
-
-  const entries = await client.query(
-    `SELECT ${answerName} FROM answers WHERE guild_id = '${guildId}';`
+  const response = await fetch(
+    `${process.env.API_URL}/answer/list/${guildId}`,
+    {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        "Bot-Authorization": `${process.env.BOT_AUTHORIZATION_TOKEN}`,
+      },
+    }
   );
+  const responseBody = await response.json();
 
-  await client.end();
-
-  return Object.values(entries.rows.at(0)).some((x) => x) ? entries.rows : [];
+  return responseBody.data[answerName];
 };
 
 module.exports = {

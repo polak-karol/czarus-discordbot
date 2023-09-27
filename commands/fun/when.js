@@ -13,13 +13,11 @@ const main = async (message, args) => {
   if (!hasArgs(args)) return message.reply("Kiedy co?");
   if (isHelpArg(args)) return message.reply({ embeds: [getHelpEmbed()] });
 
-  const answers = await getAnswers("when_answers", message.guildId);
+  const answers = await getAnswers("whenAnswers", message.guildId);
 
   if (!answers?.length) return message.reply("Nie wiem co odpowiedzieć. :(");
 
-  message.reply(
-    answers[0].when_answers[getRandomInteger(0, answers[0].when_answers.length)]
-  );
+  message.reply(answers[getRandomInteger(0, answers.length)]);
 };
 
 module.exports = {

@@ -15,15 +15,11 @@ const main = async (message, args) => {
   if (!hasArgs(restArgs)) return message.reply("Czym jest co?");
   if (isHelpArg(args)) return message.reply({ embeds: [getHelpEmbed()] });
 
-  const answers = await getAnswers("what_is_answers", message.guildId);
+  const answers = await getAnswers("whatIsAnswers", message.guildId);
 
   if (!answers?.length) return message.reply("Nie wiem co odpowiedzieć. :(");
 
-  message.reply(
-    answers[0].what_is_answers[
-      getRandomInteger(0, answers[0].what_is_answers.length)
-    ]
-  );
+  message.reply(answers[getRandomInteger(0, answers.length)]);
 };
 
 module.exports = {
