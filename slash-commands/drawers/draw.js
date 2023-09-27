@@ -1,6 +1,5 @@
 const { EmbedBuilder } = require("discord.js");
 const moment = require("moment");
-const { getClient } = require("../../database/getClient");
 const {
   hasArgs,
   noArgsMessage,
@@ -236,37 +235,25 @@ const drawMusic = () => {
 };
 
 const saveDrawer = async (interaction, type) => {
-  const client = await getClient();
-  const drawer = await client.query(
-    `SELECT user_id FROM drawers WHERE guild_id = '${interaction.guildId}' AND user_id = '${interaction.user.id}' AND type = '${drawerTypes[type]}';`
+  const response = await fetch(
+    `${process.env.API_URL}/drawer/${interaction.guildId}`,
+    {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+        "Bot-Authorization": `${process.env.BOT_AUTHORIZATION_TOKEN}`,
+      },
+      body: JSON.stringify({
+        userId: interaction.user.id,
+        drawType: drawerTypes[type],
+      }),
+    }
   );
+  const responseBody = await response.json();
 
-  if (drawer.rows.length === 0)
-    await client.query(
-      `INSERT INTO drawers(draw_at, user_id, guild_id, type) VALUES (current_timestamp, '${interaction.user.id}', '${interaction.guildId}', '${drawerTypes[type]}');`
-    );
-  else
-    await client.query(
-      `UPDATE drawers SET draw_at = current_timestamp WHERE guild_id = '${interaction.guildId}' AND user_id = '${interaction.user.id}' AND type = '${drawerTypes[type]}';`
-    );
-};
+  if ("lastVoteDate" in responseBody) return responseBody;
 
-const isNotAbleToDraw = async (interaction, type) => {
-  const client = await getClient();
-  const drawer = await client.query(
-    `SELECT * FROM drawers WHERE guild_id = '${interaction.guildId}' AND user_id = '${interaction.user.id}' AND type = '${drawerTypes[type]}';`
-  );
-
-  if (drawer.rows.length === 0) return false;
-
-  return (
-    moment(drawer.rows.at(0).draw_at).isAfter(
-      moment().startOf("isoweek").set({ s: 0, m: 0, h: 0 })
-    ) &&
-    moment(drawer.rows.at(0).draw_at).isBefore(
-      moment().startOf("isoweek").add(6, "days").set({ s: 23, m: 59, h: 59 })
-    )
-  );
+  return responseBody;
 };
 
 const getResultEmbed = (interaction, type) =>
@@ -311,7 +298,12 @@ const main = async (interaction) => {
   if (!hasArgs(selectedCategories) && !hasArgs(selectedMusicCategories))
     return await interaction.editReply(noArgsMessage);
 
-  if (await isNotAbleToDraw(interaction, type))
+  if (type === "wyzwanie_muzyczne") drawMusic();
+  else draw();
+
+  const saveDrawerResult = await saveDrawer(interaction, type);
+
+  if ("lastVoteDate" in saveDrawerResult)
     return interaction.editReply(
       `Ty spryciarzu... 😝 nieładnie tak oszukiwać, następne losowanie jest dopiero ${moment()
         .startOf("isoweek")
@@ -321,10 +313,6 @@ const main = async (interaction) => {
         .fromNow()}!`
     );
 
-  if (type === "wyzwanie_muzyczne") drawMusic();
-  else draw();
-
-  saveDrawer(interaction, type);
   setFieldSpacing("bottom");
 
   return await interaction.editReply({

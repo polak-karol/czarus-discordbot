@@ -1,18 +1,21 @@
-const { getClient } = require("../../database/getClient");
 const moment = require("moment");
 
 const getHoliday = async (guildId) => {
-  const client = await getClient();
-
-  const entries = await client.query(
-    `SELECT * FROM holidays WHERE date = '${moment().format(
+  const response = await fetch(
+    `${process.env.API_URL}/holiday/${guildId}?date=${moment().format(
       "YYYY-MM-DD"
-    )}' AND guild_id = '${guildId}';`
+    )}`,
+    {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        "Bot-Authorization": `${process.env.BOT_AUTHORIZATION_TOKEN}`,
+      },
+    }
   );
+  const responseBody = await response.json();
 
-  await client.end();
-
-  return entries.rows;
+  return responseBody.data;
 };
 
 module.exports = { getHoliday };
