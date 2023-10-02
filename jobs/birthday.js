@@ -28,7 +28,7 @@ const sendDailyBirthDayInfo = async (client) => {
 
           client.guilds.cache
             .get(guildSettings.guildId)
-            .channels.cache.get(guildSettings.birthdaysChannelId)
+            .channels.cache.get(guildSettings.birthdaysAnnouncementChannelId)
             .send(text);
         }
       },

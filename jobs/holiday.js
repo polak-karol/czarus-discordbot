@@ -12,7 +12,7 @@ const sendDailyHolidayInfo = async (client) => {
         const holiday = await getHoliday(guildSettings.guildId);
         client.guilds.cache
           .get(guildSettings.guildId)
-          .channels.cache.get(guildSettings.holidayChannelId)
+          .channels.cache.get(guildSettings.holidayAnnouncementChannelId)
           .send(holiday.message);
       },
       { timezone: "Europe/Warsaw" }
