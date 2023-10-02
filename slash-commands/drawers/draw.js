@@ -64,7 +64,7 @@ const setResult = (name, value, inline = true) => {
 
 const getDrawConfig = async (interaction) => {
   const response = await fetch(
-    `${process.env.API_URL}/drawer/${interaction.guildId}`,
+    `${process.env.API_URL}/draw-config/${interaction.guildId}`,
     {
       method: "GET",
       headers: {
@@ -75,7 +75,7 @@ const getDrawConfig = async (interaction) => {
   );
   const responseBody = await response.json();
 
-  return responseBody;
+  return responseBody.data;
 };
 
 const setFieldSpacing = (direction) => {
@@ -85,9 +85,9 @@ const setFieldSpacing = (direction) => {
   return result.unshift({ name: "\u200B", value: "\u200B" });
 };
 
-const draw = (interaction) => {
+const draw = async (interaction) => {
   result.length = 0;
-  const { writingConfig } = getDrawConfig(interaction);
+  const { writingConfig } = await getDrawConfig(interaction);
   selectedCategories.forEach((selectedCategory) => {
     switch (removeDiacritics(selectedCategory.toLowerCase())) {
       case "temat":
@@ -178,9 +178,9 @@ const draw = (interaction) => {
   selectedCategories.length = 0;
 };
 
-const drawMusic = (interaction) => {
+const drawMusic = async (interaction) => {
   result.length = 0;
-  const { musicConfig } = getDrawConfig(interaction);
+  const { musicConfig } = await getDrawConfig(interaction);
   selectedMusicCategories.forEach((selectedCategory) => {
     switch (removeDiacritics(selectedCategory.toLowerCase())) {
       case "tempo":

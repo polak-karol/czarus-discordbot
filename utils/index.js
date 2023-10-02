@@ -18,6 +18,8 @@ const getRandomInteger = (min, max) => {
 const convertArgName = (arg) => arg.split("_").join(" ");
 
 const capitalizeFirstLetter = (text) => {
+  if (!text || text?.length < 1) return text;
+
   const [firstLetter, ...rest] = text.split("");
 
   return [firstLetter.toUpperCase(), ...rest].join("");
