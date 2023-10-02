@@ -8,26 +8,7 @@ const {
   removeDiacritics,
   capitalizeFirstLetter,
 } = require("../../utils");
-const {
-  character,
-  drawHelpMessage,
-  genre,
-  narration,
-  required_word,
-  forbidden_word,
-  theme,
-  place,
-  wordsRange,
-  rate,
-  rhythm,
-  key,
-  requiredKey,
-  forbiddenKey,
-  musicGenre,
-  requiredInstrument,
-  forbiddenInstrument,
-  mood,
-} = require("../../utils/commands/funUtils");
+const { drawHelpMessage } = require("../../utils/commands/funUtils");
 
 const result = [];
 
@@ -81,6 +62,22 @@ const setResult = (name, value, inline = true) => {
   result.push({ name: convertArgName(name), value, inline });
 };
 
+const getDrawConfig = async (interaction) => {
+    const response = await fetch(
+    `${process.env.API_URL}/drawer/${interaction.guildId}`,
+    {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        "Bot-Authorization": `${process.env.BOT_AUTHORIZATION_TOKEN}`,
+      },
+    }
+  );
+  const responseBody = await response.json();
+
+  return responseBody;
+}
+
 const setFieldSpacing = (direction) => {
   if (direction === "bottom")
     return result.push({ name: "\u200B", value: "\u200B" });
@@ -88,21 +85,22 @@ const setFieldSpacing = (direction) => {
   return result.unshift({ name: "\u200B", value: "\u200B" });
 };
 
-const draw = () => {
-  result?.length = 0;
+const draw = (interaction) => {
+  result.length = 0;
+  const {writingConfig} = getDrawConfig(interaction)
   selectedCategories.forEach((selectedCategory) => {
     switch (removeDiacritics(selectedCategory.toLowerCase())) {
       case "temat":
         setResult(
           selectedCategory,
-          capitalizeFirstLetter(theme[getRandomInteger(0, theme?.length)])
+          capitalizeFirstLetter(writingConfig.theme[getRandomInteger(0, writingConfig.theme?.length)])
         );
         break;
       case "narracja":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
-            narration[getRandomInteger(0, narration?.length)]
+            writingConfig.narration[getRandomInteger(0, writingConfig.narration?.length)]
           )
         );
         break;
@@ -110,7 +108,7 @@ const draw = () => {
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
-            required_word[getRandomInteger(0, required_word?.length)]
+            writingConfig.requiredWord[getRandomInteger(0, writingConfig.requiredWord?.length)]
           )
         );
         break;
@@ -118,21 +116,21 @@ const draw = () => {
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
-            forbidden_word[getRandomInteger(0, forbidden_word?.length)]
+            writingConfig.forbiddenWord[getRandomInteger(0, writingConfig.forbiddenWord?.length)]
           )
         );
         break;
       case "gatunek":
         setResult(
           selectedCategory,
-          capitalizeFirstLetter(genre[getRandomInteger(0, genre?.length)])
+          capitalizeFirstLetter(writingConfig.genre[getRandomInteger(0, writingConfig.genre?.length)])
         );
         break;
       case "zakres_slow":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
-            wordsRange[getRandomInteger(0, wordsRange?.length)]
+            writingConfig.wordsRange[getRandomInteger(0, writingConfig.wordsRange?.length)]
           )
         );
         break;
@@ -140,14 +138,14 @@ const draw = () => {
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
-            character[getRandomInteger(0, character?.length)]
+            writingConfig.character[getRandomInteger(0, writingConfig.character?.length)]
           )
         );
         break;
       case "miejsce":
         setResult(
           selectedCategory,
-          capitalizeFirstLetter(place[getRandomInteger(0, place?.length)])
+          capitalizeFirstLetter(writingConfig.place[getRandomInteger(0, writingConfig.place?.length)])
         );
         break;
       default:
@@ -158,33 +156,34 @@ const draw = () => {
   selectedCategories?.length = 0;
 };
 
-const drawMusic = () => {
+const drawMusic = (interaction) => {
   result?.length = 0;
+  const {musicConfig} = getDrawConfig(interaction)
   selectedMusicCategories.forEach((selectedCategory) => {
     switch (removeDiacritics(selectedCategory.toLowerCase())) {
       case "tempo":
         setResult(
           selectedCategory,
-          capitalizeFirstLetter(rate[getRandomInteger(0, rate?.length)])
+          capitalizeFirstLetter(musicConfig.rate[getRandomInteger(0, musicConfig.rate?.length)])
         );
         break;
       case "rytm":
         setResult(
           selectedCategory,
-          capitalizeFirstLetter(rhythm[getRandomInteger(0, rhythm?.length)])
+          capitalizeFirstLetter(musicConfig.rhythm[getRandomInteger(0, musicConfig.rhythm?.length)])
         );
         break;
       case "tonacja":
         setResult(
           selectedCategory,
-          capitalizeFirstLetter(key[getRandomInteger(0, key?.length)])
+          capitalizeFirstLetter(musicConfig.key[getRandomInteger(0, musicConfig.key?.length)])
         );
         break;
       case "wymagany_klawisz":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
-            requiredKey[getRandomInteger(0, requiredKey?.length)]
+            musicConfig.requiredKey[getRandomInteger(0, musicConfig.requiredKey?.length)]
           )
         );
         break;
@@ -192,7 +191,7 @@ const drawMusic = () => {
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
-            forbiddenKey[getRandomInteger(0, forbiddenKey?.length)]
+            musicConfig.forbiddenKey[getRandomInteger(0, musicConfig.forbiddenKey?.length)]
           )
         );
         break;
@@ -200,7 +199,7 @@ const drawMusic = () => {
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
-            musicGenre[getRandomInteger(0, musicGenre?.length)]
+            musicConfig.musicGenre[getRandomInteger(0, musicConfig.musicGenre?.length)]
           )
         );
         break;
@@ -208,7 +207,7 @@ const drawMusic = () => {
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
-            requiredInstrument[getRandomInteger(0, requiredInstrument?.length)]
+            musicConfig.requiredInstrument[getRandomInteger(0, musicConfig.requiredInstrument?.length)]
           )
         );
         break;
@@ -216,14 +215,14 @@ const drawMusic = () => {
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
-            forbiddenInstrument[getRandomInteger(0, forbiddenKey?.length)]
+            musicConfig.forbiddenInstrument[getRandomInteger(0, musicConfig.forbiddenInstrument?.length)]
           )
         );
         break;
       case "nastroj":
         setResult(
           selectedCategory,
-          capitalizeFirstLetter(mood[getRandomInteger(0, mood?.length)])
+          capitalizeFirstLetter(musicConfig.mood[getRandomInteger(0, musicConfig.mood?.length)])
         );
         break;
       default:
@@ -298,8 +297,8 @@ const main = async (interaction) => {
   if (!hasArgs(selectedCategories) && !hasArgs(selectedMusicCategories))
     return await interaction.editReply(noArgsMessage);
 
-  if (type === "wyzwanie_muzyczne") drawMusic();
-  else draw();
+  if (type === "wyzwanie_muzyczne") drawMusic(interaction);
+  else draw(interaction);
 
   const saveDrawerResult = await saveDrawer(interaction, type);
 
