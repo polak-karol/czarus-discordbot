@@ -289,6 +289,32 @@ const getGuildsSettings = async () => {
   return responseBody.data;
 };
 
+const getBirthdaysConfig = async () => {
+  const response = await fetch(`${process.env.API_URL}/birthday-config/list`, {
+    method: "GET",
+    headers: {
+      "content-type": "application/json",
+      "Bot-Authorization": `${process.env.BOT_AUTHORIZATION_TOKEN}`,
+    },
+  });
+  const responseBody = await response.json();
+
+  return responseBody.data;
+};
+
+const getHolidaysConfig = async () => {
+  const response = await fetch(`${process.env.API_URL}/holiday-config/list`, {
+    method: "GET",
+    headers: {
+      "content-type": "application/json",
+      "Bot-Authorization": `${process.env.BOT_AUTHORIZATION_TOKEN}`,
+    },
+  });
+  const responseBody = await response.json();
+
+  return responseBody.data;
+};
+
 module.exports = {
   noArgsMessage,
   capitalizeFirstLetter,
@@ -299,4 +325,6 @@ module.exports = {
   getRandomInteger,
   convertArgName,
   getGuildsSettings,
+  getBirthdaysConfig,
+  getHolidaysConfig,
 };
