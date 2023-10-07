@@ -1,5 +1,5 @@
 const cron = require("node-cron");
-const { getRandomInteger, getGuildsSettings } = require("../utils");
+const { getRandomInteger, getBirthdaysConfig } = require("../utils");
 const {
   getBirthday,
   wishesPlural,
@@ -7,13 +7,13 @@ const {
 } = require("../utils/jobs/birthdayUtils");
 
 const sendDailyBirthDayInfo = async (client) => {
-  const guildsSettings = await getGuildsSettings();
+  const birthdaysConfig = await getBirthdaysConfig();
 
-  guildsSettings.forEach((guildSettings) =>
+  birthdaysConfig.forEach((birthdaysConfigItem) =>
     cron.schedule(
       "0 0 8 * * *",
       async () => {
-        const birthdays = await getBirthday(guildSettings.guildId);
+        const birthdays = await getBirthday(birthdaysConfigItem.guildId);
 
         if (birthdays.length > 0) {
           const text = `<@&986163091089809428> Urodziny dzisiaj ${
@@ -27,8 +27,10 @@ const sendDailyBirthDayInfo = async (client) => {
           }`;
 
           client.guilds.cache
-            .get(guildSettings.guildId)
-            .channels.cache.get(guildSettings.birthdaysAnnouncementChannelId)
+            .get(birthdaysConfigItem.guildId)
+            .channels.cache.get(
+              birthdaysConfigItem.birthdaysAnnouncementChannelId
+            )
             .send(text);
         }
       },
