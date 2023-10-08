@@ -298,7 +298,7 @@ const slashCommands = [
             .setName("rate")
             .setNameLocalizations({ pl: "tempo" })
             .setDescription("Do you want to draw a pace?")
-            .setDescription({ pl: "Czy chcesz wylosować tempo?" })
+            .setDescriptionLocalizations({ pl: "Czy chcesz wylosować tempo?" })
             .addChoices(
               {
                 name: "Yes",
@@ -313,7 +313,9 @@ const slashCommands = [
             .setName("rhythm")
             .setNameLocalizations({ pl: "rytm" })
             .setDescription("Czy chcesz wylosować rytm utworu?")
-            .setDescription({ pl: "Czy chcesz wylosować rytm utworu?" })
+            .setDescriptionLocalizations({
+              pl: "Czy chcesz wylosować rytm utworu?",
+            })
             .addChoices(
               { name: "Yes", name_localizations: { pl: "Tak" }, value: "true" },
               { name: "No", name_localizations: { pl: "Nie" }, value: "false" }
@@ -352,7 +354,7 @@ const slashCommands = [
             .setDescription(
               "Do you want to draw a key that cannot be included in the song?"
             )
-            .setDescription({
+            .setDescriptionLocalizations({
               pl: "Czy chcesz wylosować klawisz, który nie może znaleźć się w utworze?",
             })
             .addChoices(

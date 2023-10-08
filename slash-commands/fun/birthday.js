@@ -64,9 +64,9 @@ const getYear = (day, month, year) => {
 };
 
 const handleRememberCommand = async (interaction) => {
-  const day = interaction.options.getNumber("dzien");
-  const month = interaction.options.getNumber("miesiac");
-  const year = interaction.options.getNumber("rok") || moment().year();
+  const day = interaction.options.getNumber("day");
+  const month = interaction.options.getNumber("month");
+  const year = interaction.options.getNumber("year") || moment().year();
 
   let birthday = moment(
     `${day}-${month}-${getYear(day, month, year)}`,
@@ -127,11 +127,11 @@ const main = async (interaction) => {
   await interaction.deferReply();
 
   switch (interaction.options.getSubcommand()) {
-    case "zapamietaj":
+    case "remember":
       return handleRememberCommand(interaction);
-    case "zapomnij":
+    case "forget":
       return handleForgetCommand(interaction);
-    case "kiedy":
+    case "when":
       return handleWhenCommand(interaction);
     default:
       return await interaction.editReply(
@@ -141,6 +141,6 @@ const main = async (interaction) => {
 };
 
 module.exports = {
-  name: "urodziny",
+  name: "birthdays",
   execute: (interaction) => main(interaction),
 };
