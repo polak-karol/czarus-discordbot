@@ -421,7 +421,7 @@ const slashCommands = [
     )
     .addSubcommand((subcommand) =>
       subcommand
-        .setName("writing_challenges")
+        .setName("writing_challenge")
         .setNameLocalizations({ pl: "wyzwanie_pisarskie" })
         .setDescription("Draw categories for the writing challenge.")
         .setDescriptionLocalizations({

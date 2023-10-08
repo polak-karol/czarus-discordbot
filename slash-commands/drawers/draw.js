@@ -13,8 +13,22 @@ const { drawHelpMessage } = require("../../utils/commands/funUtils");
 const result = [];
 
 const drawerTypes = {
-  wyzwanie_muzyczne: "music",
-  wyzwanie_pisarskie: "writing",
+  music_challenge: "music",
+  writing_challenge: "writing",
+};
+
+const embedColors = {
+  0: "#ffafaa",
+  1: "#ff9f99",
+  2: "#ff8f88",
+  3: "#ff7f77",
+  4: "#ff6f66",
+  5: "#ff5f55",
+  6: "#ff4f44",
+  7: "#ff3f33",
+  8: "#ff2f22",
+  9: "#ff1f11",
+  10: "#fa0000",
 };
 
 const categories = [
@@ -39,20 +53,6 @@ const musicCategories = [
   "zakazany_instrument",
   "nastroj",
 ];
-
-const embedColors = {
-  0: "#ffafaa",
-  1: "#ff9f99",
-  2: "#ff8f88",
-  3: "#ff7f77",
-  4: "#ff6f66",
-  5: "#ff5f55",
-  6: "#ff4f44",
-  7: "#ff3f33",
-  8: "#ff2f22",
-  9: "#ff1f11",
-  10: "#fa0000",
-};
 
 const selectedCategories = [];
 
@@ -87,10 +87,12 @@ const setFieldSpacing = (direction) => {
 
 const draw = async (interaction) => {
   result.length = 0;
+
   const { writingConfig } = await getDrawConfig(interaction);
+
   selectedCategories.forEach((selectedCategory) => {
     switch (removeDiacritics(selectedCategory.toLowerCase())) {
-      case "temat":
+      case "theme":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
@@ -100,7 +102,7 @@ const draw = async (interaction) => {
           )
         );
         break;
-      case "narracja":
+      case "narration":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
@@ -110,7 +112,7 @@ const draw = async (interaction) => {
           )
         );
         break;
-      case "wymagane_slowo":
+      case "required_word":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
@@ -120,7 +122,7 @@ const draw = async (interaction) => {
           )
         );
         break;
-      case "zabronione_slowo":
+      case "forbidden_word":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
@@ -130,7 +132,7 @@ const draw = async (interaction) => {
           )
         );
         break;
-      case "gatunek":
+      case "genre":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
@@ -140,7 +142,7 @@ const draw = async (interaction) => {
           )
         );
         break;
-      case "zakres_slow":
+      case "words_range":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
@@ -150,7 +152,7 @@ const draw = async (interaction) => {
           )
         );
         break;
-      case "postac":
+      case "character":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
@@ -160,7 +162,7 @@ const draw = async (interaction) => {
           )
         );
         break;
-      case "miejsce":
+      case "place":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
@@ -180,10 +182,12 @@ const draw = async (interaction) => {
 
 const drawMusic = async (interaction) => {
   result.length = 0;
+
   const { musicConfig } = await getDrawConfig(interaction);
+
   selectedMusicCategories.forEach((selectedCategory) => {
     switch (removeDiacritics(selectedCategory.toLowerCase())) {
-      case "tempo":
+      case "rate":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
@@ -191,7 +195,7 @@ const drawMusic = async (interaction) => {
           )
         );
         break;
-      case "rytm":
+      case "rhythm":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
@@ -199,7 +203,7 @@ const drawMusic = async (interaction) => {
           )
         );
         break;
-      case "tonacja":
+      case "key":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
@@ -207,7 +211,7 @@ const drawMusic = async (interaction) => {
           )
         );
         break;
-      case "wymagany_klawisz":
+      case "required_key":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
@@ -217,7 +221,7 @@ const drawMusic = async (interaction) => {
           )
         );
         break;
-      case "zakazany_klawisz":
+      case "forbidden_key":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
@@ -227,7 +231,7 @@ const drawMusic = async (interaction) => {
           )
         );
         break;
-      case "gatunek":
+      case "genre":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
@@ -237,7 +241,7 @@ const drawMusic = async (interaction) => {
           )
         );
         break;
-      case "wymagany_instrument":
+      case "required_instrument":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
@@ -247,7 +251,7 @@ const drawMusic = async (interaction) => {
           )
         );
         break;
-      case "zakazany_instrument":
+      case "forbidden_instrument":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
@@ -257,7 +261,7 @@ const drawMusic = async (interaction) => {
           )
         );
         break;
-      case "nastroj":
+      case "mood":
         setResult(
           selectedCategory,
           capitalizeFirstLetter(
@@ -306,13 +310,11 @@ const getResultEmbed = (interaction, type) =>
     })
     .setFooter({
       text:
-        type === "wyzwanie_muzyczne"
-          ? "Połamania klawiszy"
-          : "Połamania pióra!",
+        type === "music_challenge" ? "Połamania klawiszy" : "Połamania pióra!",
     });
 
 const setSelectedCategories = (interaction, type) => {
-  if (type === "wyzwanie_muzyczne")
+  if (type === "music_challenge")
     musicCategories.forEach((category) => {
       const selectedCategory = interaction.options.getString(category);
       if (selectedCategory === "true") selectedMusicCategories.push(category);
@@ -337,7 +339,7 @@ const main = async (interaction) => {
   if (!hasArgs(selectedCategories) && !hasArgs(selectedMusicCategories))
     return await interaction.editReply(noArgsMessage);
 
-  if (type === "wyzwanie_muzyczne") drawMusic(interaction);
+  if (type === "music_challenge") drawMusic(interaction);
   else draw(interaction);
 
   const saveDrawerResult = await saveDrawer(interaction, type);
