@@ -95,7 +95,7 @@ const slashCommands = [
         .addUserOption((option) =>
           option
             .setName("user")
-            .setNameLocalizations("użytkownik")
+            .setNameLocalizations({ pl: "użytkownik" })
             .setDescription("Select any user from the server.")
             .setDescriptionLocalizations({
               pl: "Wybierz dowolnego użytkownika z serwera.",
