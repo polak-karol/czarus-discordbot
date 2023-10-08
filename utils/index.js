@@ -276,6 +276,10 @@ const removeDiacritics = (str) => {
   return str;
 };
 
+const isLeapYear = (year) =>
+  (year % 4 === 0 && year % 100 !== 0) ||
+  (year % 100 === 0 && year % 400 === 0);
+
 const getGuildsSettings = async () => {
   const response = await fetch(`${process.env.API_URL}/guild-settings/list`, {
     method: "GET",
@@ -327,4 +331,5 @@ module.exports = {
   getGuildsSettings,
   getBirthdaysConfig,
   getHolidaysConfig,
+  isLeapYear,
 };

@@ -1,61 +1,40 @@
 const moment = require("moment-timezone");
-const fetch = require("node-fetch");
-const { getRandomInteger } = require("../../utils");
+const { getRandomInteger, isLeapYear } = require("../../utils");
 const { wishesSingular } = require("../../utils/jobs/birthdayUtils");
+const { agent } = require("../../api/agent");
 
 const saveBirthdayDate = async (interaction, birthday) => {
-  const response = await fetch(
-    `${process.env.API_URL}/birthday/${interaction.guildId}`,
-    {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-        "Bot-Authorization": `${process.env.BOT_AUTHORIZATION_TOKEN}`,
-      },
-      body: JSON.stringify({
-        date: birthday.toISOString(),
-        userId: interaction.user.id,
-        isAnonymous: !!interaction.options.getNumber("rok"),
-      }),
-    }
+  const body = {
+    date: birthday.toISOString(),
+    userId: interaction.user.id,
+    isAnonymous: !!interaction.options.getNumber("year"),
+  };
+
+  const response = await agent.Birthdays.updateBirthday(
+    interaction.guildId,
+    body
   );
+
+  return response;
 };
 
 const getUserBirthdays = async (interaction) => {
-  const response = await fetch(
-    `${process.env.API_URL}/birthday/${interaction.guildId}?user_id=${
-      interaction.options.getUser("uzytkownik").id
-    }`,
-    {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-        "Bot-Authorization": `${process.env.BOT_AUTHORIZATION_TOKEN}`,
-      },
-    }
+  const response = agent.Birthdays.getBirthday(
+    interaction.guildId,
+    interaction.options.getUser("user").id
   );
-  const responseBody = await response.json();
-  return responseBody.data.date;
+
+  return response.data.date;
 };
 
 const deleteBirthday = async (interaction) => {
-  const response = await fetch(
-    `${process.env.API_URL}/birthday/${interaction.guildId}?user_id=${interaction.user.id}`,
-    {
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json",
-        "Bot-Authorization": `${process.env.BOT_AUTHORIZATION_TOKEN}`,
-      },
-    }
+  const response = agent.Birthdays.deleteBirthday(
+    interaction.guildId,
+    interaction.user.id
   );
 
-  return true;
+  return response;
 };
-
-const isLeapYear = (year) =>
-  (year % 4 === 0 && year % 100 !== 0) ||
-  (year % 100 === 0 && year % 400 === 0);
 
 const getYear = (day, month, year) => {
   if (day === 29 && month === 2) return isLeapYear(year) ? year : 2020;
@@ -72,22 +51,22 @@ const handleRememberCommand = async (interaction) => {
     `${day}-${month}-${getYear(day, month, year)}`,
     "DD-MM-YYYY"
   );
+
   if (!birthday.isValid())
     return await interaction.editReply(
       "Przepraszam, ale ta data jest niepoprawna 🥺"
     );
+
   saveBirthdayDate(interaction, birthday);
 
   const nextBirthday = moment(birthday).set({
     year: moment().year(),
   });
 
-  if (nextBirthday.isSame(moment(), "day")) {
-    interaction.editReply(
+  if (nextBirthday.isSame(moment(), "day"))
+    return interaction.editReply(
       wishesSingular[getRandomInteger(0, wishesSingular.length)]
     );
-    return;
-  }
 
   if (nextBirthday.isBefore(moment(), "day"))
     nextBirthday.set({
@@ -104,6 +83,7 @@ const handleRememberCommand = async (interaction) => {
 
 const handleForgetCommand = async (interaction) => {
   const result = await deleteBirthday(interaction);
+
   return await interaction.editReply(
     result
       ? "Zapomniałem o Twoich urodzinach."
@@ -113,6 +93,7 @@ const handleForgetCommand = async (interaction) => {
 
 const handleWhenCommand = async (interaction) => {
   const userBirthday = await getUserBirthdays(interaction);
+
   if (userBirthday)
     return await interaction.editReply(
       `${interaction.user.username} ma urodziny ${moment(userBirthday)
