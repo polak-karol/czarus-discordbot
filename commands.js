@@ -29,53 +29,77 @@ const slashCommands = [
   //       )
   //   ),
   new SlashCommandBuilder()
-    .setName("urodziny")
-    .setDescription("Urodziny")
+    .setName("birthdays")
+    .setNameLocalizations({
+      pl: "urodziny",
+    })
+    .setDescription("Birthdays")
+    .setDescriptionLocalizations({ pl: "Urodziny" })
     .addSubcommand((subcommand) =>
       subcommand
-        .setName("zapamietaj")
+        .setName("remember")
+        .setNameLocalizations({ pl: "zapamiętaj" })
         .setDescription(
-          "Napisz Czarkowi, kiedy masz urodziny, żeby mógł złożyć Ci życzenia."
+          "Tell Czaruś when your birthday is so that he can wish you well."
         )
+        .setDescriptionLocalizations({
+          pl: "Napisz Czarkowi, kiedy masz urodziny, żeby mógł złożyć Ci życzenia.",
+        })
         .addNumberOption((option) =>
           option
-            .setName("dzien")
-            .setDescription("Dzień urodzin")
+            .setName("day")
+            .setNameLocalizations({ pl: "dzień" })
+            .setDescription("Day of birth.")
+            .setDescriptionLocalizations({ pl: "Dzień urodzin." })
             .setMinValue(1)
             .setMaxValue(31)
             .setRequired(true)
         )
         .addNumberOption((option) =>
           option
-            .setName("miesiac")
-            .setDescription("Miesiąc urodzin")
+            .setName("month")
+            .setNameLocalizations({ pl: "miesiąc" })
+            .setDescription("Month of birth.")
+            .setDescriptionLocalizations({ pl: "Miesiąc urodzin." })
             .setMinValue(1)
             .setMaxValue(12)
             .setRequired(true)
         )
         .addNumberOption((option) =>
           option
-            .setName("rok")
-            .setDescription("Miesiąc urodzin")
+            .setName("year")
+            .setNameLocalizations({ pl: "rok" })
+            .setDescription("Year of birth.")
+            .setDescriptionLocalizations({ pl: "Rok urodzin." })
             .setMinValue(new Date().getFullYear() - 150)
             .setMaxValue(new Date().getFullYear())
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
-        .setName("zapomnij")
-        .setDescription(
-          "Powiedz Czarusiowi, żeby zapomniał o Twoich urodzinach."
-        )
+        .setName("forget")
+        .setNameLocalizations({ pl: "zapomnij" })
+        .setDescription("Tell Czaruś to forget your birthday.")
+        .setDescriptionLocalizations({
+          pl: "Powiedz Czarusiowi, żeby zapomniał o Twoich urodzinach.",
+        })
     )
     .addSubcommand((subcommand) =>
       subcommand
-        .setName("kiedy")
-        .setDescription("Spytaj Czarusie kiedy są czyjeś urodziny")
+        .setName("when")
+        .setNameLocalizations({ pl: "kiedy" })
+        .setDescription("Ask Charles when someone's birthday is.")
+        .setDescriptionLocalizations({
+          pl: "Spytaj Czarusia kiedy są czyjeś urodziny.",
+        })
         .addUserOption((option) =>
           option
-            .setName("uzytkownik")
-            .setDescription("Dowolny użytkownik serwera.")
+            .setName("user")
+            .setNameLocalizations("użytkownik")
+            .setDescription("Select any user from the server.")
+            .setDescriptionLocalizations({
+              pl: "Wybierz dowolnego użytkownika z serwera.",
+            })
             .setRequired(true)
         )
     ),
