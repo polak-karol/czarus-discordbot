@@ -2,32 +2,6 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 
 const slashCommands = [
   new SlashCommandBuilder().setName("ping").setDescription("Ping pong!"),
-  // new SlashCommandBuilder()
-  //   .setName("walentynka")
-  //   .setDescription("Event walentynkowy.")
-  //   .addSubcommand((subcommand) =>
-  //     subcommand
-  //       .setName("wyslij")
-  //       .setDescription("Wyślij walentynkę.")
-  //       .addUserOption((option) =>
-  //         option
-  //           .setName("do")
-  //           .setDescription("Osoba do której chcesz wysłać walentynkę.")
-  //           .setRequired(true)
-  //       )
-  //       .addStringOption((option) =>
-  //         option
-  //           .setName("wiadomosc")
-  //           .setDescription("Treść walentynki")
-  //           .setRequired(true)
-  //       )
-  //       .addStringOption((option) =>
-  //         option.setName("tytul").setDescription("Tytul walentynki")
-  //       )
-  //       .addStringOption((option) =>
-  //         option.setName("podpis").setDescription("Podpis walentynki")
-  //       )
-  //   ),
   new SlashCommandBuilder()
     .setName("birthdays")
     .setNameLocalizations({
@@ -104,8 +78,10 @@ const slashCommands = [
         )
     ),
   new SlashCommandBuilder()
-    .setName("kaczka")
-    .setDescription("Kwa kwa! Z dedykacją dla Oliwii i Kraba."),
+    .setName("duck")
+    .setNameLocalizations({ pl: "kaczka" })
+    .setDescription("Quack quack!")
+    .setDescriptionLocalizations({ pl: "Kwa kwa!" }),
   new SlashCommandBuilder()
     .setName("ktowygra")
     .setDescription("BETA")
@@ -305,182 +281,254 @@ const slashCommands = [
         .setRequired(true)
     ),
   new SlashCommandBuilder()
-    .setName("losuj")
-    .setDescription("Wylosuj jakieś wyzwanie.")
+    .setName("draw")
+    .setNameLocalizations({ pl: "losuj" })
+    .setDescription("Draw a challenge.")
+    .setDescriptionLocalizations({ pl: "Wylosuj jakieś wyzwanie." })
     .addSubcommand((subcommand) =>
       subcommand
-        .setName("wyzwanie_muzyczne")
+        .setName("music_challenge")
+        .setNameLocalizations({ pl: "wyzwanie_muzyczne" })
         .setDescription("Losuje wybrane kategorie do wyzwania muzycznego.")
+        .setDescriptionLocalizations({
+          pl: "Losuje wybrane kategorie do wyzwania muzycznego.",
+        })
         .addStringOption((option) =>
           option
-            .setName("tempo")
-            .setDescription("Czy chcesz wylosować tempo?")
+            .setName("rate")
+            .setNameLocalizations({ pl: "tempo" })
+            .setDescription("Do you want to draw a pace?")
+            .setDescription({ pl: "Czy chcesz wylosować tempo?" })
             .addChoices(
-              { name: "Tak", value: "true" },
-              { name: "Nie", value: "false" }
+              {
+                name: "Yes",
+                name_localizations: { pl: "Tak" },
+                value: "true",
+              },
+              { name: "No", name_localizations: { pl: "Nie" }, value: "false" }
             )
         )
         .addStringOption((option) =>
           option
-            .setName("rytm")
+            .setName("rhythm")
+            .setNameLocalizations({ pl: "rytm" })
             .setDescription("Czy chcesz wylosować rytm utworu?")
+            .setDescription({ pl: "Czy chcesz wylosować rytm utworu?" })
             .addChoices(
-              { name: "Tak", value: "true" },
-              { name: "Nie", value: "false" }
+              { name: "Yes", name_localizations: { pl: "Tak" }, value: "true" },
+              { name: "No", name_localizations: { pl: "Nie" }, value: "false" }
             )
         )
         .addStringOption((option) =>
           option
-            .setName("tonacja")
-            .setDescription("Czy chcesz wylosować tonację przewodni?")
+            .setName("key")
+            .setNameLocalizations({ pl: "tonacja" })
+            .setDescription("Do you want to draw the main key?")
+            .setDescriptionLocalizations({
+              pl: "Czy chcesz wylosować tonację przewodnią?",
+            })
             .addChoices(
-              { name: "Tak", value: "true" },
-              { name: "Nie", value: "false" }
+              { name: "Yes", name_localizations: { pl: "Tak" }, value: "true" },
+              { name: "No", name_localizations: { pl: "Nie" }, value: "false" }
             )
         )
         .addStringOption((option) =>
           option
-            .setName("wymagany_klawisz")
-            .setDescription("Czy chcesz wylosować wymagany klawisz w utworze?")
+            .setName("required_key")
+            .setNameLocalizations({ pl: "wymagany_klawisz" })
+            .setDescription("Do you want to draw a required key in a song?")
+            .setDescriptionLocalizations({
+              pl: "Czy chcesz wylosować wymagany klawisz w utworze?",
+            })
             .addChoices(
-              { name: "Tak", value: "true" },
-              { name: "Nie", value: "false" }
+              { name: "Yes", name_localizations: { pl: "Tak" }, value: "true" },
+              { name: "No", name_localizations: { pl: "Nie" }, value: "false" }
             )
         )
         .addStringOption((option) =>
           option
-            .setName("zakazany_klawisz")
+            .setName("forbidden_key")
+            .setNameLocalizations({ pl: "zakazany_klawisz" })
             .setDescription(
-              "Czy chcesz wylosować klawisz, który nie może znaleźć się w utworze?"
+              "Do you want to draw a key that cannot be included in the song?"
             )
+            .setDescription({
+              pl: "Czy chcesz wylosować klawisz, który nie może znaleźć się w utworze?",
+            })
             .addChoices(
-              { name: "Tak", value: "true" },
-              { name: "Nie", value: "false" }
+              { name: "Yes", name_localizations: { pl: "Tak" }, value: "true" },
+              { name: "No", name_localizations: { pl: "Nie" }, value: "false" }
             )
         )
         .addStringOption((option) =>
           option
-            .setName("wymagany_instrument")
+            .setName("required_instrument")
+            .setNameLocalizations({ pl: "wymagany_instrument" })
             .setDescription(
-              "Czy chcesz wylosować instrument, które musi zostać użyty?"
+              "Do you want to draw an instrument that must be used?"
             )
+            .setDescriptionLocalizations({
+              pl: "Czy chcesz wylosować instrument, które musi zostać użyty?",
+            })
             .addChoices(
-              { name: "Tak", value: "true" },
-              { name: "Nie", value: "false" }
+              { name: "Yes", name_localizations: { pl: "Tak" }, value: "true" },
+              { name: "No", name_localizations: { pl: "Nie" }, value: "false" }
             )
         )
         .addStringOption((option) =>
           option
-            .setName("zakazany_instrument")
+            .setName("forbidden_instrument")
+            .setNameLocalizations({ pl: "zakazany_instrument" })
             .setDescription(
-              "Czy chcesz wylosować zakazany instrument do utworu?"
+              "Do you want to draw a forbidden instrument for the song?"
             )
+            .setDescriptionLocalizations({
+              pl: "Czy chcesz wylosować zakazany instrument do utworu?",
+            })
             .addChoices(
-              { name: "Tak", value: "true" },
-              { name: "Nie", value: "false" }
-            )
-        )
-        .addStringOption((option) =>
-          option
-            .setName("gatunek")
-            .setDescription("Czy chcesz wylosować gatunek?")
-            .addChoices(
-              { name: "Tak", value: "true" },
-              { name: "Nie", value: "false" }
+              { name: "Yes", name_localizations: { pl: "Tak" }, value: "true" },
+              { name: "No", name_localizations: { pl: "Nie" }, value: "false" }
             )
         )
         .addStringOption((option) =>
           option
-            .setName("nastroj")
-            .setDescription("Czy chcesz wylosować nastrój?")
+            .setName("genre")
+            .setNameLocalizations({ pl: "gatunek" })
+            .setDescription("Do you want to draw a genre?")
+            .setDescriptionLocalizations({
+              pl: "Czy chcesz wylosować gatunek?",
+            })
             .addChoices(
-              { name: "Tak", value: "true" },
-              { name: "Nie", value: "false" }
+              { name: "Yes", name_localizations: { pl: "Tak" }, value: "true" },
+              { name: "No", name_localizations: { pl: "Nie" }, value: "false" }
+            )
+        )
+        .addStringOption((option) =>
+          option
+            .setName("mood")
+            .setNameLocalizations({ pl: "nastrój" })
+            .setDescription("Do you want to draw a mood?")
+            .setDescriptionLocalizations({
+              pl: "Czy chcesz wylosować nastrój?",
+            })
+            .addChoices(
+              { name: "Yes", name_localizations: { pl: "Tak" }, value: "true" },
+              { name: "No", name_localizations: { pl: "Nie" }, value: "false" }
             )
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
-        .setName("wyzwanie_pisarskie")
-        .setDescription("Losuje wybrane kategorie do wyzwania pisarskiego.")
+        .setName("writing_challenges")
+        .setNameLocalizations({ pl: "wyzwanie_pisarskie" })
+        .setDescription("Draw categories for the writing challenge.")
+        .setDescriptionLocalizations({
+          pl: "Losuj wybrane kategorie do wyzwania pisarskiego.",
+        })
         .addStringOption((option) =>
           option
-            .setName("gatunek")
-            .setDescription("Czy chcesz wylosować gatunek pracy?")
-            .addChoices(
-              { name: "Tak", value: "true" },
-              { name: "Nie", value: "false" }
-            )
-        )
-        .addStringOption((option) =>
-          option
-            .setName("narracja")
-            .setDescription("Czy chcesz wylosować narrację utworu?")
-            .addChoices(
-              { name: "Tak", value: "true" },
-              { name: "Nie", value: "false" }
-            )
-        )
-        .addStringOption((option) =>
-          option
-            .setName("temat")
-            .setDescription("Czy chcesz wylosować temat przewodni?")
-            .addChoices(
-              { name: "Tak", value: "true" },
-              { name: "Nie", value: "false" }
-            )
-        )
-        .addStringOption((option) =>
-          option
-            .setName("zakres_slow")
+            .setName("genre")
+            .setNameLocalizations({ pl: "gatunek" })
             .setDescription(
-              "Czy chcesz wylosować wymagany zakres słów w utworze?"
+              "Would you like to draw a species for the challenge?"
             )
+            .setDescriptionLocalizations({
+              pl: "Czy chcesz wylosować gatunek do wyzwania?",
+            })
             .addChoices(
-              { name: "Tak", value: "true" },
-              { name: "Nie", value: "false" }
+              { name: "Yes", name_localizations: { pl: "Tak" }, value: "true" },
+              { name: "No", name_localizations: { pl: "Nie" }, value: "false" }
             )
         )
         .addStringOption((option) =>
           option
-            .setName("wymagane_slowo")
-            .setDescription(
-              "Czy chcesz wylosować słowo, które musi znaleźć się w utworze?"
-            )
+            .setName("narration")
+            .setNameLocalizations({ pl: "narracja" })
+            .setDescription("Do you want to draw a narration?")
+            .setDescriptionLocalizations({
+              pl: "Czy chcesz wylosować narrację?",
+            })
             .addChoices(
-              { name: "Tak", value: "true" },
-              { name: "Nie", value: "false" }
+              { name: "Yes", name_localizations: { pl: "Tak" }, value: "true" },
+              { name: "No", name_localizations: { pl: "Nie" }, value: "false" }
             )
         )
         .addStringOption((option) =>
           option
-            .setName("zabronione_slowo")
-            .setDescription(
-              "Czy chcesz wylosować słowo, które nie może zostać użyte w pracy?"
-            )
+            .setName("theme")
+            .setNameLocalizations({ pl: "temat" })
+            .setDescription("Do you want to draw a theme?")
+            .setDescriptionLocalizations({
+              pl: "Czy chcesz wylosować temat przewodni?",
+            })
             .addChoices(
-              { name: "Tak", value: "true" },
-              { name: "Nie", value: "false" }
+              { name: "Yes", name_localizations: { pl: "Tak" }, value: "true" },
+              { name: "No", name_localizations: { pl: "Nie" }, value: "false" }
             )
         )
         .addStringOption((option) =>
           option
-            .setName("postac")
-            .setDescription("Czy chcesz wylosować postać do utworu?")
+            .setName("words_range")
+            .setNameLocalizations({ pl: "zakres_słów" })
+            .setDescription("Do you want to draw a required range of words?")
+            .setDescriptionLocalizations({
+              pl: "Czy chcesz wylosować wymagany zakres słów?",
+            })
             .addChoices(
-              { name: "Tak", value: "true" },
-              { name: "Nie", value: "false" }
+              { name: "Yes", name_localizations: { pl: "Tak" }, value: "true" },
+              { name: "No", name_localizations: { pl: "Nie" }, value: "false" }
             )
         )
         .addStringOption((option) =>
           option
-            .setName("miejsce")
-            .setDescription(
-              "Czy chcesz wylosować miejsce rozgrywania się akcji?"
-            )
+            .setName("required_word")
+            .setNameLocalizations({ pl: "wymagane_słowo" })
+            .setDescription("Do you want to draw a required word?")
+            .setDescriptionLocalizations({
+              pl: "Czy chcesz wylosować wymagane słowo?",
+            })
             .addChoices(
-              { name: "Tak", value: "true" },
-              { name: "Nie", value: "false" }
+              { name: "Yes", name_localizations: { pl: "Tak" }, value: "true" },
+              { name: "No", name_localizations: { pl: "Nie" }, value: "false" }
+            )
+        )
+        .addStringOption((option) =>
+          option
+            .setName("forbidden_word")
+            .setNameLocalizations({ pl: "zabronione_słowo" })
+            .setDescription("Do you want to draw a forbidden word?")
+            .setDescriptionLocalizations({
+              pl: "Czy chcesz wylosować zakazane słowo?",
+            })
+            .addChoices(
+              { name: "Yes", name_localizations: { pl: "Tak" }, value: "true" },
+              { name: "No", name_localizations: { pl: "Nie" }, value: "false" }
+            )
+        )
+        .addStringOption((option) =>
+          option
+            .setName("character")
+            .setNameLocalizations({ pl: "postać" })
+            .setDescription("Would you like to draw a character?")
+            .setDescriptionLocalizations({
+              pl: "Czy chcesz wylosować postać?",
+            })
+            .addChoices(
+              { name: "Yes", name_localizations: { pl: "Tak" }, value: "true" },
+              { name: "No", name_localizations: { pl: "Nie" }, value: "false" }
+            )
+        )
+        .addStringOption((option) =>
+          option
+            .setName("place")
+            .setNameLocalizations({ pl: "miejsce" })
+            .setDescription("Do you want to draw where the action takes place?")
+            .setDescriptionLocalizations({
+              pl: "Czy chcesz wylosować miejsce rozgrywania się akcji?",
+            })
+            .addChoices(
+              { name: "Yes", name_localizations: { pl: "Tak" }, value: "true" },
+              { name: "No", name_localizations: { pl: "Nie" }, value: "false" }
             )
         )
     ),
