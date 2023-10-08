@@ -17,7 +17,7 @@ const main = async (message, args) => {
 
   if (!answers?.length) return message.reply("Nie wiem co odpowiedzieć. :(");
 
-  message.reply(answers[getRandomInteger(0, answers.length)]);
+  return message.reply(answers[getRandomInteger(0, answers.length)]);
 };
 
 module.exports = {

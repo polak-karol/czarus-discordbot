@@ -4,9 +4,9 @@ const main = async (message, args) => {
   if (message.author.id === "277901799833206785")
     return message.reply("Przepraszam, mistrzu :(");
 
-  if (getRandomInteger(0, 2) === 1) return message.reply("Nie.");
-
-  return message.reply("Mówię to z trudem... Przepraszam 😣");
+  return getRandomInteger(0, 2) === 1
+    ? message.reply("Nie.")
+    : message.reply("Mówię to z trudem... Przepraszam 😣");
 };
 
 module.exports = {

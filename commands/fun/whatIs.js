@@ -11,6 +11,7 @@ const getHelpEmbed = () =>
 
 const main = async (message, args) => {
   const [firstArg, ...restArgs] = args;
+
   if (firstArg !== "jest") return message.reply("Czym co?");
   if (!hasArgs(restArgs)) return message.reply("Czym jest co?");
   if (isHelpArg(args)) return message.reply({ embeds: [getHelpEmbed()] });
@@ -19,7 +20,7 @@ const main = async (message, args) => {
 
   if (!answers?.length) return message.reply("Nie wiem co odpowiedzieć. :(");
 
-  message.reply(answers[getRandomInteger(0, answers.length)]);
+  return message.reply(answers[getRandomInteger(0, answers.length)]);
 };
 
 module.exports = {

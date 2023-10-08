@@ -19,7 +19,9 @@ const isThinkQuestion = (args) =>
 
 const handleThinkQuestion = async (message, args) => {
   const [, , ...restArgs] = args;
+
   if (!hasArgs(restArgs)) return message.reply("Co myślę o?");
+
   if (isHelpArg(restArgs)) return message.reply({ embeds: [getHelpEmbed()] });
 
   const answers = await getAnswers("whatDoYouThinkAnswers", message.guildId);
@@ -30,7 +32,8 @@ const handleThinkQuestion = async (message, args) => {
 };
 
 const isJudgeQuestion = (args) =>
-  removeDiacritics(args[0]) === "sadzisz" && removeDiacritics(args[1]) === "o";
+  removeDiacritics(args[0]).toLowerCase() === "sadzisz" &&
+  removeDiacritics(args[1]).toLowerCase() === "o";
 
 const isLlamaQuestion = (args) =>
   removeDiacritics(args[0]) === "mowi" &&
@@ -48,7 +51,7 @@ const main = async (message, args) => {
 
   if (!answers?.length) return message.reply("Nie wiem co odpowiedzieć. :(");
 
-  message.reply(answers[getRandomInteger(0, answers.length)]);
+  return message.reply(answers[getRandomInteger(0, answers.length)]);
 };
 
 module.exports = {

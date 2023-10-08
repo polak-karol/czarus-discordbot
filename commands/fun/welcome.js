@@ -1,5 +1,5 @@
 const main = async (message, args) => {
-  message.reply("No witaj.");
+  return message.reply("No witaj.");
 };
 
 module.exports = {
