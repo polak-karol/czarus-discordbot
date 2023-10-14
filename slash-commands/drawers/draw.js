@@ -9,6 +9,7 @@ const {
   capitalizeFirstLetter,
 } = require("../../utils");
 const { drawHelpMessage } = require("../../utils/commands/funUtils");
+const { agent } = require("../../api/agent");
 
 const result = [];
 
@@ -32,26 +33,26 @@ const embedColors = {
 };
 
 const categories = [
-  "temat",
-  "narracja",
-  "wymagane_slowo",
-  "zabronione_slowo",
-  "gatunek",
-  "zakres_slow",
-  "postac",
-  "miejsce",
+  "theme",
+  "narration",
+  "required_word",
+  "forbidden_word",
+  "genre",
+  "words_range",
+  "character",
+  "place",
 ];
 
 const musicCategories = [
-  "tempo",
-  "rytm",
-  "tonacja",
-  "wymagany_klawisz",
-  "zakazany_klawisz",
-  "gatunek",
-  "wymagany_instrument",
-  "zakazany_instrument",
-  "nastroj",
+  "rate",
+  "rhythm",
+  "key",
+  "required_key",
+  "forbidden_key",
+  "genre",
+  "required_instrument",
+  "forbidden_instrument",
+  "mood",
 ];
 
 const selectedCategories = [];
@@ -63,27 +64,15 @@ const setResult = (name, value, inline = true) => {
 };
 
 const getDrawConfig = async (interaction) => {
-  const response = await fetch(
-    `${process.env.API_URL}/draw-config/${interaction.guildId}`,
-    {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-        "Bot-Authorization": `${process.env.BOT_AUTHORIZATION_TOKEN}`,
-      },
-    }
-  );
-  const responseBody = await response.json();
-
+  const responseBody = await agent.Draws.getDrawConfigs(interaction.guildId);
+  console.log(responseBody);
   return responseBody.data;
 };
 
-const setFieldSpacing = (direction) => {
-  if (direction === "bottom")
-    return result.push({ name: "\u200B", value: "\u200B" });
-
-  return result.unshift({ name: "\u200B", value: "\u200B" });
-};
+const setFieldSpacing = (direction) =>
+  direction === "bottom"
+    ? result.push({ name: "\u200B", value: "\u200B" })
+    : result.unshift({ name: "\u200B", value: "\u200B" });
 
 const draw = async (interaction) => {
   result.length = 0;
@@ -278,23 +267,15 @@ const drawMusic = async (interaction) => {
 };
 
 const saveDrawer = async (interaction, type) => {
-  const response = await fetch(
-    `${process.env.API_URL}/drawer/${interaction.guildId}`,
-    {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-        "Bot-Authorization": `${process.env.BOT_AUTHORIZATION_TOKEN}`,
-      },
-      body: JSON.stringify({
-        userId: interaction.user.id,
-        drawType: drawerTypes[type],
-      }),
-    }
+  const body = {
+    userId: interaction.user.id,
+    drawType: drawerTypes[type],
+  };
+  const responseBody = await agent.Drawers.updateDrawer(
+    interaction.guildId,
+    body
   );
-  const responseBody = await response.json();
-
-  if ("lastVoteDate" in responseBody) return responseBody;
+  console.log(responseBody);
 
   return responseBody;
 };
@@ -334,10 +315,10 @@ const main = async (interaction) => {
     return await interaction.editReply(
       "Musisz wybrać typ wyzwania którego chcesz losować."
     );
-
-  setSelectedCategories(interaction, type);
   if (!hasArgs(selectedCategories) && !hasArgs(selectedMusicCategories))
     return await interaction.editReply(noArgsMessage);
+
+  setSelectedCategories(interaction, type);
 
   if (type === "music_challenge") drawMusic(interaction);
   else draw(interaction);
@@ -362,7 +343,7 @@ const main = async (interaction) => {
 };
 
 module.exports = {
-  name: "losuj",
+  name: "draw",
   description: drawHelpMessage,
   execute: (interaction) => main(interaction),
 };

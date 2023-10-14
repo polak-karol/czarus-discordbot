@@ -76,6 +76,10 @@ const Draws = {
     requests.put(`/draw-config/${guildId}`, body),
 };
 
+const Drawers = {
+  updateDrawer: (guildId, body) => requests.put(`/drawer/${guildId}`, body),
+};
+
 const User = {
   sendDiscordCode: (body) => requests.post("/discord-login", body),
   getCurrentUser: () => requests.get("/user"),
@@ -93,6 +97,8 @@ const GuildSettings = {
 
 const agent = {
   Birthdays,
+  Draws,
+  Drawers,
 };
 
 module.exports = { agent };
