@@ -1,6 +1,6 @@
 module.exports = {
-  name: "ping",
+  name: 'ping',
   execute: async (interaction) => {
-    await interaction.reply("Pong!");
+    await interaction.reply('Pong!')
   },
-};
+}

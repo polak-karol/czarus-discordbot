@@ -1,22 +1,22 @@
 module.exports = {
-  name: "interactionCreate",
+  name: 'interactionCreate',
   async execute(interaction, client) {
-    if (!interaction.isCommand()) return;
+    if (!interaction.isCommand()) return
 
-    const { commandName } = interaction;
+    const { commandName } = interaction
 
-    if (!client.slashCommands.has(commandName)) return;
+    if (!client.slashCommands.has(commandName)) return
 
-    const slashCommand = client.slashCommands.get(commandName);
+    const slashCommand = client.slashCommands.get(commandName)
 
     try {
-      await slashCommand.execute(interaction, client);
+      await slashCommand.execute(interaction, client)
     } catch (error) {
-      console.error(error);
+      console.error(error)
       await interaction.reply({
-        content: "Daj mi chwilkę... trochę się zmęczyłem.",
+        content: 'Daj mi chwilkę... trochę się zmęczyłem.',
         ephemeral: true,
-      });
+      })
     }
   },
-};
+}

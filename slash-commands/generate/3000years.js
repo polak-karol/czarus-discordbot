@@ -1,28 +1,28 @@
-const fetch = require("node-fetch");
+const fetch = require('node-fetch')
 
 module.exports = {
-  name: "3000years",
+  name: '3000years',
   execute: async (interaction) => {
-    await interaction.deferReply();
+    await interaction.deferReply()
     const body = {
-      url: interaction.options.getUser("uzytkownik").avatarURL(),
-    };
+      url: interaction.options.getUser('uzytkownik').avatarURL(),
+    }
 
     try {
       const response = await fetch(`${process.env.AMETHYSTE_URL}/3000years`, {
-        method: "POST",
+        method: 'POST',
         headers: {
           authorization: `Bearer ${process.env.AMETHYSTE_TOKEN}`,
-          "content-type": "application/json",
+          'content-type': 'application/json',
         },
         body: JSON.stringify(body),
-      });
-      const imageBlob = await response.arrayBuffer();
+      })
+      const imageBlob = await response.arrayBuffer()
       return await interaction.editReply({
         files: [{ attachment: Buffer.from(imageBlob) }],
-      });
+      })
     } catch (error) {
-      return await interaction.editReply(errorCommandMessage);
+      return await interaction.editReply(errorCommandMessage)
     }
   },
-};
+}

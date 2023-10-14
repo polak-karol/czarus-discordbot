@@ -1,29 +1,29 @@
-const { removeDiacritics } = require("../utils/index");
+const { removeDiacritics } = require('../utils/index')
 
-const PREFIX = "!";
+const PREFIX = '!'
 
 module.exports = {
-  name: "messageCreate",
+  name: 'messageCreate',
   async execute(message, client) {
-    const { member, guild, channel, content } = message;
+    const { member, guild, channel, content } = message
 
-    if (!content.toLowerCase().startsWith(PREFIX) || message.author.bot) return;
+    if (!content.toLowerCase().startsWith(PREFIX) || message.author.bot) return
 
-    const args = content.slice(PREFIX.length).trim().split(/ +/);
-    const commandName = removeDiacritics(args.shift().toLowerCase());
+    const args = content.slice(PREFIX.length).trim().split(/ +/)
+    const commandName = removeDiacritics(args.shift().toLowerCase())
 
-    if (!client.commands.has(commandName)) return;
+    if (!client.commands.has(commandName)) return
 
-    const command = client.commands.get(commandName);
+    const command = client.commands.get(commandName)
 
     try {
-      await command.execute(message, args);
+      await command.execute(message, args)
     } catch (error) {
-      console.error(error);
+      console.error(error)
       await message.reply({
-        content: "Daj mi chwilkę... trochę się zmęczyłem.",
+        content: 'Daj mi chwilkę... trochę się zmęczyłem.',
         ephemeral: true,
-      });
+      })
     }
   },
-};
+}
