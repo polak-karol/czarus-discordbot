@@ -1,11 +1,11 @@
 const { EmbedBuilder } = require('discord.js')
 const moment = require('moment')
+const _ = require('lodash')
 const {
   hasArgs,
   noArgsMessage,
   getRandomInteger,
   convertArgName,
-  removeDiacritics,
   capitalizeFirstLetter,
 } = require('../../utils')
 const { drawHelpMessage } = require('../../utils/commands/funUtils')
@@ -35,35 +35,12 @@ const embedColors = {
   10: '#fa0000',
 }
 
-// const categories = [
-//   "theme",
-//   "narration",
-//   "required_word",
-//   "forbidden_word",
-//   "genre",
-//   "words_range",
-//   "character",
-//   "place",
-// ];
-
-// const musicCategories = [
-//   "rate",
-//   "rhythm",
-//   "key",
-//   "required_key",
-//   "forbidden_key",
-//   "genre",
-//   "required_instrument",
-//   "forbidden_instrument",
-//   "mood",
-// ];
-
 const setResult = (name, value, inline = true) =>
   result.push({ name: convertArgName(name), value, inline })
 
 const getDrawConfig = async (interaction) => {
   const responseBody = await agent.Draws.getDrawConfigs(interaction.guildId)
-  console.log(responseBody)
+
   return responseBody.data
 }
 
@@ -72,165 +49,41 @@ const setFieldSpacing = (direction) =>
     ? result.push({ name: '\u200B', value: '\u200B' })
     : result.unshift({ name: '\u200B', value: '\u200B' })
 
-const draw = async (interaction) => {
+const drawWriting = async () => {
   result.length = 0
 
   const { writingConfig } = drawConfig
-
   selectedCategories.forEach((selectedCategory) => {
-    switch (removeDiacritics(selectedCategory.toLowerCase())) {
-      case 'theme':
-        setResult(
-          selectedCategory,
-          capitalizeFirstLetter(
-            writingConfig.theme[getRandomInteger(0, writingConfig.theme?.length)],
-          ),
-        )
-        break
-      case 'narration':
-        setResult(
-          selectedCategory,
-          capitalizeFirstLetter(
-            writingConfig.narration[getRandomInteger(0, writingConfig.narration?.length)],
-          ),
-        )
-        break
-      case 'required_word':
-        setResult(
-          selectedCategory,
-          capitalizeFirstLetter(
-            writingConfig.requiredWord[getRandomInteger(0, writingConfig.requiredWord?.length)],
-          ),
-        )
-        break
-      case 'forbidden_word':
-        setResult(
-          selectedCategory,
-          capitalizeFirstLetter(
-            writingConfig.forbiddenWord[getRandomInteger(0, writingConfig.forbiddenWord?.length)],
-          ),
-        )
-        break
-      case 'genre':
-        setResult(
-          selectedCategory,
-          capitalizeFirstLetter(
-            writingConfig.genre[getRandomInteger(0, writingConfig.genre?.length)],
-          ),
-        )
-        break
-      case 'words_range':
-        setResult(
-          selectedCategory,
-          capitalizeFirstLetter(
-            writingConfig.wordsRange[getRandomInteger(0, writingConfig.wordsRange?.length)],
-          ),
-        )
-        break
-      case 'character':
-        setResult(
-          selectedCategory,
-          capitalizeFirstLetter(
-            writingConfig.character[getRandomInteger(0, writingConfig.character?.length)],
-          ),
-        )
-        break
-      case 'place':
-        setResult(
-          selectedCategory,
-          capitalizeFirstLetter(
-            writingConfig.place[getRandomInteger(0, writingConfig.place?.length)],
-          ),
-        )
-        break
-      default:
-        break
-    }
+    const formatedSelectedCategory = selectedCategory.toLowerCase()
+
+    setResult(
+      selectedCategory,
+      capitalizeFirstLetter(
+        writingConfig[formatedSelectedCategory][
+          getRandomInteger(0, writingConfig[formatedSelectedCategory]?.length)
+        ],
+      ),
+    )
   })
 
   selectedCategories.length = 0
 }
 
-const drawMusic = async (interaction) => {
+const drawMusic = async () => {
   result.length = 0
 
   const { musicConfig } = drawConfig
 
   selectedMusicCategories.forEach((selectedCategory) => {
-    switch (removeDiacritics(selectedCategory.toLowerCase())) {
-      case 'rate':
-        setResult(
-          selectedCategory,
-          capitalizeFirstLetter(musicConfig.rate[getRandomInteger(0, musicConfig.rate?.length)]),
-        )
-        break
-      case 'rhythm':
-        setResult(
-          selectedCategory,
-          capitalizeFirstLetter(
-            musicConfig.rhythm[getRandomInteger(0, musicConfig.rhythm?.length)],
-          ),
-        )
-        break
-      case 'key':
-        setResult(
-          selectedCategory,
-          capitalizeFirstLetter(musicConfig.key[getRandomInteger(0, musicConfig.key?.length)]),
-        )
-        break
-      case 'required_key':
-        setResult(
-          selectedCategory,
-          capitalizeFirstLetter(
-            musicConfig.requiredKey[getRandomInteger(0, musicConfig.requiredKey?.length)],
-          ),
-        )
-        break
-      case 'forbidden_key':
-        setResult(
-          selectedCategory,
-          capitalizeFirstLetter(
-            musicConfig.forbiddenKey[getRandomInteger(0, musicConfig.forbiddenKey?.length)],
-          ),
-        )
-        break
-      case 'genre':
-        setResult(
-          selectedCategory,
-          capitalizeFirstLetter(
-            musicConfig.musicGenre[getRandomInteger(0, musicConfig.musicGenre?.length)],
-          ),
-        )
-        break
-      case 'required_instrument':
-        setResult(
-          selectedCategory,
-          capitalizeFirstLetter(
-            musicConfig.requiredInstrument[
-              getRandomInteger(0, musicConfig.requiredInstrument?.length)
-            ],
-          ),
-        )
-        break
-      case 'forbidden_instrument':
-        setResult(
-          selectedCategory,
-          capitalizeFirstLetter(
-            musicConfig.forbiddenInstrument[
-              getRandomInteger(0, musicConfig.forbiddenInstrument?.length)
-            ],
-          ),
-        )
-        break
-      case 'mood':
-        setResult(
-          selectedCategory,
-          capitalizeFirstLetter(musicConfig.mood[getRandomInteger(0, musicConfig.mood?.length)]),
-        )
-        break
-      default:
-        break
-    }
+    const formatedSelectedCategory = selectedCategory.toLowerCase()
+    setResult(
+      selectedCategory,
+      capitalizeFirstLetter(
+        musicConfig[formatedSelectedCategory][
+          getRandomInteger(0, musicConfig[formatedSelectedCategory]?.length)
+        ],
+      ),
+    )
   })
 
   selectedMusicCategories.length = 0
@@ -242,7 +95,6 @@ const saveDrawer = async (interaction, type) => {
     drawType: drawerTypes[type],
   }
   const responseBody = await agent.Drawers.updateDrawer(interaction.guildId, body)
-  console.log(responseBody)
 
   return responseBody
 }
@@ -267,17 +119,23 @@ const setSelectedCategories = (interaction, type) => {
       if (selectedCategory === 'true') selectedMusicCategories.push(category)
     })
   else
-    categories.forEach((category) => {
+    writingCategories.forEach((category) => {
       const selectedCategory = interaction.options.getString(category)
       if (selectedCategory === 'true') selectedCategories.push(category)
     })
 }
 
-const handleDrawConfig = async () => {
+const handleDrawConfig = async (interaction) => {
   drawConfig = await getDrawConfig(interaction)
 
-  writingCategories = Object.keys(drawConfig.writingConfig)
-  musicConfig = Object.keys(drawConfig.musicConfig)
+  writingCategories = Object.entries(drawConfig.writingConfig)
+    .filter(([, value]) => !_.isEmpty(value))
+    .map(([key]) => key)
+  musicConfig = Object.entries(drawConfig.musicConfig)
+    .filter(([, value]) => !_.isEmpty(value))
+    .map(([key]) => key)
+
+  return true
 }
 
 const main = async (interaction) => {
@@ -287,16 +145,14 @@ const main = async (interaction) => {
   if (!type)
     return await interaction.editReply('Musisz wybrać typ wyzwania którego chcesz losować.')
 
-  drawConfig = await getDrawConfig(interaction)
+  const handleDrawConfigResult = await handleDrawConfig(interaction)
 
-  console.log(drawConfig)
-  return
+  setSelectedCategories(interaction, type)
   if (!hasArgs(selectedCategories) && !hasArgs(selectedMusicCategories))
     return await interaction.editReply(noArgsMessage)
-  setSelectedCategories(interaction, type)
 
-  if (type === 'music_challenge') drawMusic(interaction)
-  else draw(interaction)
+  if (type === 'music_challenge') drawMusic()
+  else drawWriting()
 
   const saveDrawerResult = await saveDrawer(interaction, type)
 
