@@ -1,17 +1,17 @@
 import { EmbedBuilder } from '@discordjs/builders'
-import { getRandomInteger, hasArgs, isHelpArg } from '../../utils'
-import { getAnswers } from '../../utils/commands/funUtils'
+import { getRandomInteger, hasArgs, isHelpArg } from '../../../utils/index.js'
+import { getAnswers } from '../../../utils/commands/funUtils.js'
 
 const getHelpEmbed = () =>
   new EmbedBuilder()
-    .setTitle('!kto')
-    .setDescription('Zapytaj mnie kto...? \n Przykład: `!kto Cię stworzył?`')
+    .setTitle('!jak')
+    .setDescription('Zapytaj mnie jak...? \n Przykład: `!jak to robisz?`')
 
 const main = async (message, args) => {
-  if (!hasArgs(args)) return message.reply('kto co?')
+  if (!hasArgs(args)) return message.reply('Jak co?')
   if (isHelpArg(args)) return message.reply({ embeds: [getHelpEmbed()] })
 
-  const answers = await getAnswers('whoAnswers', message.guildId)
+  const answers = await getAnswers('howAnswers', message.guildId)
 
   if (!answers?.length) return message.reply('Nie wiem co odpowiedzieć. :(')
 
@@ -19,8 +19,8 @@ const main = async (message, args) => {
 }
 
 export default {
-  name: 'kto',
-  description: 'Zapytaj mnie kto...?',
-  usage: '!kto',
+  name: 'jak',
+  description: 'Zapytaj mnie jak...?',
+  usage: '!jak',
   execute: (message, args) => main(message, args),
 }

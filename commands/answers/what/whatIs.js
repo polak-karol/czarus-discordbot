@@ -1,6 +1,6 @@
 import { EmbedBuilder } from '@discordjs/builders'
-import { getRandomInteger, hasArgs, isHelpArg } from '../../utils'
-import { getAnswers } from '../../utils/commands/funUtils'
+import { getRandomInteger, hasArgs, isHelpArg } from '../../../utils/index.js'
+import { getAnswers } from '../../../utils/commands/funUtils.js'
 
 const getHelpEmbed = () =>
   new EmbedBuilder()

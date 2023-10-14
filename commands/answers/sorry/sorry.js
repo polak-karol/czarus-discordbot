@@ -1,4 +1,4 @@
-import { getRandomInteger } from '../../utils'
+import { getRandomInteger } from '../../../utils/index.js'
 
 const main = async (message, args) => {
   if (message.author.id === '277901799833206785') return message.reply('Przepraszam, mistrzu :(')
