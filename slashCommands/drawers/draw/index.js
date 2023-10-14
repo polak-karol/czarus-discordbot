@@ -7,9 +7,9 @@ import {
   getRandomInteger,
   convertArgName,
   capitalizeFirstLetter,
-} from '../../utils'
-import { drawHelpMessage } from '../../utils/commands/funUtils'
-import { agent } from '../../api/agent'
+} from '../../../utils'
+import { drawHelpMessage } from '../../../utils/commands/funUtils'
+import { agent } from '../../../api/agent'
 
 const result = []
 const selectedCategories = []

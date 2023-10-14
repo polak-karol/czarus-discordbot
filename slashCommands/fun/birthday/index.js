@@ -1,7 +1,7 @@
 import moment from 'moment-timezone'
-import { getRandomInteger, isLeapYear } from '../../utils'
-import { wishesSingular } from '../../utils/jobs/birthdayUtils'
-import { agent } from '../../api/agent'
+import { getRandomInteger, isLeapYear } from '../../../utils'
+import { wishesSingular } from '../../../utils/jobs/birthdayUtils'
+import { agent } from '../../../api/agent'
 
 const saveBirthdayDate = async (interaction, birthday) => {
   const body = {

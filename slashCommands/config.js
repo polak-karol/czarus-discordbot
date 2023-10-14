@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders'
 
-const slashCommands = [
+const config = [
   new SlashCommandBuilder().setName('ping').setDescription('Ping pong!'),
   new SlashCommandBuilder()
     .setName('birthdays')
@@ -457,4 +457,4 @@ const slashCommands = [
     ),
 ].map((command) => command.toJSON())
 
-export default slashCommands
+export default config

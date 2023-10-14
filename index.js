@@ -1,7 +1,8 @@
 import { Client, GatewayIntentBits, Collection, REST, Routes } from 'discord.js'
 import fs from 'fs'
-import slashCommands from './commands.js'
 import dotenv from 'dotenv'
+import slashCommandsConfig from './slashCommands/config.js'
+import slashCommands from './slashCommands/index.js'
 
 dotenv.config()
 
@@ -23,17 +24,17 @@ const rest = new REST({ version: 10 }).setToken(process.env.CLIENT_TOKEN)
 
 ;(async () => {
   try {
-    console.log(`Started refreshing ${slashCommands.length} application (/) commands.`)
+    console.log(`Started refreshing ${slashCommandsConfig.length} application (/) commands.`)
 
     let data
     if (process.env.ENVIRONMENT === 'production')
       data = await rest.put(Routes.applicationCommands(process.env.BOT_ID), {
-        body: slashCommands,
+        body: slashCommandsConfig,
       })
     else
       data = await rest.put(
         Routes.applicationGuildCommands(process.env.BOT_ID, process.env.GUILD_ID),
-        { body: slashCommands },
+        { body: slashCommandsConfig },
       )
 
     console.log(`Successfully reloaded ${data.length} application (/) commands.`)
@@ -43,31 +44,25 @@ const rest = new REST({ version: 10 }).setToken(process.env.CLIENT_TOKEN)
 })()
 
 client.slashCommands = new Collection()
-const slashCommandsFolders = fs.readdirSync('./slash-commands')
 
-slashCommandsFolders.forEach((folder) => {
-  const slashCommandFiles = fs
-    .readdirSync(`./slash-commands/${folder}`)
-    .filter((file) => file.endsWith('.js'))
 
-  slashCommandFiles.forEach((file) => {
-    import command from `./slash-commands/${folder}/${file}`
-    client.slashCommands.set(command.name, command)
-  })
-})
+slashCommands.forEach((slashCommand) => 
+  client.slashCommands.set(slashCommand.name, slashCommand)
+)
 
-client.commands = new Collection()
-const commandFolders = fs.readdirSync('./commands')
 
-commandFolders.forEach((folder) => {
-  const commandFiles = fs.readdirSync(`./commands/${folder}`).filter((file) => file.endsWith('.js'))
+// client.commands = new Collection()
+// const commandFolders = fs.readdirSync('./commands')
 
-  commandFiles.forEach((file) => {
-    import command from `./commands/${folder}/${file}`
+// commandFolders.forEach((folder) => {
+//   const commandFiles = fs.readdirSync(`./commands/${folder}`).filter((file) => file.endsWith('.js'))
 
-    client.commands.set(command.name, command)
-  })
-})
+//   commandFiles.forEach((file) => {
+//     import command from `./commands/${folder}/${file}`
+
+//     client.commands.set(command.name, command)
+//   })
+// })
 
 const eventFiles = fs.readdirSync('./events').filter((file) => file.endsWith('.js'))
 
