@@ -1,4 +1,4 @@
-const getAnswers = async (answerName, guildId) => {
+export const getAnswers = async (answerName, guildId) => {
   const response = await fetch(`${process.env.API_URL}/answer/list/${guildId}`, {
     method: 'GET',
     headers: {
@@ -9,8 +9,4 @@ const getAnswers = async (answerName, guildId) => {
   const responseBody = await response.json()
 
   return responseBody.data[answerName]
-}
-
-module.exports = {
-  getAnswers,
 }

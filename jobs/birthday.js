@@ -1,7 +1,7 @@
-const cron = require('node-cron')
-const _ = require('lodash')
-const { getRandomInteger, getBirthdaysConfig } = require('../utils')
-const { getBirthday, wishesPlural, wishesSingular } = require('../utils/jobs/birthdayUtils')
+import cron from 'node-cron'
+import _ from 'lodash'
+import { getRandomInteger, getBirthdaysConfig } from '../utils'
+import { getBirthday, wishesPlural, wishesSingular } from '../utils/jobs/birthdayUtils'
 
 const sendDailyBirthDayInfo = async (client) => {
   const birthdaysConfig = await getBirthdaysConfig()
@@ -33,4 +33,4 @@ const sendDailyBirthDayInfo = async (client) => {
     )
 }
 
-module.exports = { sendDailyBirthDayInfo }
+export default sendDailyBirthDayInfo

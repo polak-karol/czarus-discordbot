@@ -1,22 +1,22 @@
-const { Permissions } = require('discord.js')
+import { Permissions } from 'discord.js'
 
-const noArgsMessage = 'Musisz podać argumenty.'
+export const noArgsMessage = 'Musisz podać argumenty.'
 
-const isAdmin = (message) => message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)
+export const isAdmin = (message) => message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)
 
-const isHelpArg = (args) => args.at(0) === 'pomoc'
+export const isHelpArg = (args) => args.at(0) === 'pomoc'
 
-const hasArgs = (args) => !!args.length
+export const hasArgs = (args) => !!args.length
 
-const getRandomInteger = (min, max) => {
+export const getRandomInteger = (min, max) => {
   min = Math.ceil(min)
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min)) + min
 }
 
-const convertArgName = (arg) => arg.split('_').join(' ')
+export const convertArgName = (arg) => arg.split('_').join(' ')
 
-const capitalizeFirstLetter = (text) => {
+export const capitalizeFirstLetter = (text) => {
   if (!text || text?.length < 1) return text
 
   const [firstLetter, ...rest] = text.split('')
@@ -24,7 +24,7 @@ const capitalizeFirstLetter = (text) => {
   return [firstLetter.toUpperCase(), ...rest].join('')
 }
 
-const defaultDiacriticsRemovalMap = [
+export const defaultDiacriticsRemovalMap = [
   {
     base: 'A',
     letters:
@@ -263,7 +263,7 @@ const defaultDiacriticsRemovalMap = [
   },
 ]
 
-const removeDiacritics = (str) => {
+export const removeDiacritics = (str) => {
   if (!str) return str
 
   defaultDiacriticsRemovalMap.forEach((value) => {
@@ -272,10 +272,10 @@ const removeDiacritics = (str) => {
   return str
 }
 
-const isLeapYear = (year) =>
+export const isLeapYear = (year) =>
   (year % 4 === 0 && year % 100 !== 0) || (year % 100 === 0 && year % 400 === 0)
 
-const getGuildsSettings = async () => {
+export const getGuildsSettings = async () => {
   const response = await fetch(`${process.env.API_URL}/guild-settings/list`, {
     method: 'GET',
     headers: {
@@ -288,7 +288,7 @@ const getGuildsSettings = async () => {
   return responseBody.data
 }
 
-const getBirthdaysConfig = async () => {
+export const getBirthdaysConfig = async () => {
   const response = await fetch(`${process.env.API_URL}/birthday-config/list`, {
     method: 'GET',
     headers: {
@@ -301,7 +301,7 @@ const getBirthdaysConfig = async () => {
   return responseBody.data
 }
 
-const getHolidaysConfig = async () => {
+export const getHolidaysConfig = async () => {
   const response = await fetch(`${process.env.API_URL}/holiday-config/list`, {
     method: 'GET',
     headers: {
@@ -312,19 +312,4 @@ const getHolidaysConfig = async () => {
   const responseBody = await response.json()
 
   return responseBody.data
-}
-
-module.exports = {
-  noArgsMessage,
-  capitalizeFirstLetter,
-  removeDiacritics,
-  isAdmin,
-  isHelpArg,
-  hasArgs,
-  getRandomInteger,
-  convertArgName,
-  getGuildsSettings,
-  getBirthdaysConfig,
-  getHolidaysConfig,
-  isLeapYear,
 }

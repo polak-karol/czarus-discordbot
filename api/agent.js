@@ -1,4 +1,4 @@
-const axios = require('axios')
+import axios from axios
 
 axios.defaults.baseURL = process.env.API_URL
 axios.defaults.withCredentials = false
@@ -79,10 +79,9 @@ const GuildSettings = {
   getSettings: (guildId) => requests.get(`/guild-settings/${guildId}`),
 }
 
-const agent = {
+export const agent = {
   Birthdays,
   Draws,
   Drawers,
 }
 
-module.exports = { agent }

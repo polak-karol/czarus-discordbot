@@ -1,8 +1,8 @@
-const { removeDiacritics } = require('../utils/index')
+import { removeDiacritics } from '../utils/index'
 
 const PREFIX = '!'
 
-module.exports = {
+export default {
   name: 'messageCreate',
   async execute(message, client) {
     const { member, guild, channel, content } = message

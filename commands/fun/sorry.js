@@ -1,4 +1,4 @@
-const { getRandomInteger } = require('../../utils')
+import { getRandomInteger } from '../../utils'
 
 const main = async (message, args) => {
   if (message.author.id === '277901799833206785') return message.reply('Przepraszam, mistrzu :(')
@@ -8,7 +8,7 @@ const main = async (message, args) => {
     : message.reply('Mówię to z trudem... Przepraszam 😣')
 }
 
-module.exports = {
+export default {
   name: 'przepros',
   description: 'Przepros',
   usage: '!przepros',

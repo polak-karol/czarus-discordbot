@@ -1,6 +1,6 @@
-const moment = require('moment')
+import moment from 'moment'
 
-const getBirthday = async (guildId) => {
+export const getBirthday = async (guildId) => {
   const response = await fetch(
     `${process.env.API_URL}/birthday/list/${guildId}?date=${moment().format('YYYY-MM-DD')}`,
     {
@@ -16,7 +16,7 @@ const getBirthday = async (guildId) => {
   return responseBody.data
 }
 
-const wishesSingular = [
+export const wishesSingular = [
   'Życzenia już Ci na pewno składali. \nTwarz Twoja była uśmiechnięta. \nAle jest jeszcze kilka osób, które o Tobie pamiętają. \nOne właśnie Tobie życzą wiele szczęścia i słodyczy, wiele wspomnień, miłych wrażeń i spełnienia wszystkich marzeń! \n\n~ życzą Arcymagowie i Strażnicy Magii Słów',
   'W każdej chwili, zawsze, wszędzie, \nNiech Ci w Życiu dobrze będzie.\nNiech Cię dobry los obdarzy… \nWszystkim, o czym tylko \nPomyślisz. \n\n~ życzą Arcymagowie i Strażnicy Magii Słów',
   'Życzę Tobie w święto twe, \nBy los uśmiechał się, \nAby zdrówko dopisało, \nZa bardzo nie figlowało, \nSzczęście niechaj sprzyja, \nSmutek Cię omija, \nMiłość w sercu trwa, \nNiech nadzieje w sobie ma, \nTego właśnie życzymy Ci, \nJasnych i pogodnych dni… \n\n~ życzą Arcymagowie i Strażnicy Magii Słów',
@@ -64,7 +64,7 @@ const wishesSingular = [
   'To nie gwiazdka,, to nie święta \nAle toniesz dziś w prezentach \nPrzynosimy podarunki \nZnajdą się tam także trunki \nI nieważne, które to urodziny \nLat Ci wcale nie liczymy \nŻyczyć chcemy uśmiechu szerokiego \nI oczywiście wszystkiego najlepszego! \n\n~ życzą Arcymagowie i Strażnicy Magii Słów',
 ]
 
-const wishesPlural = [
+export const wishesPlural = [
   'Życzenia już Wam na pewno składali. \nTwarz Wasza była uśmiechnięta. \nAle jest jeszcze kilka osób, które o Was pamiętają. \nOne właśnie Wam życzą wiele szczęścia i słodyczy, wiele wspomnień, miłych wrażeń i spełnienia wszystkich marzeń! \n\n~ życzą Arcymagowie i Strażnicy Magii Słów',
   'W każdej chwili, zawsze, wszędzie, \nNiech Wam w Życiu dobrze będzie.\nNiech Wam dobry los obdarzy… \nWszystkim, o czym tylko \nPomyśliscie. \n\n~ życzą Arcymagowie i Strażnicy Magii Słów',
   'Życzę Wam w święto wasze, \nBy los uśmiechał się, \nAby zdrówko dopisało, \nZa bardzo nie figlowało, \nSzczęście niechaj sprzyja, \nSmutek Was omija, \nMiłość w sercu trwa, \nNiech nadzieje w sobie ma, \nTego właśnie życzymy Wam, \nJasnych i pogodnych dni… \n\n~ życzą Arcymagowie i Strażnicy Magii Słów',
@@ -111,5 +111,3 @@ const wishesPlural = [
   'Urodziny dzień radosny, \nPełen kwiatów zapach wiosny. \nDziś chcemy złożyć Wam życzenia, \nSzczęścia, zdrowia, powodzenia. \nNiech Wam słońce jasno świeci, \nI w radości dzień przeleci. \nNiech odejdą smutki troski, \nBy nastąpił dzień radości. \nTe życzenia choć z daleka, \nPłyną niby wielka rzeka. \nI choć skromnie ułożone, \nSą dla Was przeznaczone. \n\n~ życzą Arcymagowie i Strażnicy Magii Słów',
   'To nie gwiazdka, to nie święta \nAle toniecie dziś w prezentach \nPrzynosimy podarunki \nZnajdą się tam także trunki \nI nieważne, które to urodziny \nLat Wam wcale nie liczymy \nŻyczyć chcemy uśmiechu szerokiego \nI oczywiście wszystkiego najlepszego! \n\n~ życzą Arcymagowie i Strażnicy Magii Słów',
 ]
-
-module.exports = { getBirthday, wishesSingular, wishesPlural }

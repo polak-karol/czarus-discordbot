@@ -1,6 +1,6 @@
-const moment = require('moment')
+import moment from 'moment'
 
-const getHoliday = async (guildId) => {
+export const getHoliday = async (guildId) => {
   const response = await fetch(
     `${process.env.API_URL}/holiday/${guildId}?date=${moment().format('YYYY-MM-DD')}`,
     {
@@ -15,5 +15,3 @@ const getHoliday = async (guildId) => {
 
   return responseBody.data
 }
-
-module.exports = { getHoliday }

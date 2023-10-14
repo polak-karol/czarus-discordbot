@@ -1,9 +1,9 @@
-const { Client, GatewayIntentBits, Collection } = require('discord.js')
-const { REST } = require('@discordjs/rest')
-const { Routes } = require('discord-api-types/v10')
-const fs = require('fs')
-const { slashCommands } = require('./commands')
-require('dotenv').config()
+import { Client, GatewayIntentBits, Collection, REST, Routes } from 'discord.js'
+import fs from 'fs'
+import slashCommands from './commands.js'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const client = new Client({
   intents: [
@@ -51,7 +51,7 @@ slashCommandsFolders.forEach((folder) => {
     .filter((file) => file.endsWith('.js'))
 
   slashCommandFiles.forEach((file) => {
-    const command = require(`./slash-commands/${folder}/${file}`)
+    import command from `./slash-commands/${folder}/${file}`
     client.slashCommands.set(command.name, command)
   })
 })
@@ -63,7 +63,8 @@ commandFolders.forEach((folder) => {
   const commandFiles = fs.readdirSync(`./commands/${folder}`).filter((file) => file.endsWith('.js'))
 
   commandFiles.forEach((file) => {
-    const command = require(`./commands/${folder}/${file}`)
+    import command from `./commands/${folder}/${file}`
+
     client.commands.set(command.name, command)
   })
 })
@@ -71,7 +72,8 @@ commandFolders.forEach((folder) => {
 const eventFiles = fs.readdirSync('./events').filter((file) => file.endsWith('.js'))
 
 for (const eventFile of eventFiles) {
-  const event = require(`./events/${eventFile}`)
+  import event from `./events/${eventFile}`
+  console.log(event)
 
   if (event.once) {
     client.once(event.name, (...args) => event.execute(...args, client))

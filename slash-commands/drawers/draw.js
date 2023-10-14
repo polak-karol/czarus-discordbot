@@ -1,15 +1,15 @@
-const { EmbedBuilder } = require('discord.js')
-const moment = require('moment')
-const _ = require('lodash')
-const {
+import { EmbedBuilder } from '@discordjs/builders'
+import moment from 'moment'
+import _ from 'lodash'
+import {
   hasArgs,
   noArgsMessage,
   getRandomInteger,
   convertArgName,
   capitalizeFirstLetter,
-} = require('../../utils')
-const { drawHelpMessage } = require('../../utils/commands/funUtils')
-const { agent } = require('../../api/agent')
+} from '../../utils'
+import { drawHelpMessage } from '../../utils/commands/funUtils'
+import { agent } from '../../api/agent'
 
 const result = []
 const selectedCategories = []
@@ -173,7 +173,7 @@ const main = async (interaction) => {
   })
 }
 
-module.exports = {
+export default {
   name: 'draw',
   description: drawHelpMessage,
   execute: (interaction) => main(interaction),

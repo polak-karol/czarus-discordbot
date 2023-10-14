@@ -1,7 +1,7 @@
-const { sendDailyBirthDayInfo } = require('../jobs/birthday')
-const { sendDailyHolidayInfo } = require('../jobs/holiday')
+import { sendDailyBirthDayInfo } from '../jobs/birthday'
+import { sendDailyHolidayInfo } from '../jobs/holiday'
 
-module.exports = {
+export default {
   name: 'ready',
   once: true,
   async execute(client) {

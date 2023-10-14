@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders')
+import { SlashCommandBuilder } from '@discordjs/builders'
 
 const slashCommands = [
   new SlashCommandBuilder().setName('ping').setDescription('Ping pong!'),
@@ -457,4 +457,4 @@ const slashCommands = [
     ),
 ].map((command) => command.toJSON())
 
-module.exports = { slashCommands }
+export default slashCommands

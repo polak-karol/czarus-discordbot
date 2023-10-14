@@ -1,7 +1,7 @@
-const cron = require('node-cron')
-const _ = require('lodash')
-const { getHoliday } = require('../utils/commands/holidayUtils')
-const { getHolidaysConfig } = require('../utils/index')
+import cron from 'node-cron'
+import _ from 'lodash'
+import { getHoliday } from '../utils/commands/holidayUtils'
+import { getHolidaysConfig } from '../utils/index'
 
 const sendDailyHolidayInfo = async (client) => {
   const holidaysConfig = await getHolidaysConfig()
@@ -22,4 +22,4 @@ const sendDailyHolidayInfo = async (client) => {
     })
 }
 
-module.exports = { sendDailyHolidayInfo }
+export default sendDailyHolidayInfo

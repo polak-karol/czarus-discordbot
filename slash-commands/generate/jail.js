@@ -1,7 +1,7 @@
-const fetch = require('node-fetch')
-const { errorCommandMessage } = require('../../utils/config')
+import fetch from 'node-fetch'
+import { errorCommandMessage } from '../../utils/config'
 
-module.exports = {
+export default {
   name: 'wiezienie',
   execute: async (interaction) => {
     await interaction.deferReply()

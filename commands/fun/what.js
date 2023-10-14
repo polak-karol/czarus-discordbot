@@ -1,6 +1,6 @@
-const { EmbedBuilder } = require('discord.js')
-const { getRandomInteger, hasArgs, isHelpArg, removeDiacritics } = require('../../utils')
-const { getAnswers } = require('../../utils/commands/funUtils')
+import { EmbedBuilder } from '@discordjs/builders'
+import { getRandomInteger, hasArgs, isHelpArg, removeDiacritics } from '../../utils'
+import { getAnswers } from '../../utils/commands/funUtils'
 
 const getHelpEmbed = () =>
   new EmbedBuilder()
@@ -47,7 +47,7 @@ const main = async (message, args) => {
   return message.reply(answers[getRandomInteger(0, answers.length)])
 }
 
-module.exports = {
+export default {
   name: 'co',
   description: 'Zapytaj mnie co...?',
   usage: '!co',

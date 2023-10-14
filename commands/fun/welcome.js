@@ -2,7 +2,7 @@ const main = async (message, args) => {
   return message.reply('No witaj.')
 }
 
-module.exports = {
+export default {
   name: 'czesc',
   description: 'Powitaj Czarka',
   usage: '!czesc',

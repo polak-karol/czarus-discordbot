@@ -1,7 +1,7 @@
-const moment = require('moment-timezone')
-const { getRandomInteger, isLeapYear } = require('../../utils')
-const { wishesSingular } = require('../../utils/jobs/birthdayUtils')
-const { agent } = require('../../api/agent')
+import moment from 'moment-timezone'
+import { getRandomInteger, isLeapYear } from '../../utils'
+import { wishesSingular } from '../../utils/jobs/birthdayUtils'
+import { agent } from '../../api/agent'
 
 const saveBirthdayDate = async (interaction, birthday) => {
   const body = {
@@ -101,7 +101,7 @@ const main = async (interaction) => {
   }
 }
 
-module.exports = {
+export default {
   name: 'birthdays',
   execute: (interaction) => main(interaction),
 }
