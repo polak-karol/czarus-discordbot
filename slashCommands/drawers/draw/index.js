@@ -7,9 +7,8 @@ import {
   getRandomInteger,
   convertArgName,
   capitalizeFirstLetter,
-} from '../../../utils'
-import { drawHelpMessage } from '../../../utils/commands/funUtils'
-import { agent } from '../../../api/agent'
+} from '../../../utils/index.js'
+import { agent } from '../../../api/agent.js'
 
 const result = []
 const selectedCategories = []
@@ -175,6 +174,6 @@ const main = async (interaction) => {
 
 export default {
   name: 'draw',
-  description: drawHelpMessage,
+  description: 'No description',
   execute: (interaction) => main(interaction),
 }

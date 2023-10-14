@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import { errorCommandMessage } from '../../../utils/config'
+import { errorCommandMessage } from '../../../utils/config.js'
 
 export default {
   name: 'kaczka',

@@ -1,5 +1,3 @@
-import { Permissions } from 'discord.js'
-
 export const noArgsMessage = 'Musisz podać argumenty.'
 
 export const isAdmin = (message) => message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)

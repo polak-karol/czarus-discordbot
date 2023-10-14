@@ -1,7 +1,7 @@
 import cron from 'node-cron'
 import _ from 'lodash'
-import { getRandomInteger, getBirthdaysConfig } from '../utils'
-import { getBirthday, wishesPlural, wishesSingular } from '../utils/jobs/birthdayUtils'
+import { getRandomInteger, getBirthdaysConfig } from '../utils/index.js'
+import { getBirthday, wishesPlural, wishesSingular } from '../utils/jobs/birthdayUtils.js'
 
 const sendDailyBirthDayInfo = async (client) => {
   const birthdaysConfig = await getBirthdaysConfig()

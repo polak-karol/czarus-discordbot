@@ -1,6 +1,6 @@
-import draw from './drawers/draw'
-import birthday from './fun/birthday'
-import ping from './fun/ping'
-import duck from './fun/duck'
+import draw from './drawers/draw/index.js'
+import birthday from './fun/birthday/index.js'
+import ping from './fun/ping/index.js'
+import duck from './fun/duck/index.js'
 
 export default [draw, birthday, ping, duck]

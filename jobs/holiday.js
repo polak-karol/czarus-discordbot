@@ -1,7 +1,7 @@
 import cron from 'node-cron'
 import _ from 'lodash'
-import { getHoliday } from '../utils/commands/holidayUtils'
-import { getHolidaysConfig } from '../utils/index'
+import { getHoliday } from '../utils/commands/holidayUtils.js'
+import { getHolidaysConfig } from '../utils/index.js'
 
 const sendDailyHolidayInfo = async (client) => {
   const holidaysConfig = await getHolidaysConfig()

@@ -1,4 +1,4 @@
-import { removeDiacritics } from '../utils/index'
+import { removeDiacritics } from '../../utils/index.js'
 
 const PREFIX = '!'
 

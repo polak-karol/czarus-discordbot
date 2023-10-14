@@ -1,5 +1,5 @@
-import { sendDailyBirthDayInfo } from '../jobs/birthday'
-import { sendDailyHolidayInfo } from '../jobs/holiday'
+import sendDailyBirthDayInfo from '../../jobs/birthday.js'
+import sendDailyHolidayInfo from '../../jobs/holiday.js'
 
 export default {
   name: 'ready',

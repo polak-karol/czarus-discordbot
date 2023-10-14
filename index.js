@@ -3,6 +3,7 @@ import fs from 'fs'
 import dotenv from 'dotenv'
 import slashCommandsConfig from './slashCommands/config.js'
 import slashCommands from './slashCommands/index.js'
+import events from './events/index.js'
 
 dotenv.config()
 
@@ -45,11 +46,7 @@ const rest = new REST({ version: 10 }).setToken(process.env.CLIENT_TOKEN)
 
 client.slashCommands = new Collection()
 
-
-slashCommands.forEach((slashCommand) => 
-  client.slashCommands.set(slashCommand.name, slashCommand)
-)
-
+slashCommands.forEach((slashCommand) => client.slashCommands.set(slashCommand.name, slashCommand))
 
 // client.commands = new Collection()
 // const commandFolders = fs.readdirSync('./commands')
@@ -64,17 +61,9 @@ slashCommands.forEach((slashCommand) =>
 //   })
 // })
 
-const eventFiles = fs.readdirSync('./events').filter((file) => file.endsWith('.js'))
-
-for (const eventFile of eventFiles) {
-  import event from `./events/${eventFile}`
-  console.log(event)
-
-  if (event.once) {
-    client.once(event.name, (...args) => event.execute(...args, client))
-  } else {
-    client.on(event.name, (...args) => event.execute(...args, client))
-  }
-}
+events.forEach((event) => {
+  if (event.once) client.once(event.name, (...args) => event.execute(...args, client))
+  else client.on(event.name, (...args) => event.execute(...args, client))
+})
 
 client.login(process.env.CLIENT_TOKEN)
