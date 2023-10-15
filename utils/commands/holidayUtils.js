@@ -1,21 +1,17 @@
-const moment = require("moment");
+import moment from 'moment'
 
-const getHoliday = async (guildId) => {
+export const getHoliday = async (guildId) => {
   const response = await fetch(
-    `${process.env.API_URL}/holiday/${guildId}?date=${moment().format(
-      "YYYY-MM-DD"
-    )}`,
+    `${process.env.API_URL}/holiday/${guildId}?date=${moment().format('YYYY-MM-DD')}`,
     {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "content-type": "application/json",
-        "Bot-Authorization": `${process.env.BOT_AUTHORIZATION_TOKEN}`,
+        'content-type': 'application/json',
+        'Bot-Authorization': `${process.env.BOT_AUTHORIZATION_TOKEN}`,
       },
-    }
-  );
-  const responseBody = await response.json();
+    },
+  )
+  const responseBody = await response.json()
 
-  return responseBody.data;
-};
-
-module.exports = { getHoliday };
+  return responseBody.data
+}
