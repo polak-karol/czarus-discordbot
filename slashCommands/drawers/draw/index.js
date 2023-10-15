@@ -38,9 +38,20 @@ const setResult = (name, value, inline = true) =>
   result.push({ name: convertArgName(name), value, inline })
 
 const getDrawConfig = async (interaction) => {
-  const responseBody = await agent.Draws.getDrawConfigs(interaction.guildId)
+  let responseBody, status
 
-  return responseBody.data
+  await agent.Draws.getDrawConfigs(interaction.guildId).then(
+    (response) => {
+      responseBody = response
+      status = true
+    },
+    (error) => {
+      console.log(error)
+      status = false
+    },
+  )
+
+  return status ? responseBody : status
 }
 
 const setFieldSpacing = (direction) =>
@@ -93,9 +104,20 @@ const saveDrawer = async (interaction, type) => {
     userId: interaction.user.id,
     drawType: drawerTypes[type],
   }
-  const responseBody = await agent.Drawers.updateDrawer(interaction.guildId, body)
+  let status, responseBody
 
-  return responseBody
+  await agent.Drawers.updateDrawer(interaction.guildId, body).then(
+    (response) => {
+      responseBody = response
+      status = true
+    },
+    (error) => {
+      console.log(error)
+      status = false
+    },
+  )
+
+  return status ? responseBody.data : status
 }
 
 const getResultEmbed = (interaction, type) =>
@@ -125,12 +147,15 @@ const setSelectedCategories = (interaction, type) => {
 }
 
 const handleDrawConfig = async (interaction) => {
-  drawConfig = await getDrawConfig(interaction)
+  const drawConfigResponse = await getDrawConfig(interaction)
+  if (!drawConfigResponse) return false
+
+  drawConfig = drawConfigResponse.data
 
   writingCategories = Object.entries(drawConfig.writingConfig)
     .filter(([, value]) => !_.isEmpty(value))
     .map(([key]) => key)
-  musicConfig = Object.entries(drawConfig.musicConfig)
+  musicCategories = Object.entries(drawConfig.musicConfig)
     .filter(([, value]) => !_.isEmpty(value))
     .map(([key]) => key)
 
@@ -146,6 +171,8 @@ const main = async (interaction) => {
 
   const handleDrawConfigResult = await handleDrawConfig(interaction)
 
+  if (!handleDrawConfigResult) return await interaction.editReply('Coś poszło nie po mojej myśli.')
+
   setSelectedCategories(interaction, type)
   if (!hasArgs(selectedCategories) && !hasArgs(selectedMusicCategories))
     return await interaction.editReply(noArgsMessage)
@@ -155,8 +182,10 @@ const main = async (interaction) => {
 
   const saveDrawerResult = await saveDrawer(interaction, type)
 
+  if (!saveDrawerResult) return await interaction.editReply('Coś poszło nie po mojej myśli.')
+
   if ('lastVoteDate' in saveDrawerResult)
-    return interaction.editReply(
+    return await interaction.editReply(
       `Ty spryciarzu... 😝 nieładnie tak oszukiwać, następne losowanie jest dopiero ${moment()
         .startOf('isoweek')
         .add(7, 'days')

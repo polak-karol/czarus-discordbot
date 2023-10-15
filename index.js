@@ -1,11 +1,9 @@
 import { Client, GatewayIntentBits, Collection, REST, Routes } from 'discord.js'
-import dotenv from 'dotenv'
+import 'dotenv/config'
 import slashCommandsConfig from './slashCommands/config.js'
 import slashCommands from './slashCommands/index.js'
 import commands from './commands/index.js'
 import events from './events/index.js'
-
-dotenv.config()
 
 const client = new Client({
   intents: [
