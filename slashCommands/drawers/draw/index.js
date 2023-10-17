@@ -38,20 +38,12 @@ const setResult = (name, value, inline = true) =>
   result.push({ name: convertArgName(name), value, inline })
 
 const getDrawConfig = async (interaction) => {
-  let responseBody, status
-
-  await agent.Draws.getDrawConfigs(interaction.guildId).then(
-    (response) => {
-      responseBody = response
-      status = true
-    },
-    (error) => {
-      console.log(error)
-      status = false
-    },
+  const response = await agent.Draws.getDrawConfigs(interaction.guildId).then(
+    (response) => response,
+    () => false,
   )
 
-  return status ? responseBody : status
+  return response
 }
 
 const setFieldSpacing = (direction) =>
@@ -104,20 +96,13 @@ const saveDrawer = async (interaction, type) => {
     userId: interaction.user.id,
     drawType: drawerTypes[type],
   }
-  let status, responseBody
 
-  await agent.Drawers.updateDrawer(interaction.guildId, body).then(
-    (response) => {
-      responseBody = response
-      status = true
-    },
-    (error) => {
-      console.log(error)
-      status = false
-    },
+  const response = await agent.Drawers.updateDrawer(interaction.guildId, body).then(
+    (response) => response,
+    () => false,
   )
 
-  return status ? responseBody.data : status
+  return response
 }
 
 const getResultEmbed = (interaction, type) =>
@@ -174,6 +159,7 @@ const main = async (interaction) => {
   if (!handleDrawConfigResult) return await interaction.editReply('Coś poszło nie po mojej myśli.')
 
   setSelectedCategories(interaction, type)
+
   if (!hasArgs(selectedCategories) && !hasArgs(selectedMusicCategories))
     return await interaction.editReply(noArgsMessage)
 
