@@ -29,7 +29,7 @@ const requests = {
     axios.post(url, options.formData ? buildFormData(body) : body, options).then(responseBody),
   put: (url, body, options = defaultHeaders) =>
     axios.put(url, options.formData ? buildFormData(body) : body, options).then(responseBody),
-  delete: (url) => axios.delete(url).then(responseBody),
+  delete: (url, options = defaultHeaders) => axios.delete(url, options).then(responseBody),
 }
 
 const Birthdays = {
