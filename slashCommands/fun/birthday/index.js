@@ -80,7 +80,10 @@ const handleRememberCommand = async (interaction) => {
 }
 
 const handleForgetCommand = async (interaction) => {
-  const result = await deleteBirthday(interaction)
+  const result = await deleteBirthday(interaction).then(
+    (response) => response,
+    () => false,
+  )
 
   return await interaction.editReply(
     result ? 'Zapomniałem o Twoich urodzinach.' : 'Coś poszło nie po mojej myśli... 🥺',
