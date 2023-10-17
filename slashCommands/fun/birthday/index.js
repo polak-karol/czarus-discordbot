@@ -10,22 +10,34 @@ const saveBirthdayDate = async (interaction, birthday) => {
     isAnonymous: !!interaction.options.getNumber('year'),
   }
 
-  const response = await agent.Birthdays.updateBirthday(interaction.guildId, body)
+  const response = await agent.Birthdays.updateBirthday(interaction.guildId, body).then(
+    (response) => response,
+    () => false,
+  )
 
   return response
 }
 
 const getUserBirthdays = async (interaction) => {
-  const response = agent.Birthdays.getBirthday(
+  const response = await agent.Birthdays.getBirthday(
     interaction.guildId,
     interaction.options.getUser('user').id,
+  ).then(
+    (response) => response.data,
+    () => false,
   )
 
-  return response.data.date
+  return response ? response.date : response
 }
 
 const deleteBirthday = async (interaction) => {
-  const response = agent.Birthdays.deleteBirthday(interaction.guildId, interaction.user.id)
+  const response = await agent.Birthdays.deleteBirthday(
+    interaction.guildId,
+    interaction.user.id,
+  ).then(
+    (response) => response,
+    () => false,
+  )
 
   return response
 }
@@ -46,7 +58,9 @@ const handleRememberCommand = async (interaction) => {
   if (!birthday.isValid())
     return await interaction.editReply('Przepraszam, ale ta data jest niepoprawna 🥺')
 
-  saveBirthdayDate(interaction, birthday)
+  const saveBirthdayResult = await saveBirthdayDate(interaction, birthday)
+
+  if (!saveBirthdayResult) return await interaction.editReply('Coś poszło nie po mojej myśli')
 
   const nextBirthday = moment(birthday).set({
     year: moment().year(),
