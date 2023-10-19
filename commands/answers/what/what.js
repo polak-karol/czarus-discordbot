@@ -1,4 +1,5 @@
 import { EmbedBuilder } from '@discordjs/builders'
+import _ from 'lodash'
 import { getRandomInteger, hasArgs, isHelpArg, removeDiacritics } from '../../../utils/index.js'
 import { getAnswers } from '../../../utils/commands/funUtils.js'
 
@@ -24,9 +25,14 @@ const handleThinkQuestion = async (message, args) => {
   message.reply(answers[getRandomInteger(0, answers.length)])
 }
 
-const isJudgeQuestion = (args) =>
-  removeDiacritics(args[0]).toLowerCase() === 'sadzisz' &&
-  removeDiacritics(args[1]).toLowerCase() === 'o'
+const isJudgeQuestion = (args) => {
+  if (args.length < 2) return false
+
+  return (
+    removeDiacritics(args[0]).toLowerCase() === 'sadzisz' &&
+    removeDiacritics(args[1]).toLowerCase() === 'o'
+  )
+}
 
 const isLlamaQuestion = (args) =>
   removeDiacritics(args[0]) === 'mowi' &&
