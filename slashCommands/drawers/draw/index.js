@@ -21,17 +21,17 @@ const drawerTypes = {
 }
 
 const embedColors = {
-  0: '#ffafaa',
-  1: '#ff9f99',
-  2: '#ff8f88',
-  3: '#ff7f77',
-  4: '#ff6f66',
-  5: '#ff5f55',
-  6: '#ff4f44',
-  7: '#ff3f33',
-  8: '#ff2f22',
-  9: '#ff1f11',
-  10: '#fa0000',
+  0: 0xffafaa,
+  1: 0xff9f99,
+  2: 0xff8f88,
+  3: 0xff7f77,
+  4: 0xff6f66,
+  5: 0xff5f55,
+  6: 0xff4f44,
+  7: 0xff3f33,
+  8: 0xff2f22,
+  9: 0xff1f11,
+  10: 0xfa0000,
 }
 
 const setResult = (name, value, inline = true) =>
