@@ -2,6 +2,15 @@ import moment from 'moment-timezone'
 import { getRandomInteger, isLeapYear } from '../../../utils/index.js'
 import { wishesSingular } from '../../../utils/jobs/birthdayUtils.js'
 import { agent } from '../../../api/agent.js'
+import { getYear } from './utils.js'
+
+const saveBirthdayDateError = (error) => {
+  console.log(error)
+
+  return false
+}
+
+const saveBirthdayDateSuccess = (response) => response
 
 const saveBirthdayDate = async (interaction, birthday) => {
   const body = {
@@ -10,42 +19,46 @@ const saveBirthdayDate = async (interaction, birthday) => {
     isAnonymous: !!interaction.options.getNumber('year'),
   }
 
-  const response = await agent.Birthdays.updateBirthday(interaction.guildId, body).then(
-    (response) => response,
-    () => false,
+  const result = await agent.Birthdays.updateBirthday(interaction.guildId, body).then(
+    saveBirthdayDateSuccess,
+    saveBirthdayDateError,
   )
 
-  return response
+  return result
 }
 
+const getUserBirthdaysError = (error) => {
+  console.log(error)
+
+  return false
+}
+
+const getUserBirthdaysSuccess = (response) => response
+
 const getUserBirthdays = async (interaction) => {
-  const response = await agent.Birthdays.getBirthday(
+  const result = await agent.Birthdays.getBirthday(
     interaction.guildId,
     interaction.options.getUser('user').id,
-  ).then(
-    (response) => response.data,
-    () => false,
-  )
+  ).then(getUserBirthdaysSuccess, getUserBirthdaysError)
 
-  return response ? response.date : response
+  return result ? result.data.date : result
+}
+
+const deleteBirthdaySuccess = (response) => response
+
+const deleteBirthdayError = (error) => {
+  console.log(error)
+
+  return false
 }
 
 const deleteBirthday = async (interaction) => {
-  const response = await agent.Birthdays.deleteBirthday(
+  const result = await agent.Birthdays.deleteBirthday(
     interaction.guildId,
     interaction.user.id,
-  ).then(
-    (response) => response,
-    () => false,
-  )
+  ).then(deleteBirthdaySuccess, deleteBirthdayError)
 
-  return response
-}
-
-const getYear = (day, month, year) => {
-  if (day === 29 && month === 2) return isLeapYear(year) ? year : 2020
-
-  return year
+  return result
 }
 
 const handleRememberCommand = async (interaction) => {
@@ -80,10 +93,7 @@ const handleRememberCommand = async (interaction) => {
 }
 
 const handleForgetCommand = async (interaction) => {
-  const result = await deleteBirthday(interaction).then(
-    (response) => response,
-    () => false,
-  )
+  const result = await deleteBirthday(interaction)
 
   return await interaction.editReply(
     result ? 'Zapomniałem o Twoich urodzinach.' : 'Coś poszło nie po mojej myśli... 🥺',
