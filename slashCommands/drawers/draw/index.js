@@ -9,47 +9,37 @@ import {
   capitalizeFirstLetter,
 } from '../../../utils/index.js'
 import { agent } from '../../../api/agent.js'
+import { embedColors, drawerTypes } from './config.js'
 
 const result = []
 const selectedCategories = []
 const selectedMusicCategories = []
 let drawConfig, writingCategories, musicCategories
 
-const drawerTypes = {
-  music_challenge: 'music',
-  writing_challenge: 'writing',
-}
-
-const embedColors = {
-  0: 0xffafaa,
-  1: 0xff9f99,
-  2: 0xff8f88,
-  3: 0xff7f77,
-  4: 0xff6f66,
-  5: 0xff5f55,
-  6: 0xff4f44,
-  7: 0xff3f33,
-  8: 0xff2f22,
-  9: 0xff1f11,
-  10: 0xfa0000,
-}
-
-const setResult = (name, value, inline = true) =>
-  result.push({ name: convertArgName(name), value, inline })
-
-const getDrawConfig = async (interaction) => {
-  const response = await agent.Draws.getDrawConfigs(interaction.guildId).then(
-    (response) => response,
-    () => false,
-  )
-
-  return response
-}
-
 const setFieldSpacing = (direction) =>
   direction === 'bottom'
     ? result.push({ name: '\u200B', value: '\u200B' })
     : result.unshift({ name: '\u200B', value: '\u200B' })
+
+const setResult = (name, value, inline = true) =>
+  result.push({ name: convertArgName(name), value, inline })
+
+const getDrawConfigError = (error) => {
+  console.log(error)
+
+  return false
+}
+
+const getDrawConfigSuccess = (response) => response
+
+const getDrawConfig = async (interaction) => {
+  const result = await agent.Draws.getDrawConfigs(interaction.guildId).then(
+    getDrawConfigSuccess,
+    getDrawConfigError,
+  )
+
+  return result
+}
 
 const drawWriting = async () => {
   result.length = 0
@@ -73,7 +63,6 @@ const drawWriting = async () => {
 
 const drawMusic = async () => {
   result.length = 0
-
   const { musicConfig } = drawConfig
 
   selectedMusicCategories.forEach((selectedCategory) => {
@@ -91,18 +80,26 @@ const drawMusic = async () => {
   selectedMusicCategories.length = 0
 }
 
+const saveDrawerError = (error) => {
+  console.log(error)
+
+  return false
+}
+
+const saveDrwerSuccess = (response) => response
+
 const saveDrawer = async (interaction, type) => {
   const body = {
     userId: interaction.user.id,
     drawType: drawerTypes[type],
   }
 
-  const response = await agent.Drawers.updateDrawer(interaction.guildId, body).then(
-    (response) => response,
-    () => false,
+  const result = await agent.Drawers.updateDrawer(interaction.guildId, body).then(
+    saveDrwerSuccess,
+    saveDrawerError,
   )
 
-  return response
+  return result
 }
 
 const getResultEmbed = (interaction, type) =>
@@ -115,7 +112,7 @@ const getResultEmbed = (interaction, type) =>
       iconURL: interaction.user.avatarURL({ dynamic: true }),
     })
     .setFooter({
-      text: type === 'music_challenge' ? 'Połamania klawiszy' : 'Połamania pióra!',
+      text: footerText[drawerTypes[type]],
     })
 
 const setSelectedCategories = (interaction, type) => {
