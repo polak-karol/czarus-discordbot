@@ -9,7 +9,7 @@ const sendDailyHolidayInfo = async (client) => {
   if (!_.isEmpty(holidaysConfig))
     holidaysConfig.forEach((holidaysConfigItem) => {
       cron.schedule(
-        '0 0 9 * * *',
+        '0 20 11 * * *',
         async () => {
           const holiday = await getHoliday(holidaysConfigItem.guildId)
           client.guilds.cache
